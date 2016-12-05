@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.params=
+comment0.target=ReservationSystem()
+comment1.params=
+comment1.target=void\ addRooms()
+comment2.params=name\ telephone
+comment2.target=void\ addCustomer(java.lang.String,\ java.lang.String)
+comment2.text=\r\n\ add\ customer\r\n
+numComments=3

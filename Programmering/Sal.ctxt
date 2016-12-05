@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.params=rowX\ columnY
+comment0.target=Sal(int,\ int)
+comment1.params=
+comment1.target=void\ getEmptySpaces()
+comment1.text=\ returnerer\ alle\ de\ pladser\ i\ arrayet\ af\ s\u00E6der\ hvor\ pladsen\ \=\ null,\ den\ her\ metode\ \r\nskal\ muligvis\ hele\ tiden\ k\u00F8res\ hver\ gang\ der\ sker\ en\ action,\ s\u00E5\ gui\u00B4en\ bliver\ opdateret
+comment2.params=
+comment2.target=void\ getSeatInformation()
+comment2.text=viser\ hvilken\ person\ der\ har\ booket\ det\ p\u00E5g\u00E6ldne\ s\u00E6de
+comment3.params=
+comment3.target=java.util.List\ getSeatsAvailable()
+numComments=4

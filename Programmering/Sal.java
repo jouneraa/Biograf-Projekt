@@ -1,3 +1,4 @@
+// ser så fucking lækkert ud (y) - en test til sourcetree
 import java.util.List;
 import java.util.ArrayList;
 public abstract class Sal

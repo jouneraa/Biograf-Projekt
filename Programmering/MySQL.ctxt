@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=
+comment0.target=MySQL()
+comment1.params=query
+comment1.target=java.sql.ResultSet\ query(java.lang.String)
+comment2.params=query
+comment2.target=void\ queryUpdate(java.lang.String)
+numComments=3

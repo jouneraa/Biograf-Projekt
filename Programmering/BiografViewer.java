@@ -3,27 +3,18 @@ import java.awt.event.*;
 import java.awt.image.*;
 import javax.swing.*;
 import javax.swing.border.*;
-
 import java.io.File;
-
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
-import javax.swing.JTabbedPane;
 
-/**
- * ImageViewer is the main class of the image viewer application. It builds and
- * displays the application GUI and initialises all other components.
- * 
- * To start the application, create an object of this class.
- * 
- * @author Michael Kölling and David J. Barnes.
- * @version 1.0
- */
+
+
 public class BiografViewer
 {
     // static fields:
-    private static final String VERSION = "Version 1.0";
+    //string som står nede i bunden, versionen af programmet :) en meme
+    private static final String VERSION = "Version 1337";
 
 
     // fields:
@@ -31,107 +22,162 @@ public class BiografViewer
     private JLabel filenameLabel;
     private JLabel statusLabel;
     
-    /**
-     * Create an ImageViewer show it on screen.
-     */
+    // konstruktoren som kalder funktionen til at lave framen
     public BiografViewer()
     {
 
         makeFrame();
     }
 
-
-    
-    /**
-     * Quit function: quit the application.
-     */
+    // quitfunction til at udbygge senere
     private void quit()
     {
         System.exit(0);
     }
     
-
+    //about function, til at se oplysnigner om programmet
     private void showAbout()
     {
         JOptionPane.showMessageDialog(frame, 
-                    "BiografViewer\n" + VERSION,
-                    "About BiografViewer", 
+                    "Sub me on youtube.com/joennegee\n" + VERSION,
+                    "xddd", 
                     JOptionPane.INFORMATION_MESSAGE);
     }
     
-    
-    // ---- support methods ----
 
-    
-    /**
-     * Display a status message in the frame's status bar.
-     * @param text The status message to be displayed.
-     */
-    private void showStatus(String text)
-    {
-        statusLabel.setText(text);
-    }
-    
     // ---- bygger selve frmaen
-    
-
+   
     private void makeFrame()
     {
-        frame = new JFrame("BiografViewer");        
+        //laver JFramet som er hele vinduet i sig selv
+        frame = new JFrame("BiografViewer");
+        // sætter et jpanel = maineframet
         JPanel contentPane = (JPanel)frame.getContentPane();
+        //sætter en border rundt om og størrelsen på framet + sætter menubaren
         contentPane.setBorder(new EmptyBorder(12, 12, 12, 12));
+        frame.setPreferredSize(new Dimension(900, 600));
         makeMenuBar(frame);
         
-        // Specify the layout manager with nice spacing
+        // laver  jpanel contentPane om til et borderlayout dvs nord syd øst vest
         contentPane.setLayout(new BorderLayout(6, 6));
         
-        // Create the image pane in the center
-
-        /*JTabbedPane jtp = new JTabbedPane();  prøver at få faner ind i GUI 
-        frame.add(jtp);
-        JPanel jp1 = new JPanel();
-        JPanel jp2 = new JPanel();
+        // laver et nyt bordrlayout som kommer ti at blive nestet i contentpane
+        JPanel innerBorderLayout = new JPanel(); 
+        
+        innerBorderLayout.setLayout(new BorderLayout(6, 6));
+        innerBorderLayout.setBorder(new EtchedBorder());
+        
+        
+        // laver fanerne som innerBorderLayout skal være inde i og det næste layout som skal vise forestillinger
+        
+        JTabbedPane jtp = new JTabbedPane();
+        
+        JPanel jp1 = new JPanel(new BorderLayout(6, 6));
+        JPanel jp2 = new JPanel(new BorderLayout(6, 6));
         JLabel label1 = new JLabel();
         label1.setText("You are in area of Tab1");
         JLabel label2 = new JLabel();
-        label2.setText("You are in area of Tab2");
-        jp1.add(label1);
-        jp2.add(label2);
-        jtp.addTab("Tab1", jp1);
-        jtp.addTab("Tab2", jp2);*/
+        label2.setText("You are in area of Forestillinger");
+        jp1.add(label2);
+        jp2.add(innerBorderLayout);
+        jtp.addTab("Forestillinger", jp1);
+        jtp.addTab("Reservation", jp2);
         
-        filenameLabel = new JLabel();
-        filenameLabel.setBorder(new EtchedBorder());
-        contentPane.add(filenameLabel, BorderLayout.CENTER);
+        // laver et til borderlayout som nestes ind i contentpane senere
+        JPanel northPanel = new JPanel(new BorderLayout());
+        // sætter to jlabel til west og east i northPanel så de kan være ud i siden, senere kommer northpanel til at sættes mod north i contentpane
+        northPanel.add(new JLabel("Forestilling: 15. Dec, 2015, kl 12:50"), BorderLayout.EAST);
+        northPanel.add(new JLabel("Film: One Night in Paris with Paris Hilton "), BorderLayout.WEST);
+          
+            //sætteer comboboxen til at vælge pladser med et ArrayList af integers
+         JComboBox<Integer> myNumbers = new JComboBox<Integer>();
+         myNumbers.addItem(1);
+         myNumbers.addItem(2);
+         myNumbers.addItem(3);
+         myNumbers.addItem(4);
+         myNumbers.addItem(5);
+         myNumbers.addItem(6);
+          
+         // nyt JPanel som nestes ind i southPanel, bemærk flowlayout og ikke borderlayout da knapperne skal "floate på en række" i højre hjørne
+          JPanel DownRight = new JPanel(new FlowLayout());
+          JButton Knap1 = new JButton("Antal Pladser");
+          DownRight.add(Knap1);
+          DownRight.add(myNumbers); 
+          
+          // nyt JPanel som nestes ind i southPanel som nestes ind i ContentPane
+          JPanel DownLeft = new JPanel(new GridLayout(2,2));
+          DownLeft.setBorder(new EtchedBorder());
+          JLabel xd = new JLabel("Ledige Pladser");
+          JLabel xddd = new JLabel("  3");
+          JLabel xdddd = new JLabel("  5/100");
+          JLabel xdd = new JLabel("Sal");
+          // adder ovenstående labels til gridlayoutet
+          DownLeft.add(xdd);
+          DownLeft.add(xddd);
+          DownLeft.add(xd);
+          DownLeft.add(xdddd);
+         
+         // opretter et JPanel som DownRight og DownLeft skal nestes ind i 
+          JPanel southPanel = new JPanel(new BorderLayout());
+         
+          southPanel.add(DownRight, BorderLayout.EAST);
+          southPanel.add(DownLeft, BorderLayout.WEST);
+          
+          //2 nye JPanels som skal bruges til at få pladserne til at være i midten af det hele
+          JPanel centerPanel = new JPanel(new BorderLayout());
+          JPanel midterFlowPanel = new JPanel(new FlowLayout());
+          JButton largerrButton = new JButton("Plads");
+          JButton largerrButton1 = new JButton("Plads");
+          JButton largerrButton2 = new JButton("Plads");
+          JButton largerrButton3 = new JButton("Plads");
+          JButton largerrButton4 = new JButton("Plads");
+          JButton largerrButton5 = new JButton("Plads");
+          JButton largerrButton6 = new JButton("Plads");
+          JButton largerrButton7 = new JButton("Plads");
+          JButton largerrButton8 = new JButton("Plads");
+          JButton largerrButton9 = new JButton("Plads");
+          JButton largerrButton10 = new JButton("Plads");
+          JButton largerrButton11 = new JButton("Plads");
+          
+          //adder knapper, senere måske drawgraphics i stedet?
+          midterFlowPanel.add(largerrButton);
+          midterFlowPanel.add(largerrButton1);
+          midterFlowPanel.add(largerrButton2);
+          midterFlowPanel.add(largerrButton3);
+          midterFlowPanel.add(largerrButton4);
+          midterFlowPanel.add(largerrButton5);
+          midterFlowPanel.add(largerrButton6);
+          midterFlowPanel.add(largerrButton7);
+          midterFlowPanel.add(largerrButton8);
+          midterFlowPanel.add(largerrButton9);
+          midterFlowPanel.add(largerrButton10);
+          midterFlowPanel.add(largerrButton11);
+          
+          //adder midterflowlayout til et centerpanel for at få det til at være centreret
+          centerPanel.add(midterFlowPanel, BorderLayout.CENTER);
+          
+        // nu nestes de forskellige borderlayouts ind i det store borderlayout  
+        innerBorderLayout.add(northPanel, BorderLayout.NORTH);       
+        innerBorderLayout.add(southPanel, BorderLayout.SOUTH);
+        innerBorderLayout.add(centerPanel, BorderLayout.CENTER);
         
-        // Create two labels at top and bottom for the file name and status messages
-        filenameLabel = new JLabel();
+        
+        
+        filenameLabel = new JLabel("XDXDXD");
+        
+        // sætter jtp aka TabbedPane ind i contentPame
+        contentPane.add(jtp, BorderLayout.CENTER);
+        
+        
+        
+        // sætter en lille titel oppe i toppen og i bunden
+        filenameLabel = new JLabel("BiografHelper XD :)");
         contentPane.add(filenameLabel, BorderLayout.NORTH);
 
         statusLabel = new JLabel(VERSION);
         contentPane.add(statusLabel, BorderLayout.SOUTH);
         
-        // Create the toolbar with the buttons
-        JPanel toolbar = new JPanel();
-        toolbar.setLayout(new FlowLayout(FlowLayout.LEFT));
-        
-        JButton smallerButton = new JButton("Book");
-        //smallerButton.addActionListener(e -> makeSmaller());
-        toolbar.add(smallerButton);
-        
-        JButton largerButton = new JButton("Sal");
-        //largerButton.addActionListener(e -> makeLarger());
-        toolbar.add(largerButton);
-
-        // Add toolbar into panel with flow layout for spacing
-        JPanel flow = new JPanel();
-        flow.add(toolbar);
-        
-        contentPane.add(flow, BorderLayout.NORTH);
-        statusLabel = new JLabel(VERSION);
-        contentPane.add(statusLabel, BorderLayout.SOUTH);
-        
-        // building is done - arrange the components and show        
+        // arrangerer componenterne   
 
         frame.pack();
         
@@ -146,7 +192,7 @@ public class BiografViewer
     private void makeMenuBar(JFrame frame)
     {
         final int SHORTCUT_MASK =
-            Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
+        Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
 
 
         JMenuBar menubar = new JMenuBar();
@@ -158,25 +204,17 @@ public class BiografViewer
         // create the File menu
         menu = new JMenu("");
         menubar.add(menu);
-        
 
-
-
-        
         item = new JMenuItem("Quit");
             item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, SHORTCUT_MASK));
             item.addActionListener(e -> quit());
         menu.add(item);
 
-
-        // create the Filter menu
-
-        
         // create the Help menu
         menu = new JMenu("Help");
         menubar.add(menu);
         
-        item = new JMenuItem("About ImageViewer...");
+        item = new JMenuItem("About BiografHelper...");
             item.addActionListener(e -> showAbout());
         menu.add(item);
 

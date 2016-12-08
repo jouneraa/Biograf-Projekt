@@ -1,17 +1,12 @@
 #BlueJ class context
 comment0.params=
 comment0.target=BiografViewer()
-comment0.text=\r\n\ Create\ an\ ImageViewer\ show\ it\ on\ screen.\r\n
 comment1.params=
 comment1.target=void\ quit()
-comment1.text=\r\n\ Quit\ function\:\ quit\ the\ application.\r\n
 comment2.params=
 comment2.target=void\ showAbout()
-comment3.params=text
-comment3.target=void\ showStatus(java.lang.String)
-comment3.text=\r\n\ Display\ a\ status\ message\ in\ the\ frame's\ status\ bar.\r\n\ @param\ text\ The\ status\ message\ to\ be\ displayed.\r\n
-comment4.params=
-comment4.target=void\ makeFrame()
-comment5.params=frame
-comment5.target=void\ makeMenuBar(javax.swing.JFrame)
-numComments=6
+comment3.params=
+comment3.target=void\ makeFrame()
+comment4.params=frame
+comment4.target=void\ makeMenuBar(javax.swing.JFrame)
+numComments=5

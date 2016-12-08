@@ -1,4 +1,14 @@
 #BlueJ class context
-comment0.params=sal\ seats
-comment0.target=Reservation(Sal,\ java.util.List)
-numComments=1
+comment0.params=reservation_id\ customer_id\ show_id\ row_number\ seat_number
+comment0.target=Reservation(int,\ int,\ int,\ int,\ int)
+comment1.params=
+comment1.target=int\ getReservation_id()
+comment2.params=
+comment2.target=int\ getCustomer_id()
+comment3.params=
+comment3.target=int\ getShow_id()
+comment4.params=
+comment4.target=int\ getRow_number()
+comment5.params=
+comment5.target=int\ getSeat_number()
+numComments=6

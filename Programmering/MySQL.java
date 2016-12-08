@@ -1,9 +1,10 @@
- 
+ import java.sql.Connection;
 
 import java.sql.*; // Import required packages
 public class MySQL {
     // Database credentials: replace with *YOUR* data here:
     private static final String MYDB = "CinemaDatabase";
+    private static Connection connection;
     static final String USER = "juliusf";
     static final String PASS = "kransekage66";
     // JDBC driver name and database URL
@@ -42,4 +43,5 @@ public class MySQL {
             e.printStackTrace();
         }
     }
+
 }

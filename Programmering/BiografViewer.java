@@ -52,6 +52,13 @@ public class BiografViewer
         //laver JFramet som er hele vinduet i sig selv
         frame = new JFrame("BiografViewer");
         
+        // sætter layoutet til at matche styresystemet
+                
+        try { 
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
         // sætter et jpanel = maineframet
         JPanel contentPane = (JPanel)frame.getContentPane();
@@ -251,12 +258,8 @@ public class BiografViewer
         //statusLabel = new JLabel(VERSION);
         //contentPane.add(statusLabel, BorderLayout.SOUTH);
         
-        // sætter layoutet til at matche styresystemet
-        try { 
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+
         // arrangerer componenterne   
 
         frame.pack();

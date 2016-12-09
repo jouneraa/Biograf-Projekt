@@ -374,18 +374,25 @@ public class BiografViewer
         //tilføj knapperne der viser spillefilm
         List<Integer> movieIds = reservationSystem.getAllMovieIds();
         for(int x : movieIds){
-            String movieTitle = reservationSystem.getMovie(x).getTitle();
-            int movieId = reservationSystem.getMovie(x).getMovieId();
+            Movie movie = reservationSystem.getMovie(x);
+            String movieTitle = movie.getTitle();
+            int movieId = movie.getMovieId();
             JButton forestilling = new JButton(movieTitle);
             forestilling.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    StringBuilder sb = new StringBuilder();
-                    //List<Integer> showIds = reservationSystem.getAllShowIds();
                     JPanel buttonGrid = new JPanel(new GridLayout(20,1));
-                    JButton MovieInfoCenterWest = new JButton(movieTitle);
-                    buttonGrid.add(MovieInfoCenterWest);
+                    StringBuilder sb = new StringBuilder();
+                    List<Integer> showIds = reservationSystem.getActiveShows(movieId);
+                    for(int y : showIds){
+                        Show show = reservationSystem.getShow(y);
+                        sb.append("Auditorium: " + show.auditorium_id() + " Tid: " + show.start_time());
+                        JButton showButton = new JButton(sb.toString());
+                        buttonGrid.add(showButton);
+                        sb = new StringBuilder();
+                    }
                     
+          
                     CenterWestGrid.add(buttonGrid, "buttonGrid");
                     cardLayout.show(CenterWestGrid, "buttonGrid");
                             }

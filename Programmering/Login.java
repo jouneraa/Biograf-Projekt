@@ -66,7 +66,7 @@ public class Login
           gbc.ipady = 20;  
           gbc.gridx = 0;
           gbc.gridy = 0;
-          panel.add(new JTextField("Account name"),gbc); 
+          panel.add(new JTextField("Telephone number"),gbc); 
         
           
         
@@ -76,10 +76,10 @@ public class Login
           gbc.ipadx = 50;
           gbc.gridx = 0;
           gbc.gridy = 1;
-          panel.add(new JPasswordField("Password"),gbc); 
+          panel.add(new TextField("Name"),gbc); 
           
           // laver knappen og dens onclick function
-          JButton button1 = new JButton("Login"); 
+          JButton button1 = new JButton("Confirm"); 
           button1.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false); 

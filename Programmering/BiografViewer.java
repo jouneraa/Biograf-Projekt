@@ -17,6 +17,8 @@ public class BiografViewer
     private static final String VERSION = "Version 1337";
 
 
+    //reservation system reference
+    ReservationSystem reservationSystem;
     // fields:
     private JFrame frame;
     private JLabel filenameLabel;
@@ -28,6 +30,8 @@ public class BiografViewer
     public BiografViewer()
     {
 
+        reservationSystem = new ReservationSystem();
+        
         makeFrame();
     }
 
@@ -300,13 +304,21 @@ public class BiografViewer
     }
     
     public void addShowsInBar(){
-        
         JLabel forestilling1 = new JLabel();
         forestilling1.setText("Film:");
-        JButton forestilling2 = new JButton("One Night in Paris with Paris Hilton");
-        forestilling2.setBackground(contentPane.getBackground ());
-       // forestilling2.setForeground(Color.BLACK);
         InnerGrid.add(forestilling1); 
-        InnerGrid.add(forestilling2);
+        
+        List<Integer> movieIds = reservationSystem.getAllMovieIds();
+        for(int x : movieIds){
+            String movieTitle = reservationSystem.getMovie(x).getTitle();
+            JButton forestilling = new JButton(movieTitle);
+             forestilling.setBackground(contentPane.getBackground ());
+             InnerGrid.add(forestilling);
+        }
+        
+       
+       // forestilling2.setForeground(Color.BLACK);
+        
+        
     }
 }

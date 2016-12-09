@@ -34,6 +34,25 @@ public class ReservationSystem{
         } 
         return null; 
     }
+    
+    public List<Integer> getAllMovieIds(){
+        List<Integer> movieIds = new ArrayList<>();
+        ResultSet r = MySQL.query("SELECT movie_id FROM movies;");
+        try{
+            // How to get data from the ResultSet
+            while(r.next())
+            {
+                //get the title
+                int movieId = r.getInt("movie_id");
+                // Finally will still be called, even if we return here!
+                movieIds.add(movieId);
+            }
+            return movieIds;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return null;
+    }
    
     
 }

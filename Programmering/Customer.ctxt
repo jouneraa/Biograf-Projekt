@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.params=telephone_number\ name
+comment0.target=Customer(int,\ java.lang.String)
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Customer\r\n
+comment1.params=
+comment1.target=int\ getTelephone_Number()
+comment2.params=
+comment2.target=java.lang.String\ name()
+numComments=3

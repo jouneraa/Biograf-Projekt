@@ -17,4 +17,6 @@ comment7.params=frame
 comment7.target=void\ makeMenuBar(javax.swing.JFrame)
 comment8.params=
 comment8.target=void\ addShowsInBar()
-numComments=9
+comment9.params=e
+comment9.target=void\ actionPerformed(java.awt.event.ActionEvent)
+numComments=10

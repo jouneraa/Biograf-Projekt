@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.params=show_id\ movie_id\ auditorium_id\ start_time
+comment0.target=Show(int,\ int,\ int,\ long)
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Show\r\n
+comment1.params=
+comment1.target=int\ show_id()
+comment2.params=
+comment2.target=int\ movie_id()
+comment3.params=
+comment3.target=int\ auditorium_id()
+comment4.params=
+comment4.target=long\ start_time()
+numComments=5

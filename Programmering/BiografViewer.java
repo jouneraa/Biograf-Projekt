@@ -25,6 +25,7 @@ public class BiografViewer
     private JLabel statusLabel;
     private JPanel contentPane;
     private JPanel InnerGrid;
+    private JPanel CenterWestGrid;
     
     // konstruktoren som kalder funktionen til at lave framen
     public BiografViewer()
@@ -90,11 +91,12 @@ public class BiografViewer
         
          // -----------------------------------------------------
         JPanel CenterCenterBorder = new JPanel(new BorderLayout(6,6));
-        JPanel CenterWestGrid = new JPanel(new GridLayout(20,1)); 
+        CenterWestGrid = new JPanel(new GridLayout(20,1)); 
+        
+        
         CenterCenterBorder.add(CenterWestGrid, BorderLayout.WEST);
         CenterBorder.add(CenterCenterBorder, BorderLayout.CENTER);
-        JButton MovieInfoCenterWest = new JButton("One Night in Paris with Paris Hilton");
-        CenterWestGrid.add(MovieInfoCenterWest);
+        
         // lave et gridbaglayout som reservationerne skal opbevares i 
         JPanel retReservationGrid = new JPanel();
          
@@ -120,6 +122,8 @@ public class BiografViewer
         dbc.gridx = 6;
         dbc.gridy = 0;
         retReservationGrid.add(new JButton("Ret reservation"), dbc);
+        
+       
         
        /* for (int row = 1; row < 21; row++) {
             for (int col = 1; col < 21; col++) {
@@ -363,6 +367,17 @@ public class BiografViewer
         for(int x : movieIds){
             String movieTitle = reservationSystem.getMovie(x).getTitle();
             JButton forestilling = new JButton(movieTitle);
+            forestilling.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JButton MovieInfoCenterWest = new JButton("One Night in Paris with Paris Hilton");
+                    CenterWestGrid.add(MovieInfoCenterWest);
+        
+                    JButton ss = new JButton("One Night in Paris with Paris Hilton");
+                    CenterWestGrid.add(ss);
+                    System.out.println("");
+                }
+            });
              forestilling.setBackground(contentPane.getBackground ());
              InnerGrid.add(forestilling);
         }

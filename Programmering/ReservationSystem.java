@@ -55,5 +55,8 @@ public class ReservationSystem{
         return null;
     }
    
-    
+    public void addCustomer(int telephone_number, String name)
+    {
+         MySQL.queryUpdate("INSERT INTO customers (telephone_number, name) VALUES ('"+ telephone_number + "', '" + name +"');");
+    }
 }

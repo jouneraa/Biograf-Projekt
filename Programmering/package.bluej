@@ -11,6 +11,7 @@ dependency3.type=UsesDependency
 dependency4.from=Show
 dependency4.to=Movie
 dependency4.type=UsesDependency
+<<<<<<< HEAD
 dependency5.from=Show
 dependency5.to=Auditorium
 dependency5.type=UsesDependency
@@ -24,6 +25,15 @@ package.editor.width=1723
 package.editor.x=32
 package.editor.y=246
 package.numDependencies=6
+=======
+objectbench.height=76
+objectbench.width=1346
+package.editor.height=611
+package.editor.width=1248
+package.editor.x=-8
+package.editor.y=0
+package.numDependencies=4
+>>>>>>> 5fe2e16413ac4c6bd00ed29af48e01d84608fe6d
 package.numTargets=9
 package.showExtends=true
 package.showUses=true

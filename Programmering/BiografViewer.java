@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+// combobox integer = klik på reserver plads = klik på specifik sæde + highlighter de sæder til højre for sædet + comboboxnummer 
+
 
 
 public class BiografViewer
@@ -15,7 +17,7 @@ public class BiografViewer
     // static fields:
     //string som står nede i bunden, versionen af programmet :) en meme
     private static final String VERSION = "Version 1337";
-
+    private int BiografPladserValgte;
 
     //reservation system reference
     ReservationSystem reservationSystem;
@@ -204,6 +206,20 @@ public class BiografViewer
           
             //sætteer comboboxen til at vælge pladser med et ArrayList af integers
          JComboBox<Integer> myNumbers = new JComboBox<Integer>();
+         myNumbers.addItemListener(new ItemListener() {
+
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if ((e.getStateChange() == ItemEvent.SELECTED)) {
+                    BiografPladserValgte = (Integer)myNumbers.getSelectedItem();
+                    System.out.println(BiografPladserValgte);
+                    
+                    
+                }
+            }
+        });
+        
+        
          myNumbers.addItem(1);
          myNumbers.addItem(2);
          myNumbers.addItem(3);
@@ -263,11 +279,18 @@ public class BiografViewer
             // gør så at UI.manageLookAndFeel ikke farver knapperne grå som UI/baggrunden 
             btn.setContentAreaFilled(false);
             btn.setOpaque(true);
+            
+            int kolonne = col; 
             btn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JButton btn = (JButton) e.getSource();
                     btn.setBackground(Color.RED);
+                    JButton btn = (JButton) e.getSource();
+                    for(int i =0; i < BiografPladserValgte; i++){                  
+                        gbc.gridx = kolonne + 1;
+                        btn.setBackground(Color.RED);
+                    }
+                     
                     System.out.println("clicked column "
                             + btn.getClientProperty("column")
                             + ", row " + btn.getClientProperty("row"));

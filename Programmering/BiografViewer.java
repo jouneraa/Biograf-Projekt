@@ -88,6 +88,62 @@ public class BiografViewer
         InnerGrid = new JPanel(new GridLayout(20,1)); 
         JPanel CenterBorder = new JPanel(new BorderLayout(6,6));
         
+         // -----------------------------------------------------
+        JPanel CenterCenterBorder = new JPanel(new BorderLayout(6,6));
+        JPanel CenterWestGrid = new JPanel(new GridLayout(20,1)); 
+        CenterCenterBorder.add(CenterWestGrid, BorderLayout.WEST);
+        CenterBorder.add(CenterCenterBorder, BorderLayout.CENTER);
+        JButton MovieInfoCenterWest = new JButton("One Night in Paris with Paris Hilton");
+        CenterWestGrid.add(MovieInfoCenterWest);
+        // lave et gridbaglayout som reservationerne skal opbevares i 
+        JPanel retReservationGrid = new JPanel();
+         
+        retReservationGrid.setLayout(new GridBagLayout());
+        retReservationGrid.setBorder(new EmptyBorder(30, 110, 30, 110));
+        GridBagConstraints dbc = new GridBagConstraints();
+        dbc.insets = new Insets(15,15,15,15);
+        dbc.gridx = 1;
+        dbc.gridy = 0;
+        retReservationGrid.add(new JLabel("First row, first column"), dbc);
+        dbc.gridx = 2;
+        dbc.gridy = 0;
+        retReservationGrid.add(new JLabel("First row, second column"), dbc);
+        dbc.gridx = 3;
+        dbc.gridy = 0;
+        retReservationGrid.add(new JLabel("First row, first column"), dbc);
+        dbc.gridx = 4;
+        dbc.gridy = 0;
+        retReservationGrid.add(new JLabel("First row, second column"), dbc);
+        dbc.gridx = 5;
+        dbc.gridy = 0;
+        retReservationGrid.add(new JLabel("First row, second column"), dbc);
+        dbc.gridx = 6;
+        dbc.gridy = 0;
+        retReservationGrid.add(new JButton("Ret reservation"), dbc);
+        
+       /* for (int row = 1; row < 21; row++) {
+            for (int col = 1; col < 21; col++) {
+                JButton btn = new JButton();
+                dbc.gridx = col;
+                dbc.gridy = row;
+                dbc.gridwidth = dbc.gridheight = 1;
+                dbc.fill = GridBagConstraints.BOTH;
+                dbc.anchor = GridBagConstraints.NORTHWEST;
+                dbc.weightx = 20;
+                dbc.weighty = 20;
+                retReservationGrid.add(btn, dbc);
+            }
+        } */ 
+        
+        
+        
+        // -----------------------------------------------------
+        
+        
+        
+        
+        
+        
         // laver fanerne som innerBorderLayout skal være inde i og det næste layout som skal vise forestillinger
         
         JTabbedPane jtp = new JTabbedPane();
@@ -99,7 +155,7 @@ public class BiografViewer
         jp1.add(InnerGrid, BorderLayout.WEST);
         jp1.add(CenterBorder, BorderLayout.CENTER);
         jp2.add(innerBorderLayout);
-       
+        jp3.add(retReservationGrid);
         
         jtp.addTab("Forestillinger", jp1);
         jtp.addTab("Reservation", jp2);
@@ -114,16 +170,11 @@ public class BiografViewer
         CenterBorder.add(VenstreKnap, BorderLayout.WEST); 
         CenterBorder.add(HøjreKnap, BorderLayout.EAST); 
         
-        ImageIcon imageIcon = new ImageIcon("parishilton.jpg"); // load the image to a imageIcon
-        Image image = imageIcon.getImage(); // transform it 
-        Image newimg = image.getScaledInstance(500, 250,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-        imageIcon = new ImageIcon(newimg);  // transform it back
         
-        JLabel label = new JLabel("", imageIcon, JLabel.CENTER);
-        CenterBorder.add( label, BorderLayout.CENTER );
         
-        JLabel label1 = new JLabel();
-        label1.setText("You are in area of Tab1");
+       
+        
+        
         
         addShowsInBar();
         
@@ -195,7 +246,7 @@ public class BiografViewer
             
             
             btn.setBackground(Color.GREEN);
-            btn.setBorder(new LineBorder(Color.BLACK));
+            btn.setBorder(new LineBorder(Color.WHITE));
             // fjerner blå highlihght når man klikker på knappen
             btn.setFocusPainted(false);
             // gør så at UI.manageLookAndFeel ikke farver knapperne grå som UI/baggrunden 

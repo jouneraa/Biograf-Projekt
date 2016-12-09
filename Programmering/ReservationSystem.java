@@ -35,6 +35,7 @@ public class ReservationSystem{
         return null; 
     }
     
+    
     public List<Integer> getAllMovieIds(){
         List<Integer> movieIds = new ArrayList<>();
         ResultSet r = MySQL.query("SELECT movie_id FROM movies;");

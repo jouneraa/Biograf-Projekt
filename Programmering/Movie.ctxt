@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=movie_id\ title
+comment0.target=Movie(int,\ java.lang.String)
+comment1.params=
+comment1.target=java.lang.String\ getTitle()
+comment2.params=
+comment2.target=int\ getMovieId()
+numComments=3

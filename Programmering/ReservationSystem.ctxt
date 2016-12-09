@@ -4,5 +4,5 @@ comment0.target=ReservationSystem()
 comment1.params=title
 comment1.target=void\ addMovie(java.lang.String)
 comment2.params=id
-comment2.target=java.lang.String\ getMovieTitle(int)
+comment2.target=Movie\ getMovie(int)
 numComments=3

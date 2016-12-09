@@ -51,6 +51,8 @@ public class BiografViewer
     {
         //laver JFramet som er hele vinduet i sig selv
         frame = new JFrame("BiografViewer");
+        
+        
         // sætter et jpanel = maineframet
         JPanel contentPane = (JPanel)frame.getContentPane();
         //sætter en border rundt om og størrelsen på framet + sætter menubaren
@@ -90,11 +92,15 @@ public class BiografViewer
         jtp.addTab("Reservation", jp2);
         jtp.addTab("Ret reservationer", jp3);
         
-        
-        JButton VenstreKnap = new JButton("<--"); 
+        // højst sandsynligt sætte focuspainted ind i en metode så man undgår kodeduplikering
+        JButton VenstreKnap = new JButton("<--");
+        VenstreKnap.setFocusPainted(false);
         JButton HøjreKnap = new JButton("-->"); 
+        HøjreKnap.setFocusPainted(false);
+        
         CenterBorder.add(VenstreKnap, BorderLayout.WEST); 
         CenterBorder.add(HøjreKnap, BorderLayout.EAST); 
+        
         ImageIcon imageIcon = new ImageIcon("parishilton.jpg"); // load the image to a imageIcon
         Image image = imageIcon.getImage(); // transform it 
         Image newimg = image.getScaledInstance(500, 250,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
@@ -166,47 +172,65 @@ public class BiografViewer
           JPanel centerPanel = new JPanel(new BorderLayout());
           //JPanel midterFlowPanel = new JPanel(new FlowLayout());
           JPanel midterFlowPanel = new JPanel();
-          int xed = 5; 
-          midterFlowPanel.setLayout(new GridLayout(xed,10));
-          midterFlowPanel.setBorder(new EmptyBorder(30, 30, 30, 30));
-          
-           for(int i=1; i < 101; i++) { 
-                JButton btn = new JButton(); 
+         
+        midterFlowPanel.setLayout(new GridBagLayout());
+        midterFlowPanel.setBorder(new EmptyBorder(30, 110, 30, 110));
+        GridBagConstraints gbc = new GridBagConstraints();
+        for (int row = 1; row < 21; row++) {
+            for (int col = 1; col < 21; col++) {
+            JButton btn = new JButton();
+            /*JButton btn = new JButton("(" + row + ", " + col + ")");*/
+            btn.putClientProperty("column", col);
+            btn.putClientProperty("row", row);
+            
+            // tekst streng der skal stå over hover
+            ToolTipManager.sharedInstance().setInitialDelay(0);
+            String sutmig = ("Række " + row + " " +"\n" + "Sæde " + col +  " ");
+            
+            
+            btn.setBackground(Color.GREEN);
+            btn.setBorder(new LineBorder(Color.BLACK));
+            // fjerner blå highlihght når man klikker på knappen
+            btn.setFocusPainted(false);
+            // gør så at UI.manageLookAndFeel ikke farver knapperne grå som UI/baggrunden 
+            btn.setContentAreaFilled(false);
+            btn.setOpaque(true);
+            btn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JButton btn = (JButton) e.getSource();
+                    btn.setBackground(Color.RED);
+                    System.out.println("clicked column "
+                            + btn.getClientProperty("column")
+                            + ", row " + btn.getClientProperty("row"));
+                }
+            });
+            
+            btn.addMouseListener( new MouseAdapter() {
+            public void mouseEntered( MouseEvent e ) {
+                btn.setBackground(new Color(138,43,226));
                 
-                String sutmig = ("Sæde " + i + " " +"\n" + "Række " + xed +  " ");
-                ToolTipManager.sharedInstance().setInitialDelay(0);
-                    
+                btn.setToolTipText(sutmig);
+                
+                
+            }
+            });
+            btn.addMouseListener( new MouseAdapter() {
+            public void mouseExited( MouseEvent e ) {
                 btn.setForeground(Color.GREEN);
                 btn.setBackground(Color.GREEN);
-                btn.setPreferredSize(new Dimension(0, 0));
-                
-                
-                btn.addMouseListener( new MouseAdapter() {
-                    public void mouseEntered( MouseEvent e ) {
-                        btn.setBackground(new Color(138,43,226));
-                        btn.setToolTipText(sutmig);
-                        
-                        
-                    }
-                    
-                    
-                } );
-                
-                btn.addMouseListener( new MouseAdapter() {
-                    public void mouseExited( MouseEvent e ) {
-                        btn.setForeground(Color.GREEN);
-                        btn.setBackground(Color.GREEN);
-                    }
-                } );
-                
-                midterFlowPanel.add(btn);   
-                
-                }
-                
-               
-            
-          
-          
+            }
+            } );
+            gbc.gridx = col;
+            gbc.gridy = row;
+            gbc.gridwidth = gbc.gridheight = 1;
+            gbc.fill = GridBagConstraints.BOTH;
+            gbc.anchor = GridBagConstraints.NORTHWEST;
+            gbc.weightx = 20;
+            gbc.weighty = 20;
+            midterFlowPanel.add(btn, gbc);
+        }   
+              
           //adder midterflowlayout til et centerpanel for at få det til at være centreret
           centerPanel.add(midterFlowPanel, BorderLayout.CENTER);
           
@@ -214,25 +238,25 @@ public class BiografViewer
         innerBorderLayout.add(northPanel, BorderLayout.NORTH);       
         innerBorderLayout.add(southPanel, BorderLayout.SOUTH);
         innerBorderLayout.add(centerPanel, BorderLayout.CENTER);
-        
-        
-        
-        filenameLabel = new JLabel("XDXDXD");
-        
+
         // sætter jtp aka TabbedPane ind i contentPame
         contentPane.add(jtp, BorderLayout.CENTER);
-        
-        
-        
+
         // sætter en lille titel oppe i toppen og i bunden
-        filenameLabel = new JLabel("BiografHelper XD :)");
-        filenameLabel.setFont(new Font("Serif", Font.PLAIN, 24));
+        filenameLabel = new JLabel("Bookingsystem til Biograf");
+        filenameLabel.setFont(new Font("Serif", Font.PLAIN, 20));
         
         contentPane.add(filenameLabel, BorderLayout.NORTH);
 
-        statusLabel = new JLabel(VERSION);
-        contentPane.add(statusLabel, BorderLayout.SOUTH);
+        //statusLabel = new JLabel(VERSION);
+        //contentPane.add(statusLabel, BorderLayout.SOUTH);
         
+        // sætter layoutet til at matche styresystemet
+        try { 
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // arrangerer componenterne   
 
         frame.pack();
@@ -242,6 +266,7 @@ public class BiografViewer
         frame.setVisible(true);
  
 
+        }
     }
     
 

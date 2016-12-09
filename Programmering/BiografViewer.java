@@ -26,6 +26,8 @@ public class BiografViewer
     private JPanel contentPane;
     private JPanel InnerGrid;
     private JPanel CenterWestGrid;
+    private JPanel CenterCenterBorder;
+    private CardLayout cardLayout = new CardLayout();
     
     // konstruktoren som kalder funktionen til at lave framen
     public BiografViewer()
@@ -90,8 +92,13 @@ public class BiografViewer
         JPanel CenterBorder = new JPanel(new BorderLayout(6,6));
         
          // -----------------------------------------------------
-        JPanel CenterCenterBorder = new JPanel(new BorderLayout(6,6));
-        CenterWestGrid = new JPanel(new GridLayout(20,1)); 
+        CenterCenterBorder = new JPanel(new BorderLayout(6,6));
+        CenterWestGrid = new JPanel(); 
+        CenterWestGrid.setLayout(cardLayout);
+        JPanel startGrid = new JPanel(new GridLayout(20,1));
+           
+        CenterWestGrid.add(startGrid, "startGrid");
+        cardLayout.show(CenterWestGrid, "startGrid");
         
         
         CenterCenterBorder.add(CenterWestGrid, BorderLayout.WEST);
@@ -370,17 +377,21 @@ public class BiografViewer
             forestilling.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+
+                    JPanel buttonGrid = new JPanel(new GridLayout(20,1));
                     JButton MovieInfoCenterWest = new JButton("One Night in Paris with Paris Hilton");
-                    CenterWestGrid.add(MovieInfoCenterWest);
-        
-                    JButton ss = new JButton("One Night in Paris with Paris Hilton");
-                    CenterWestGrid.add(ss);
-                    System.out.println("");
-                }
+                    buttonGrid.add(MovieInfoCenterWest);
+                    
+                    CenterWestGrid.add(buttonGrid, "buttonGrid");
+                    cardLayout.show(CenterWestGrid, "buttonGrid");
+                            }
             });
              forestilling.setBackground(contentPane.getBackground ());
              InnerGrid.add(forestilling);
         }
+                    
+                    
+      
         
        
        // forestilling2.setForeground(Color.BLACK);

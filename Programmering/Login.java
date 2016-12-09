@@ -62,7 +62,8 @@ public class Login
          
           // gridx og gridy er hvor henne i gridbaglayoutet den specifikke button skal være. 
           gbc.fill = GridBagConstraints.HORIZONTAL;
-          gbc.ipady = 20;   
+          gbc.ipady = 20;
+          gbc.ipady = 20;  
           gbc.gridx = 0;
           gbc.gridy = 0;
           panel.add(new JTextField("Account name"),gbc); 

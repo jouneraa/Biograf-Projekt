@@ -51,6 +51,15 @@ public class BiografViewer
     {
         //laver JFramet som er hele vinduet i sig selv
         frame = new JFrame("BiografViewer");
+        
+        // sætter layoutet til at matche styresystemet
+                
+        try { 
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
         // sætter et jpanel = maineframet
         JPanel contentPane = (JPanel)frame.getContentPane();
         //sætter en border rundt om og størrelsen på framet + sætter menubaren
@@ -65,8 +74,13 @@ public class BiografViewer
         JPanel innerBorderLayout = new JPanel(); 
         
         innerBorderLayout.setLayout(new BorderLayout(6, 6));
+        
         innerBorderLayout.setBorder(new EtchedBorder());
         
+        // lave et gridlayout som skal nestes ind i Tab1 
+        
+        JPanel InnerGrid = new JPanel(new GridLayout(20,1)); 
+        JPanel CenterBorder = new JPanel(new BorderLayout(6,6));
         
         // laver fanerne som innerBorderLayout skal være inde i og det næste layout som skal vise forestillinger
         
@@ -74,20 +88,58 @@ public class BiografViewer
         
         JPanel jp1 = new JPanel(new BorderLayout(6, 6));
         JPanel jp2 = new JPanel(new BorderLayout(6, 6));
-        JLabel label1 = new JLabel();
-        label1.setText("You are in area of Tab1");
-        JLabel label2 = new JLabel();
-        label2.setText("You are in area of Forestillinger");
-        jp1.add(label2);
+        JPanel jp3 = new JPanel(new BorderLayout(6, 6));
+        
+        jp1.add(InnerGrid, BorderLayout.WEST);
+        jp1.add(CenterBorder, BorderLayout.CENTER);
         jp2.add(innerBorderLayout);
+       
+        
         jtp.addTab("Forestillinger", jp1);
         jtp.addTab("Reservation", jp2);
+        jtp.addTab("Ret reservationer", jp3);
+        
+        // højst sandsynligt sætte focuspainted ind i en metode så man undgår kodeduplikering
+        JButton VenstreKnap = new JButton("<--");
+        VenstreKnap.setFocusPainted(false);
+        JButton HøjreKnap = new JButton("-->"); 
+        HøjreKnap.setFocusPainted(false);
+        
+        CenterBorder.add(VenstreKnap, BorderLayout.WEST); 
+        CenterBorder.add(HøjreKnap, BorderLayout.EAST); 
+        
+        ImageIcon imageIcon = new ImageIcon("parishilton.jpg"); // load the image to a imageIcon
+        Image image = imageIcon.getImage(); // transform it 
+        Image newimg = image.getScaledInstance(500, 250,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        imageIcon = new ImageIcon(newimg);  // transform it back
+        
+        JLabel label = new JLabel("", imageIcon, JLabel.CENTER);
+        CenterBorder.add( label, BorderLayout.CENTER );
+        
+        JLabel label1 = new JLabel();
+        label1.setText("You are in area of Tab1");
+        
+        
+        JLabel forestilling1 = new JLabel();
+        forestilling1.setText("Film:");
+        JButton forestilling2 = new JButton("One Night in Paris with Paris Hilton");
+        forestilling2.setBackground(contentPane.getBackground ());
+       // forestilling2.setForeground(Color.BLACK);
+        InnerGrid.add(forestilling1); 
+        InnerGrid.add(forestilling2);
+        
+       
+        
+        
+         
         
         // laver et til borderlayout som nestes ind i contentpane senere
         JPanel northPanel = new JPanel(new BorderLayout());
         // sætter to jlabel til west og east i northPanel så de kan være ud i siden, senere kommer northpanel til at sættes mod north i contentpane
         northPanel.add(new JLabel("Forestilling: 15. Dec, 2015, kl 12:50"), BorderLayout.EAST);
-        northPanel.add(new JLabel("Film: One Night in Paris with Paris Hilton "), BorderLayout.WEST);
+        JLabel Tekst = new JLabel("Film: One Night in Paris with Paris Hilton ");
+        Tekst.setFont(new Font("Serif", Font.PLAIN, 20));
+        northPanel.add(Tekst, BorderLayout.WEST);
           
             //sætteer comboboxen til at vælge pladser med et ArrayList af integers
          JComboBox<Integer> myNumbers = new JComboBox<Integer>();
@@ -125,34 +177,67 @@ public class BiografViewer
           
           //2 nye JPanels som skal bruges til at få pladserne til at være i midten af det hele
           JPanel centerPanel = new JPanel(new BorderLayout());
-          JPanel midterFlowPanel = new JPanel(new FlowLayout());
-          JButton largerrButton = new JButton("Plads");
-          JButton largerrButton1 = new JButton("Plads");
-          JButton largerrButton2 = new JButton("Plads");
-          JButton largerrButton3 = new JButton("Plads");
-          JButton largerrButton4 = new JButton("Plads");
-          JButton largerrButton5 = new JButton("Plads");
-          JButton largerrButton6 = new JButton("Plads");
-          JButton largerrButton7 = new JButton("Plads");
-          JButton largerrButton8 = new JButton("Plads");
-          JButton largerrButton9 = new JButton("Plads");
-          JButton largerrButton10 = new JButton("Plads");
-          JButton largerrButton11 = new JButton("Plads");
-          
-          //adder knapper, senere måske drawgraphics i stedet?
-          midterFlowPanel.add(largerrButton);
-          midterFlowPanel.add(largerrButton1);
-          midterFlowPanel.add(largerrButton2);
-          midterFlowPanel.add(largerrButton3);
-          midterFlowPanel.add(largerrButton4);
-          midterFlowPanel.add(largerrButton5);
-          midterFlowPanel.add(largerrButton6);
-          midterFlowPanel.add(largerrButton7);
-          midterFlowPanel.add(largerrButton8);
-          midterFlowPanel.add(largerrButton9);
-          midterFlowPanel.add(largerrButton10);
-          midterFlowPanel.add(largerrButton11);
-          
+          //JPanel midterFlowPanel = new JPanel(new FlowLayout());
+          JPanel midterFlowPanel = new JPanel();
+         
+        midterFlowPanel.setLayout(new GridBagLayout());
+        midterFlowPanel.setBorder(new EmptyBorder(30, 110, 30, 110));
+        GridBagConstraints gbc = new GridBagConstraints();
+        for (int row = 1; row < 21; row++) {
+            for (int col = 1; col < 21; col++) {
+            JButton btn = new JButton();
+            /*JButton btn = new JButton("(" + row + ", " + col + ")");*/
+            btn.putClientProperty("column", col);
+            btn.putClientProperty("row", row);
+            
+            // tekst streng der skal stå over hover
+            ToolTipManager.sharedInstance().setInitialDelay(0);
+            String sutmig = ("Række " + row + " " +"\n" + "Sæde " + col +  " ");
+            
+            
+            btn.setBackground(Color.GREEN);
+            btn.setBorder(new LineBorder(Color.BLACK));
+            // fjerner blå highlihght når man klikker på knappen
+            btn.setFocusPainted(false);
+            // gør så at UI.manageLookAndFeel ikke farver knapperne grå som UI/baggrunden 
+            btn.setContentAreaFilled(false);
+            btn.setOpaque(true);
+            btn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JButton btn = (JButton) e.getSource();
+                    btn.setBackground(Color.RED);
+                    System.out.println("clicked column "
+                            + btn.getClientProperty("column")
+                            + ", row " + btn.getClientProperty("row"));
+                }
+            });
+            
+            btn.addMouseListener( new MouseAdapter() {
+            public void mouseEntered( MouseEvent e ) {
+                btn.setBackground(new Color(138,43,226));
+                
+                btn.setToolTipText(sutmig);
+                
+                
+            }
+            });
+            btn.addMouseListener( new MouseAdapter() {
+            public void mouseExited( MouseEvent e ) {
+                btn.setForeground(Color.GREEN);
+                btn.setBackground(Color.GREEN);
+            }
+            } );
+            gbc.gridx = col;
+            gbc.gridy = row;
+            gbc.gridwidth = gbc.gridheight = 1;
+            gbc.fill = GridBagConstraints.BOTH;
+            gbc.anchor = GridBagConstraints.NORTHWEST;
+            gbc.weightx = 20;
+            gbc.weighty = 20;
+            midterFlowPanel.add(btn, gbc);
+        }   
+              
           //adder midterflowlayout til et centerpanel for at få det til at være centreret
           centerPanel.add(midterFlowPanel, BorderLayout.CENTER);
           
@@ -160,23 +245,21 @@ public class BiografViewer
         innerBorderLayout.add(northPanel, BorderLayout.NORTH);       
         innerBorderLayout.add(southPanel, BorderLayout.SOUTH);
         innerBorderLayout.add(centerPanel, BorderLayout.CENTER);
-        
-        
-        
-        filenameLabel = new JLabel("XDXDXD");
-        
+
         // sætter jtp aka TabbedPane ind i contentPame
         contentPane.add(jtp, BorderLayout.CENTER);
-        
-        
-        
+
         // sætter en lille titel oppe i toppen og i bunden
-        filenameLabel = new JLabel("BiografHelper XD :)");
+        filenameLabel = new JLabel("Bookingsystem til Biograf");
+        filenameLabel.setFont(new Font("Serif", Font.PLAIN, 20));
+        
         contentPane.add(filenameLabel, BorderLayout.NORTH);
 
-        statusLabel = new JLabel(VERSION);
-        contentPane.add(statusLabel, BorderLayout.SOUTH);
+        //statusLabel = new JLabel(VERSION);
+        //contentPane.add(statusLabel, BorderLayout.SOUTH);
         
+
+
         // arrangerer componenterne   
 
         frame.pack();
@@ -186,6 +269,7 @@ public class BiografViewer
         frame.setVisible(true);
  
 
+        }
     }
     
 

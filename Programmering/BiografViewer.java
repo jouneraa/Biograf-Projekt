@@ -130,10 +130,30 @@ public class BiografViewer
         dbc.gridy = 0;
         retReservationGrid.add(new JButton("Ret reservation"), dbc);
         
-
+       
+        
+       /* for (int row = 1; row < 21; row++) {
+            for (int col = 1; col < 21; col++) {
+                JButton btn = new JButton();
+                dbc.gridx = col;
+                dbc.gridy = row;
+                dbc.gridwidth = dbc.gridheight = 1;
+                dbc.fill = GridBagConstraints.BOTH;
+                dbc.anchor = GridBagConstraints.NORTHWEST;
+                dbc.weightx = 20;
+                dbc.weighty = 20;
+                retReservationGrid.add(btn, dbc);
+            }
+        } */ 
+        
+        
         
         // -----------------------------------------------------
-
+        
+        
+        
+        
+        
         
         // laver fanerne som innerBorderLayout skal være inde i og det næste layout som skal vise forestillinger
         
@@ -160,9 +180,20 @@ public class BiografViewer
         
         CenterBorder.add(VenstreKnap, BorderLayout.WEST); 
         CenterBorder.add(HøjreKnap, BorderLayout.EAST); 
- 
+        
+        
+        
+       
+        
+        
+        
         addShowsInBar();
-
+        
+       
+        
+        
+         
+        
         // laver et til borderlayout som nestes ind i contentpane senere
         JPanel northPanel = new JPanel(new BorderLayout());
         // sætter to jlabel til west og east i northPanel så de kan være ud i siden, senere kommer northpanel til at sættes mod north i contentpane
@@ -182,7 +213,7 @@ public class BiografViewer
           
          // nyt JPanel som nestes ind i southPanel, bemærk flowlayout og ikke borderlayout da knapperne skal "floate på en række" i højre hjørne
           JPanel DownRight = new JPanel(new FlowLayout());
-          JButton Knap1 = new JButton("Reserver pladser");
+          JButton Knap1 = new JButton("Antal Pladser");
           DownRight.add(Knap1);
           DownRight.add(myNumbers); 
           
@@ -199,44 +230,6 @@ public class BiografViewer
           DownLeft.add(xd);
           DownLeft.add(xdddd);
          
-          // adder et panel til højre i innerborderlayout som skal vise 3 forskellige knapper om de er optagede, ledige eller reserverede 
-          
-          JPanel eastPanel = new JPanel(new GridBagLayout());
-          GridBagConstraints ebc = new GridBagConstraints();
-          ebc.insets = new Insets(5,5,5,5);
-
-          ebc.gridx = 1;
-          ebc.gridy = 0;
-          eastPanel.add(new JLabel("Ledige pladser"), ebc);          
-          ebc.gridx = 0;
-          ebc.gridy = 0;
-          JButton ledigeKnap = new JButton();          
-          ledigeKnap.setBackground(Color.GREEN);
-          ledigeKnap.setContentAreaFilled(false);
-          ledigeKnap.setOpaque(true);
-          eastPanel.add(ledigeKnap, ebc);
-          
-          ebc.gridx = 1;
-          ebc.gridy = 1;
-          eastPanel.add(new JLabel("Optagede"), ebc);
-          ebc.gridx = 0;
-          ebc.gridy = 1;
-          JButton optagetKnap = new JButton();          
-          optagetKnap.setBackground(Color.RED);
-          optagetKnap.setContentAreaFilled(false);
-          optagetKnap.setOpaque(true);
-          eastPanel.add(optagetKnap, ebc);
-          
-          ebc.gridx = 1;
-          ebc.gridy = 2;
-          eastPanel.add(new JLabel("Valgte pladser"), ebc);
-          ebc.gridx = 0; 
-          ebc.gridy = 2;
-          JButton valgteKnap = new JButton();          
-          valgteKnap.setBackground(new Color(138,43,226));
-          valgteKnap.setContentAreaFilled(false);
-          valgteKnap.setOpaque(true);
-          eastPanel.add(valgteKnap, ebc);
          // opretter et JPanel som DownRight og DownLeft skal nestes ind i 
           JPanel southPanel = new JPanel(new BorderLayout());
          
@@ -313,7 +306,6 @@ public class BiografViewer
         innerBorderLayout.add(northPanel, BorderLayout.NORTH);       
         innerBorderLayout.add(southPanel, BorderLayout.SOUTH);
         innerBorderLayout.add(centerPanel, BorderLayout.CENTER);
-        innerBorderLayout.add(eastPanel, BorderLayout.EAST); 
 
         // sætter jtp aka TabbedPane ind i contentPame
         contentPane.add(jtp, BorderLayout.CENTER);
@@ -374,38 +366,29 @@ public class BiografViewer
     }
     
     public void addShowsInBar(){
+        //tilføj title på panelet
         JLabel forestilling1 = new JLabel();
         forestilling1.setText("Film:");
         InnerGrid.add(forestilling1); 
         
+        //tilføj knapperne der viser spillefilm
         List<Integer> movieIds = reservationSystem.getAllMovieIds();
         for(int x : movieIds){
             String movieTitle = reservationSystem.getMovie(x).getTitle();
+            int movieId = reservationSystem.getMovie(x).getMovieId();
             JButton forestilling = new JButton(movieTitle);
-            
-            
-            
             forestilling.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
+                    StringBuilder sb = new StringBuilder();
+                    //List<Integer> showIds = reservationSystem.getAllShowIds();
                     JPanel buttonGrid = new JPanel(new GridLayout(20,1));
-                    JButton MovieInfoCenterWest = new JButton("One Night in Paris with Paris Hilton");
-<<<<<<< HEAD
+                    JButton MovieInfoCenterWest = new JButton(movieTitle);
                     buttonGrid.add(MovieInfoCenterWest);
                     
                     CenterWestGrid.add(buttonGrid, "buttonGrid");
                     cardLayout.show(CenterWestGrid, "buttonGrid");
                             }
-=======
-                    
-                    CenterWestGrid.add(MovieInfoCenterWest);
-                    
-                    JButton ss = new JButton("One Night in Paris with Paris Hilton");
-                    CenterWestGrid.add(ss);
-                    System.out.println("");
-                }
->>>>>>> 48368b03d165d111e7bd6cc9e863876967902a16
             });
              forestilling.setBackground(contentPane.getBackground ());
              InnerGrid.add(forestilling);

@@ -15,4 +15,6 @@ comment6.params=e
 comment6.target=void\ mouseExited(java.awt.event.MouseEvent)
 comment7.params=frame
 comment7.target=void\ makeMenuBar(javax.swing.JFrame)
-numComments=8
+comment8.params=
+comment8.target=void\ addShowsInBar()
+numComments=9

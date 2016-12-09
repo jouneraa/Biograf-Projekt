@@ -21,6 +21,8 @@ public class BiografViewer
     private JFrame frame;
     private JLabel filenameLabel;
     private JLabel statusLabel;
+    private JPanel contentPane;
+    private JPanel InnerGrid;
     
     // konstruktoren som kalder funktionen til at lave framen
     public BiografViewer()
@@ -61,7 +63,7 @@ public class BiografViewer
         }
         
         // sætter et jpanel = maineframet
-        JPanel contentPane = (JPanel)frame.getContentPane();
+        contentPane = (JPanel)frame.getContentPane();
         //sætter en border rundt om og størrelsen på framet + sætter menubaren
         contentPane.setBorder(new EmptyBorder(12, 12, 12, 12));
         frame.setPreferredSize(new Dimension(900, 600));
@@ -79,7 +81,7 @@ public class BiografViewer
         
         // lave et gridlayout som skal nestes ind i Tab1 
         
-        JPanel InnerGrid = new JPanel(new GridLayout(20,1)); 
+        InnerGrid = new JPanel(new GridLayout(20,1)); 
         JPanel CenterBorder = new JPanel(new BorderLayout(6,6));
         
         // laver fanerne som innerBorderLayout skal være inde i og det næste layout som skal vise forestillinger
@@ -119,14 +121,7 @@ public class BiografViewer
         JLabel label1 = new JLabel();
         label1.setText("You are in area of Tab1");
         
-        
-        JLabel forestilling1 = new JLabel();
-        forestilling1.setText("Film:");
-        JButton forestilling2 = new JButton("One Night in Paris with Paris Hilton");
-        forestilling2.setBackground(contentPane.getBackground ());
-       // forestilling2.setForeground(Color.BLACK);
-        InnerGrid.add(forestilling1); 
-        InnerGrid.add(forestilling2);
+        addShowsInBar();
         
        
         
@@ -302,5 +297,16 @@ public class BiografViewer
             item.addActionListener(e -> showAbout());
         menu.add(item);
 
+    }
+    
+    public void addShowsInBar(){
+        
+        JLabel forestilling1 = new JLabel();
+        forestilling1.setText("Film:");
+        JButton forestilling2 = new JButton("One Night in Paris with Paris Hilton");
+        forestilling2.setBackground(contentPane.getBackground ());
+       // forestilling2.setForeground(Color.BLACK);
+        InnerGrid.add(forestilling1); 
+        InnerGrid.add(forestilling2);
     }
 }

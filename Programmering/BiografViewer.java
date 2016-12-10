@@ -21,6 +21,7 @@ public class BiografViewer
 
     //reservation system reference
     ReservationSystem reservationSystem;
+    DataFactory dataFactory;
     // fields:
     private JFrame frame;
     private JLabel filenameLabel;
@@ -36,6 +37,7 @@ public class BiografViewer
     {
 
         reservationSystem = new ReservationSystem();
+        dataFactory = new DataFactory();
         
         makeFrame();
     }
@@ -263,7 +265,7 @@ public class BiografViewer
         for (int row = 1; row < 21; row++) {
             for (int col = 1; col < 21; col++) {
             JButton btn = new JButton();
-            /*JButton btn = new JButton("(" + row + ", " + col + ")");*/
+
             btn.putClientProperty("column", col);
             btn.putClientProperty("row", row);
             
@@ -395,9 +397,9 @@ public class BiografViewer
         InnerGrid.add(forestilling1); 
         
         //tilføj knapperne der viser spillefilm
-        List<Integer> movieIds = reservationSystem.getAllMovieIds();
+        List<Integer> movieIds = dataFactory.getAllMovieIds();
         for(int x : movieIds){
-            Movie movie = reservationSystem.getMovie(x);
+            Movie movie = dataFactory.getMovie(x);
             String movieTitle = movie.getTitle();
             int movieId = movie.getMovieId();
             JButton forestilling = new JButton(movieTitle);
@@ -406,9 +408,9 @@ public class BiografViewer
                 public void actionPerformed(ActionEvent e) {
                     JPanel buttonGrid = new JPanel(new GridLayout(20,1));
                     StringBuilder sb = new StringBuilder();
-                    List<Integer> showIds = reservationSystem.getActiveShows(movieId);
+                    List<Integer> showIds = dataFactory.getActiveShows(movieId);
                     for(int y : showIds){
-                        Show show = reservationSystem.getShow(y);
+                        Show show = dataFactory.getShow(y);
                         sb.append("Auditorium: " + show.auditorium_id() + " Tid: " + show.start_time());
                         JButton showButton = new JButton(sb.toString());
                         buttonGrid.add(showButton);

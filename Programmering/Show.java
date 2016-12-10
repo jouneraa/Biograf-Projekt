@@ -16,9 +16,10 @@ public class Show
     /**
      * Constructor for objects of class Show
      */
-    public Show(int auditorium_id, String start_time)
+    public Show(int show_id, int movie_id,int auditorium_id, String start_time)
     {
-        
+        this.show_id = show_id;
+        this.movie_id = movie_id;
         this.auditorium_id = auditorium_id;
         this.start_time = start_time;
     }

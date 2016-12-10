@@ -413,6 +413,7 @@ public class BiografViewer
                         Show show = dataFactory.getShow(y);
                         sb.append("Auditorium: " + show.auditorium_id() + " Tid: " + show.start_time());
                         JButton showButton = new JButton(sb.toString());
+                        addShowButtonListeners(showButton, show);
                         buttonGrid.add(showButton);
                         sb = new StringBuilder();
                     }
@@ -426,12 +427,14 @@ public class BiografViewer
              InnerGrid.add(forestilling);
         }
                     
-                    
-      
-        
-       
-       // forestilling2.setForeground(Color.BLACK);
-        
-        
     }
+    
+    public void addShowButtonListeners(JButton showButton, Show show){
+            showButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    
+                            }
+            });
+        } 
 }

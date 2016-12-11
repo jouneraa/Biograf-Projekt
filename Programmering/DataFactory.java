@@ -29,7 +29,7 @@ public class DataFactory
         ResultSet r = MySQL.query("SELECT * FROM movies WHERE movie_id = " + id + ";");
         try{
             // How to get data from the ResultSet
-            if(r.next())
+            while(r.next())
             {
                 //get the title
                 String title = r.getString("title");
@@ -49,7 +49,7 @@ public class DataFactory
         ResultSet r = MySQL.query("SELECT * FROM customers WHERE telephone_number = " + id + ";");
         try{
             // How to get data from the ResultSet
-            if(r.next())
+            while(r.next())
             {
                 //get the title
                 String name = r.getString("name");
@@ -69,7 +69,7 @@ public class DataFactory
         ResultSet r = MySQL.query("SELECT * FROM auditorium WHERE auditorium_id = " + id + ";");
         try{
             // How to get data from the ResultSet
-            if(r.next())
+            while(r.next())
             {
                 int auditorium_id = r.getInt("auditorium_id");
                 String name = r.getString("name");
@@ -91,7 +91,7 @@ public class DataFactory
         ResultSet r = MySQL.query("SELECT * FROM shows WHERE show_id = " + id + ";");
         try{
             // How to get data from the ResultSet
-            if(r.next())
+            while(r.next())
             {
                 int showId = id;
                 int movieId = r.getInt("movie_id");
@@ -112,10 +112,10 @@ public class DataFactory
     
     public Reservation getReservation(int id){
         // Skal der ikke selectes fra reservations, og ud fra reservationID? - Ikke shows.
-        ResultSet r = MySQL.query("SELECT * FROM shows WHERE show_id = " + id + ";");
+        ResultSet r = MySQL.query("SELECT * FROM reservations WHERE reservation_id = " + id + ";");
         try{
             // How to get data from the ResultSet
-            if(r.next())
+            while(r.next())
             {
                 //get the title
                 int resId = id;

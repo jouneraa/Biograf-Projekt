@@ -34,10 +34,12 @@ public class BiografViewer
     
     private ButtonValue[][] buttonValues;
     
+    private Color pinkColor;
+    
     // konstruktoren som kalder funktionen til at lave framen
     public BiografViewer()
     {
-
+        pinkColor = new Color(138,43,226);
         reservationSystem = new ReservationSystem();
         dataFactory = new DataFactory();
         
@@ -526,7 +528,7 @@ public class BiografViewer
         
         
 
-        public JPanel makeCenterPanel(Show show){
+         public JPanel makeCenterPanel(Show show){
             JPanel seatsGraphical = new JPanel();
          
             seatsGraphical.setLayout(new GridBagLayout());
@@ -537,14 +539,14 @@ public class BiografViewer
             Auditorium auditorium = dataFactory.getAuditorium(auditoriumId);
             int rowNumbers = auditorium.row_number();
             int colNumbers = auditorium.seat_number();
-            //for at vide hvilke sæder er reserverede skal vi bruge alle reservation lavet til dette show
+            
+            //find alle reservationerne til showet
             List<Integer> allReservationIds = dataFactory.getAllShowReservationIds(show.show_id());
             List<Reservation> allReservations = new ArrayList<>();
             for(int x : allReservationIds){
                 allReservations.add(dataFactory.getReservation(x));
             }
-            //her skal knappenes værdier gemmes
-            buttonValues = new ButtonValue[rowNumbers][colNumbers];
+            
             for (int row = 1; row < (rowNumbers + 1); row++) {
                 for (int col = 1; col < (colNumbers + 1); col++) {
                     JButton btn = new JButton();
@@ -556,23 +558,24 @@ public class BiografViewer
                     ToolTipManager.sharedInstance().setInitialDelay(0);
                     String sutmig = ("Række " + row + " " +"\n" + "Sæde " + col +  " ");
                 
-                    //check om sæder er reserveret. hvis ja, setbackground red
-                    
-                    String backgroundColor = "GREEN";
-                    for(Reservation x : allReservations){
-                        if(x.row_number() == row +1 && x.seat_number() == col +1){
-                            backgroundColor = "RED";
+                    //tjekker om pladsen er reserveret
+                    boolean reserved = false;
+                    if(!allReservations.isEmpty()){
+                        for(Reservation y : allReservations){
+                            if(y.row_number() == row && y.seat_number() == col){
+                                reserved = true;
+                            }
                         }
-                        buttonValues[row-1][col-1] = new ButtonValue(backgroundColor);
                     }
-                
-                    if(backgroundColor.equals("GREEN")){
-                        btn.setBackground(Color.GREEN);
-                    }
-                    else {
+                    
+                    if(reserved){
                         btn.setBackground(Color.RED);
                     }
+                    else{
+                        btn.setBackground(Color.GREEN);
+                    }
                     
+                   
                     btn.setBorder(new LineBorder(Color.WHITE));
                     // fjerner blå highlihght når man klikker på knappen
                     btn.setFocusPainted(false);
@@ -580,71 +583,40 @@ public class BiografViewer
                     btn.setContentAreaFilled(false);
                     btn.setOpaque(true);
             
-                    int kolonne = col;
-                    int række = row;
-                   
+                    int kolonne = col; 
                     btn.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            btn.setBackground(Color.RED);
-                            JButton btn = (JButton) e.getSource();
-                                         
-                            gbc.gridx = kolonne + 1;
-                            
-                            
-                            String buttonColor = buttonValues[række-1][kolonne-1].getColor();
-                            if(buttonColor.equals("GREEN")){
-                                buttonColor = "YELLOW";
-                                btn.setBackground(Color.YELLOW);
-                            }
-                            else if(buttonColor.equals("YELLOW")){
-                                buttonColor = "GREEN";
+                            if(btn.getBackground() == pinkColor){
                                 btn.setBackground(Color.GREEN);
                             }
-                            else {
-                                buttonColor = "RED";
-                                btn.setBackground(Color.RED);
+                            else if(btn.getBackground() == Color.GREEN){
+                                btn.setBackground(pinkColor);
                             }
-                            //lagrer knappens aktuelle farve
-                            buttonValues[række-1][kolonne-1].setColor(buttonColor);
+                            JButton btn = (JButton) e.getSource();
+
                             System.out.println("clicked column "
                                 + btn.getClientProperty("column")
                                 + ", row " + btn.getClientProperty("row"));
                             }
                     });
-            
-                    //når musen hover over
                     /*
                     btn.addMouseListener( new MouseAdapter() {
                         public void mouseEntered( MouseEvent e ) {
-                        //String buttonColor = buttonValues[række-1][kolonne-1].getColor();
-                         //   if(!buttonColor.equals("RED")){
                             btn.setBackground(new Color(138,43,226));
+                
                             btn.setToolTipText(sutmig);
-                     //   }
+                
+                
                         }
                     });
-                    */
-                    
-                    //når musen un-hover igen
                     btn.addMouseListener( new MouseAdapter() {
                         public void mouseExited( MouseEvent e ) {
-                            String buttonColor = buttonValues[række-1][kolonne-1].getColor();
-                            
-                           
-                            if(buttonColor.equals("GREEN")){
-                                btn.setBackground(Color.GREEN);
-                            }
-                            else if (buttonColor.equals("RED")){
-                                btn.setBackground(Color.RED);
-                            }
-                            else if (buttonColor.equals("YELLOW")){
-                                btn.setBackground(Color.YELLOW);
-                            }
-                            
-                            
+                            btn.setForeground(Color.GREEN);
+                            btn.setBackground(Color.GREEN);
                         }
                     } );
+                    */
                     gbc.gridx = col;
                     gbc.gridy = row;
                     gbc.gridwidth = gbc.gridheight = 1;
@@ -665,9 +637,7 @@ public class BiografViewer
             return centerPanel;
         }
         
-        public void updateColor(String color){
-        
-        }
+       
 
         /*public void addReservationsInRetReservations()
         {

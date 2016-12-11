@@ -45,6 +45,26 @@ public class DataFactory
         return null; 
     }
     
+    public Customer getCustomer(int id){
+        ResultSet r = MySQL.query("SELECT * FROM customers WHERE telephone_number = " + id + ";");
+        try{
+            // How to get data from the ResultSet
+            if(r.next())
+            {
+                //get the title
+                String name = r.getString("name");
+                int telephone_number = r.getInt("telephone_number");
+                
+                Customer customer = new Customer(telephone_number, name);
+                // Finally will still be called, even if we return here!
+                return customer;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return null; 
+    }
+    
     public Auditorium getAuditorium(int id){
         ResultSet r = MySQL.query("SELECT * FROM auditorium WHERE auditorium_id = " + id + ";");
         try{
@@ -91,6 +111,7 @@ public class DataFactory
     }
     
     public Reservation getReservation(int id){
+        // Skal der ikke selectes fra reservations, og ud fra reservationID? - Ikke shows.
         ResultSet r = MySQL.query("SELECT * FROM shows WHERE show_id = " + id + ";");
         try{
             // How to get data from the ResultSet
@@ -115,6 +136,9 @@ public class DataFactory
         return null; 
     }
     
+    public void deleteReservation(int id){
+        MySQL.queryUpdate("DELETE FROM reservations WHERE reservation_id = " + id + ";");
+    }
     
     public List<Integer> getAllMovieIds(){
         List<Integer> movieIds = new ArrayList<>();

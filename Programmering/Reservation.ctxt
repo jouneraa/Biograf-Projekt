@@ -1,10 +1,10 @@
 #BlueJ class context
-comment0.params=reservation_id\ customer_id\ show_id\ row_number\ seat_number
+comment0.params=reservation_id\ telephone_number\ show_id\ row_number\ seat_number
 comment0.target=Reservation(int,\ int,\ int,\ int,\ int)
 comment1.params=
 comment1.target=int\ reservation_id()
 comment2.params=
-comment2.target=int\ customer_id()
+comment2.target=int\ telephone_number()
 comment3.params=
 comment3.target=int\ show_id()
 comment4.params=

@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
+import javax.swing.table.DefaultTableModel;
 
 // combobox integer = klik på reserver plads = klik på specifik sæde + highlighter de sæder til højre for sædet + comboboxnummer 
 
@@ -682,4 +683,76 @@ public class BiografViewer
                 retReservationGrid.add(new JButton("Ret reservation"), dbc);
             }
         }*/
+        public void addReservationTable()
+        {
+            // Tilføje reverseknap, hvis man kommer til at slette den forkerte reservation
+            
+            // Ny JTable
+            JFrame frame = new JFrame();
+            JTable table = new JTable();
+            
+            Object[] columns = {"Reservation ID","Customer ID","Show ID","Row Number","Seat Number"};
+            DefaultTableModel model = new DefaultTableModel();
+            model.setColumnIdentifiers(columns);
+            table.setModel(model);
+            
+            table.setBackground(Color.GREEN);
+            table.setForeground(Color.WHITE);
+            table.setRowHeight(30);
+            
+            
+            JTextField reservation_id = new JTextField();
+            JTextField customer_id = new JTextField();
+            JTextField show_id = new JTextField();
+            JTextField row_number = new JTextField();
+            JTextField seat_number = new JTextField();
+            
+            JButton btnSearch = new JButton("Customer Search");
+            JButton btnDelete = new JButton("Delete Reservation");
+            
+            
+            customer_id.setBounds(20,265,100,25);
+            
+            btnSearch.setBounds(150,265,100,25);
+            btnDelete.setBounds(150,310,100,25);
+            
+            JScrollPane pane = new JScrollPane(table);
+            pane.setBounds(0,0,880,200);
+            
+            frame.setLayout(null);
+            frame.add(pane);
+            
+            frame.add(reservation_id);
+            frame.add(customer_id);
+            frame.add(show_id);
+            frame.add(row_number);
+            frame.add(seat_number);
+            
+            frame.add(btnSearch);
+            frame.add(btnDelete);
+            
+            
+            
+            
+            Object[] row = new Object[4];
+            btnDelete.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            int i = table.getSelectedRow();
+                            if(i>=0){
+                                model.removeRow(i);
+                            }
+                            else{
+                                System.out.println("No rows to delete");
+                            }
+                        }
+                    });
+
+            frame.setSize(900,400);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setVisible(true);
+            
+        }
 }
+

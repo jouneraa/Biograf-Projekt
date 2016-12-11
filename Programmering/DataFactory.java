@@ -124,8 +124,6 @@ public class DataFactory
                 int rowNr = r.getInt("row_number");
                 int seatNr = r.getInt("seat_number");
                 
-                
-                
                 Reservation reservation = new Reservation(resId, telNr, showId, rowNr, seatNr);
                 // Finally will still be called, even if we return here!
                 return reservation;
@@ -197,5 +195,28 @@ public class DataFactory
         return null;
     }
    
-   
+   public List<Reservation> getDetailsForAllReservations(){
+       List<Reservation> reservations = new ArrayList<>();
+       ResultSet r = MySQL.query("SELECT * FROM reservations" + ";");
+        try{
+            // How to get data from the ResultSet
+            while(r.next())
+            {
+                //get the title
+                int resId = r.getInt("reservation_id");
+                int telNr = r.getInt("telephone_number");
+                int showId = r.getInt("show_id");
+                int rowNr = r.getInt("row_number");
+                int seatNr = r.getInt("seat_number");
+                
+                 Reservation reservation = new Reservation(resId, telNr, showId, rowNr, seatNr);
+                // Finally will still be called, even if we return here!
+                reservations.add(reservation);
+            }
+            return reservations;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return null;
+   }
 }

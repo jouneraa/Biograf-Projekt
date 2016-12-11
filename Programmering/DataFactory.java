@@ -111,6 +111,7 @@ public class DataFactory
     }
     
     public Reservation getReservation(int id){
+        // Skal der ikke selectes fra reservations, og ud fra reservationID? - Ikke shows.
         ResultSet r = MySQL.query("SELECT * FROM shows WHERE show_id = " + id + ";");
         try{
             // How to get data from the ResultSet
@@ -135,8 +136,8 @@ public class DataFactory
         return null; 
     }
     
-     public void deleteReservation(int id){
-        MySQL.queryUpdate("DELETE FROM reservations WHERE reservation_id = " + id+ ";");
+    public void deleteReservation(int id){
+        MySQL.queryUpdate("DELETE FROM reservations WHERE reservation_id = " + id + ";");
     }
     
     public List<Integer> getAllMovieIds(){

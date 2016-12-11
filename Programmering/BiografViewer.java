@@ -109,6 +109,7 @@ public class BiografViewer
         CenterBorder.add(CenterCenterBorder, BorderLayout.CENTER);
         
         // lave et gridbaglayout som reservationerne skal opbevares i 
+        
         JPanel retReservationGrid = new JPanel();
          
         retReservationGrid.setLayout(new GridBagLayout());
@@ -606,4 +607,47 @@ public class BiografViewer
             return centerPanel;
         }
 
+        /*public void addReservationsInRetReservations()
+        {
+            // tilføj reservation_id, telephone_number, osv. øverst som titler
+            
+            // tilføj reservationerne som GridBagConstraints
+            List<Integer> reservationIds = dataFactory.getAllReservations();
+            for(int x: reservationIds){
+                Reservation reservation = dataFactory.getReservation(x);
+                int reservation_id = reservation.getReservation_id();
+                int customer_id = reservation.getCustomer_id();
+                int show_id = reservation.getShow_id();
+                int row_number = reservation.getRow_number();
+                int seat_number = reservation.getSeat_number();
+                
+                
+                //JPanel retReservationGrid = new JPanel();
+         
+                //retReservationGrid.setLayout(new GridBagLayout());
+                //retReservationGrid.setBorder(new EmptyBorder(30, 110, 30, 110));
+                //GridBagConstraints dbc = new GridBagConstraints();
+                
+                
+                dbc.insets = new Insets(15,15,15,15);
+                dbc.gridx = 1;
+                dbc.gridx = 0;
+                retReservationGrid.add(new JLabel(Integer.toString(reservation_id)), dbc);
+                dbc.gridx = 2;
+                dbc.gridy = 0;
+                retReservationGrid.add(new JLabel(Integer.toString(customer_id)), dbc);
+                dbc.gridx = 3;
+                dbc.gridy = 0;
+                retReservationGrid.add(new JLabel(Integer.toString(show_id)), dbc);
+                dbc.gridx = 4;
+                dbc.gridy = 0;
+                retReservationGrid.add(new JLabel(Integer.toString(row_number)), dbc);
+                dbc.gridx = 5;
+                dbc.gridy = 0;
+                retReservationGrid.add(new JLabel(Integer.toString(seat_number)), dbc);
+                dbc.gridx = 6;
+                dbc.gridy = 0;
+                retReservationGrid.add(new JButton("Ret reservation"), dbc);
+            }
+        }*/
 }

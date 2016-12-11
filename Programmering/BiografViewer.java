@@ -231,7 +231,7 @@ public class BiografViewer
           
          // nyt JPanel som nestes ind i southPanel, bemærk flowlayout og ikke borderlayout da knapperne skal "floate på en række" i højre hjørne
           JPanel DownRight = new JPanel(new FlowLayout());
-          JButton Knap1 = new JButton("Antal Pladser");
+          JButton Knap1 = new JButton("Book");
           DownRight.add(Knap1);
           DownRight.add(myNumbers); 
           
@@ -493,7 +493,7 @@ public class BiografViewer
             
             // nyt JPanel som nestes ind i southPanel, bemærk flowlayout og ikke borderlayout da knapperne skal "floate på en række" i højre hjørne
             JPanel DownRight = new JPanel(new FlowLayout());
-            JButton Knap1 = new JButton("Antal Pladser");
+            JButton Knap1 = new JButton("Book");
             DownRight.add(Knap1);
             DownRight.add(myNumbers); 
           

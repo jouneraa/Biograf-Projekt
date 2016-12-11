@@ -14,23 +14,23 @@ public class Reservation{
         this.seat_number =seat_number;
     }
     
-    public int getReservation_id() {
+    public int reservation_id() {
         return reservation_id;
     }
 
-    public int getCustomer_id() {
+    public int customer_id() {
         return customer_id;
     }
 
-    public int getShow_id() {
+    public int show_id() {
         return show_id;
     }
 
-    public int getRow_number() {
+    public int row_number() {
         return row_number;
     }
 
-    public int getSeat_number() {
+    public int seat_number() {
         return seat_number;
     }
 }

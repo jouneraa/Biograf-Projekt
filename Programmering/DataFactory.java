@@ -159,9 +159,9 @@ public class DataFactory
         return null;
     }
     
-    public List<Integer> getAllReservations(){
+    public List<Integer> getAllShowReservationIds(int show_id){
         List<Integer> reservationIds = new ArrayList<>();
-        ResultSet r = MySQL.query("SELECT reservation_id FROM reservations;");
+        ResultSet r = MySQL.query("SELECT reservation_id FROM reservations WHERE show_id = " + show_id + ";");
         try{
             // How to get data from the ResultSet
             while(r.next())

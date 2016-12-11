@@ -26,22 +26,22 @@ public class Auditorium
     }
 
   
-    public int getAuditorium_id()
+    public int auditorium_id()
     {
         return auditorium_id;
     }
     
-    public String getName()
+    public String name()
     {
         return name;
     }
     
-    public int getRow_Number()
+    public int row_number()
     {
         return row_number;
     }
     
-    public int getSeat_Number()
+    public int seat_number()
     {
         return seat_number;
     }

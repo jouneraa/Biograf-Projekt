@@ -400,25 +400,23 @@ public class BiografViewer
         List<Integer> movieIds = dataFactory.getAllMovieIds();
         for(int x : movieIds){
             Movie movie = dataFactory.getMovie(x);
-            String movieTitle = movie.getTitle();
+            String movieTitle = movie.title();
             int movieId = movie.getMovieId();
             JButton forestilling = new JButton(movieTitle);
             forestilling.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JPanel buttonGrid = new JPanel(new GridLayout(20,1));
-                    StringBuilder sb = new StringBuilder();
                     List<Integer> showIds = dataFactory.getActiveShows(movieId);
                     for(int y : showIds){
                         Show show = dataFactory.getShow(y);
-                        sb.append("Auditorium: " + show.auditorium_id() + " Tid: " + show.start_time());
-                        JButton showButton = new JButton(sb.toString());
+                        String buttonInfo = "Auditorium: " + show.auditorium_id() + " Tid: " + show.start_time();
+                        JButton showButton = new JButton(buttonInfo);
+                        //tilføjer listenere igen, til sædefordelingen
                         addShowButtonListeners(showButton, show);
                         buttonGrid.add(showButton);
-                        sb = new StringBuilder();
                     }
-                    
-          
+                    //viser listen af spilletider i rammen
                     CenterWestGrid.add(buttonGrid, "buttonGrid");
                     cardLayout.show(CenterWestGrid, "buttonGrid");
                             }
@@ -433,8 +431,179 @@ public class BiografViewer
             showButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    
+                    displayBookingPage(show);
                             }
             });
         } 
+        
+        public void displayBookingPage(Show show){
+            JPanel bookingLayout = new JPanel(); 
+            bookingLayout.setLayout(new BorderLayout(6, 6));
+            bookingLayout.setBorder(new EtchedBorder());
+            // de forskellige borderlayout laves i seperate metoder
+            JPanel northPanel = makeNorthPanel(show);
+            JPanel southPanel = makeSouthPanel(show);
+            JPanel centerPanel = makeCenterPanel(show); 
+            // nu nestes de forskellige borderlayouts ind i det store borderlayout  
+            bookingLayout.add(northPanel, BorderLayout.NORTH);       
+            bookingLayout.add(southPanel, BorderLayout.SOUTH);
+            bookingLayout.add(centerPanel, BorderLayout.CENTER);
+            //viser bookinglayoutet i rammen
+            CenterWestGrid.add(bookingLayout, "bookingLayout");
+            cardLayout.show(CenterWestGrid, "bookingLayout");
+        }
+        
+        public JPanel makeNorthPanel(Show show){
+             JPanel northPanel = new JPanel(new BorderLayout());
+             // sætter to jlabel til west og east i northPanel så de kan være ud i siden, senere kommer northpanel til at sættes mod north i contentpane
+             String showTime = show.start_time();
+             northPanel.add(new JLabel("Forestilling: " + showTime), BorderLayout.EAST);
+             String movieName = dataFactory.getMovie(show.movie_id()).title();
+             JLabel Tekst = new JLabel("Film: " + movieName);
+             Tekst.setFont(new Font("Serif", Font.PLAIN, 20));
+             northPanel.add(Tekst, BorderLayout.WEST);
+             
+             return northPanel;
+        }
+        
+        public JPanel makeSouthPanel(Show show){
+            JComboBox<Integer> myNumbers = new JComboBox<Integer>();
+            myNumbers.addItemListener(new ItemListener() {
+
+                @Override
+                public void itemStateChanged(ItemEvent e) {
+                    if ((e.getStateChange() == ItemEvent.SELECTED)) {
+                        BiografPladserValgte = (Integer)myNumbers.getSelectedItem();
+                        System.out.println(BiografPladserValgte);
+                    
+                    
+                    }
+                }
+            });
+        
+        
+            myNumbers.addItem(1);
+            myNumbers.addItem(2);
+            myNumbers.addItem(3);
+            myNumbers.addItem(4);
+            myNumbers.addItem(5);
+            myNumbers.addItem(6);
+          
+        
+            
+            // nyt JPanel som nestes ind i southPanel, bemærk flowlayout og ikke borderlayout da knapperne skal "floate på en række" i højre hjørne
+            JPanel DownRight = new JPanel(new FlowLayout());
+            JButton Knap1 = new JButton("Antal Pladser");
+            DownRight.add(Knap1);
+            DownRight.add(myNumbers); 
+          
+            // nyt JPanel som nestes ind i southPanel som nestes ind i ContentPane
+            JPanel DownLeft = new JPanel(new GridLayout(2,2));
+            DownLeft.setBorder(new EtchedBorder());
+            JLabel freeLabel = new JLabel("Ledige Pladser");
+            JLabel freeSeats = new JLabel("  5/100");
+            
+            JLabel auditLabel = new JLabel("Sal");
+            int auditorium = show.auditorium_id();
+            JLabel curAudit = new JLabel("  " + auditorium);
+            
+            // adder ovenstående labels til gridlayoutet
+            DownLeft.add(auditLabel);
+            DownLeft.add(curAudit);
+            DownLeft.add(freeLabel);
+            DownLeft.add(freeSeats);
+    
+            JPanel southPanel = new JPanel(new BorderLayout());
+         
+            southPanel.add(DownRight, BorderLayout.EAST);
+            southPanel.add(DownLeft, BorderLayout.WEST);
+            
+            return southPanel;
+        }
+        
+        
+
+        public JPanel makeCenterPanel(Show show){
+            JPanel seatsGraphical = new JPanel();
+         
+            seatsGraphical.setLayout(new GridBagLayout());
+            seatsGraphical.setBorder(new EmptyBorder(20, 90, 20, 90));
+            GridBagConstraints gbc = new GridBagConstraints();
+        
+            int auditoriumId = show.auditorium_id();
+            Auditorium auditorium = dataFactory.getAuditorium(auditoriumId);
+            int rowNumbers = auditorium.row_number();
+            int colNumbers = auditorium.seat_number();
+            for (int row = 1; row < (rowNumbers + 1); row++) {
+                for (int col = 1; col < (colNumbers + 1); col++) {
+                    JButton btn = new JButton();
+                    
+                    btn.putClientProperty("column", col);
+                    btn.putClientProperty("row", row);
+                
+                    // tekst streng der skal stå over hover
+                    ToolTipManager.sharedInstance().setInitialDelay(0);
+                    String sutmig = ("Række " + row + " " +"\n" + "Sæde " + col +  " ");
+                
+                
+                    btn.setBackground(Color.GREEN);
+                    btn.setBorder(new LineBorder(Color.WHITE));
+                    // fjerner blå highlihght når man klikker på knappen
+                    btn.setFocusPainted(false);
+                    // gør så at UI.manageLookAndFeel ikke farver knapperne grå som UI/baggrunden 
+                    btn.setContentAreaFilled(false);
+                    btn.setOpaque(true);
+            
+                    int kolonne = col; 
+                    btn.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            btn.setBackground(Color.RED);
+                            JButton btn = (JButton) e.getSource();
+                            for(int i =0; i < BiografPladserValgte; i++){                  
+                                gbc.gridx = kolonne + 1;
+                                btn.setBackground(Color.RED);
+                            }
+                        
+                            System.out.println("clicked column "
+                                + btn.getClientProperty("column")
+                                + ", row " + btn.getClientProperty("row"));
+                            }
+                    });
+            
+                    btn.addMouseListener( new MouseAdapter() {
+                        public void mouseEntered( MouseEvent e ) {
+                            btn.setBackground(new Color(138,43,226));
+                
+                            btn.setToolTipText(sutmig);
+                
+                
+                        }
+                    });
+                    btn.addMouseListener( new MouseAdapter() {
+                        public void mouseExited( MouseEvent e ) {
+                            btn.setForeground(Color.GREEN);
+                            btn.setBackground(Color.GREEN);
+                        }
+                    } );
+                    gbc.gridx = col;
+                    gbc.gridy = row;
+                    gbc.gridwidth = gbc.gridheight = 1;
+                    gbc.fill = GridBagConstraints.BOTH;
+                    gbc.anchor = GridBagConstraints.NORTHWEST;
+                    gbc.weightx = 20;
+                    gbc.weighty = 20;
+                    seatsGraphical.add(btn, gbc);
+                }   
+            }
+            //2 nye JPanels som skal bruges til at få pladserne til at være i midten af det hele
+            JPanel centerPanel = new JPanel(new BorderLayout());
+            //adder midterflowlayout til et centerpanel for at få det til at være centreret
+            centerPanel.add(seatsGraphical, BorderLayout.CENTER);
+               // opretter et JPanel som DownRight og DownLeft skal nestes ind i 
+               //JPanel panelResult = addRest(seatsGraphical);
+        
+            return centerPanel;
+        }
+
 }

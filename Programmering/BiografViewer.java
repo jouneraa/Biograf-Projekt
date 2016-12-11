@@ -36,6 +36,7 @@ public class BiografViewer
     private ButtonValue[][] buttonValues;
     
     private Color pinkColor;
+    private JTextField phoneField;
     
     // konstruktoren som kalder funktionen til at lave framen
     public BiografViewer()
@@ -189,12 +190,25 @@ public class BiografViewer
         HøjreKnap.setFocusPainted(false);
         
         CenterBorder.add(VenstreKnap, BorderLayout.WEST); 
-        CenterBorder.add(HøjreKnap, BorderLayout.EAST); 
+        
+        
+       
+        JPanel gridEastCenter = new JPanel(new BorderLayout());
+        JLabel phoneLabelField = new JLabel("telephone number");
+        gridEastCenter.add(phoneLabelField, BorderLayout.SOUTH);
+        
+        JPanel gridEastSouth = new JPanel(new BorderLayout());
+        phoneField = new JTextField(20);
+        gridEastSouth.add(phoneField, BorderLayout.SOUTH);
+        gridEastSouth.add(gridEastCenter, BorderLayout.CENTER);
+        
+       
+        CenterBorder.add(gridEastSouth, BorderLayout.EAST); 
         
         
         
        
-        
+       
         
         
         addShowsInBar();
@@ -354,7 +368,8 @@ public class BiografViewer
 
         // arrangerer componenterne   
 
-        frame.pack();
+        //frame.pack();
+        frame.setSize(1200,800);
         
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setLocation(d.width/2 - frame.getWidth()/2, d.height/2 - frame.getHeight()/2);
@@ -755,7 +770,7 @@ public class BiografViewer
                         }
                     });
 
-            frame.setSize(900,400);
+            frame.setSize(1500,400);
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);

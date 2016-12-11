@@ -135,6 +135,9 @@ public class DataFactory
         return null; 
     }
     
+     public void deleteReservation(int id){
+        MySQL.queryUpdate("DELETE FROM reservations WHERE reservation_id = " + id+ ";");
+    }
     
     public List<Integer> getAllMovieIds(){
         List<Integer> movieIds = new ArrayList<>();

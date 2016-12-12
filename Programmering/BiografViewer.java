@@ -835,10 +835,12 @@ public class BiografViewer
     
     
     public void finalizeReservation(String name, int phone){
+        dataFactory.addCustomer(phone, name);
+        
         for(Seat x : selectedSeats){
             dataFactory.addReservation(phone, showIdSelected, x.getRow(), x.getColumn());
-            selectedSeats.clear();
         }
+        selectedSeats.clear();
     }
     
     public boolean testInputString(String nameResult, String phoneResult){

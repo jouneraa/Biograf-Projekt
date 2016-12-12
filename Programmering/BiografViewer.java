@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 // combobox integer = klik på reserver plads = klik på specifik sæde + highlighter de sæder til højre for sædet + comboboxnummer 
 
@@ -32,6 +33,7 @@ public class BiografViewer
     private JPanel CenterWestGrid;
     private JPanel CenterCenterBorder;
     private CardLayout cardLayout = new CardLayout();
+    
     
     private ButtonValue[][] buttonValues;
     
@@ -162,7 +164,46 @@ public class BiografViewer
         
         
         
-        // -----------------------------------------------------
+        // ----------------------------------------------------
+          
+          JPanel eastPanel = new JPanel(new GridBagLayout());
+          GridBagConstraints ebc = new GridBagConstraints();
+          ebc.insets = new Insets(5,5,5,5);
+
+          ebc.gridx = 1;
+          ebc.gridy = 0;
+          eastPanel.add(new JLabel("Ledige pladser"), ebc);          
+          ebc.gridx = 0;
+          ebc.gridy = 0;
+          JButton ledigeKnap = new JButton();          
+          ledigeKnap.setBackground(Color.GREEN);
+          ledigeKnap.setContentAreaFilled(false);
+          ledigeKnap.setOpaque(true);
+          eastPanel.add(ledigeKnap, ebc);
+          
+          ebc.gridx = 1;
+          ebc.gridy = 1;
+          eastPanel.add(new JLabel("Optagede"), ebc);
+          ebc.gridx = 0;
+          ebc.gridy = 1;
+          JButton optagetKnap = new JButton();          
+          optagetKnap.setBackground(Color.RED);
+          optagetKnap.setContentAreaFilled(false);
+          optagetKnap.setOpaque(true);
+          eastPanel.add(optagetKnap, ebc);
+          
+          ebc.gridx = 1;
+          ebc.gridy = 2;
+          eastPanel.add(new JLabel("Valgte pladser"), ebc);
+          ebc.gridx = 0; 
+          ebc.gridy = 2;
+          JButton valgteKnap = new JButton();          
+          valgteKnap.setBackground(new Color(138,43,226));
+          valgteKnap.setContentAreaFilled(false);
+          valgteKnap.setOpaque(true);
+          eastPanel.add(valgteKnap, ebc);
+          
+          
         
         
         
@@ -274,6 +315,11 @@ public class BiografViewer
           DownLeft.add(xddd);
           DownLeft.add(xd);
           DownLeft.add(xdddd);
+          
+          
+          
+          
+          
          
          // opretter et JPanel som DownRight og DownLeft skal nestes ind i 
           JPanel southPanel = new JPanel(new BorderLayout());
@@ -281,13 +327,14 @@ public class BiografViewer
           southPanel.add(DownRight, BorderLayout.EAST);
           southPanel.add(DownLeft, BorderLayout.WEST);
           
+          
           //2 nye JPanels som skal bruges til at få pladserne til at være i midten af det hele
           JPanel centerPanel = new JPanel(new BorderLayout());
           //JPanel midterFlowPanel = new JPanel(new FlowLayout());
           JPanel midterFlowPanel = new JPanel();
          
         midterFlowPanel.setLayout(new GridBagLayout());
-        midterFlowPanel.setBorder(new EmptyBorder(30, 110, 30, 110));
+        midterFlowPanel.setBorder(new EmptyBorder(30, 110, 30, 100));
         GridBagConstraints gbc = new GridBagConstraints();
         for (int row = 1; row < 21; row++) {
             for (int col = 1; col < 21; col++) {
@@ -354,11 +401,38 @@ public class BiografViewer
           //adder midterflowlayout til et centerpanel for at få det til at være centreret
           centerPanel.add(midterFlowPanel, BorderLayout.CENTER);
           
+          
+          // adder skærmen øverst i borderlayoutet så man kan se hvor salen vender XD 
+          JPanel centerNorthScreenPanel = new JPanel(new GridBagLayout());
+                  GridBagConstraints rbc = new GridBagConstraints();
+          centerNorthScreenPanel.setBorder(new EmptyBorder(30, 0, 30, 0));
+            rbc.fill = GridBagConstraints.HORIZONTAL;
+
+            rbc.weightx = 20;
+            rbc.weighty = 20;
+            rbc.gridx = 1;
+            rbc.gridy = 1;
+  
+            
+
+           JLabel Screen = new JLabel("---- SCREEN ----");
+           Screen.setOpaque(true);
+           Screen.setPreferredSize(new Dimension(500, 20));
+           Screen.setBackground(Color.BLACK);
+           Screen.setForeground (Color.WHITE);
+           Screen.setHorizontalAlignment(SwingConstants.CENTER);
+
+
+
+          centerNorthScreenPanel.add(Screen);
+          centerPanel.add(centerNorthScreenPanel, BorderLayout.NORTH); 
+          
         // nu nestes de forskellige borderlayouts ind i det store borderlayout  
         innerBorderLayout.add(northPanel, BorderLayout.NORTH);       
         innerBorderLayout.add(southPanel, BorderLayout.SOUTH);
         innerBorderLayout.add(centerPanel, BorderLayout.CENTER);
-
+        innerBorderLayout.add(eastPanel, BorderLayout.EAST); 
+        
         // sætter jtp aka TabbedPane ind i contentPame
         contentPane.add(jtp, BorderLayout.CENTER);
 
@@ -712,50 +786,6 @@ public class BiografViewer
         }
         
        
-
-        /*public void addReservationsInRetReservations()
-        {
-            // tilføj reservation_id, telephone_number, osv. øverst som titler
-            
-            // tilføj reservationerne som GridBagConstraints
-            List<Integer> reservationIds = dataFactory.getAllReservations();
-            for(int x: reservationIds){
-                Reservation reservation = dataFactory.getReservation(x);
-                int reservation_id = reservation.getReservation_id();
-                int customer_id = reservation.getCustomer_id();
-                int show_id = reservation.getShow_id();
-                int row_number = reservation.getRow_number();
-                int seat_number = reservation.getSeat_number();
-                
-                
-                //JPanel retReservationGrid = new JPanel();
-         
-                //retReservationGrid.setLayout(new GridBagLayout());
-                //retReservationGrid.setBorder(new EmptyBorder(30, 110, 30, 110));
-                //GridBagConstraints dbc = new GridBagConstraints();
-                
-                
-                dbc.insets = new Insets(15,15,15,15);
-                dbc.gridx = 1;
-                dbc.gridx = 0;
-                retReservationGrid.add(new JLabel(Integer.toString(reservation_id)), dbc);
-                dbc.gridx = 2;
-                dbc.gridy = 0;
-                retReservationGrid.add(new JLabel(Integer.toString(customer_id)), dbc);
-                dbc.gridx = 3;
-                dbc.gridy = 0;
-                retReservationGrid.add(new JLabel(Integer.toString(show_id)), dbc);
-                dbc.gridx = 4;
-                dbc.gridy = 0;
-                retReservationGrid.add(new JLabel(Integer.toString(row_number)), dbc);
-                dbc.gridx = 5;
-                dbc.gridy = 0;
-                retReservationGrid.add(new JLabel(Integer.toString(seat_number)), dbc);
-                dbc.gridx = 6;
-                dbc.gridy = 0;
-                retReservationGrid.add(new JButton("Ret reservation"), dbc);
-            }
-        }*/
         public void addReservationTable()
         {
             // Tilføje reverseknap, hvis man kommer til at slette den forkerte reservation
@@ -770,6 +800,7 @@ public class BiografViewer
             model.setColumnIdentifiers(columns);
             table.setModel(model);
             
+            // find Reservations and display them in the table
              ArrayList<Reservation> list = dataFactory.getDetailsForAllReservations();
             Object[] row = new Object[5];
             for(int x = 0; x < list.size(); x++) {
@@ -782,47 +813,47 @@ public class BiografViewer
                 model.addRow(row);
             }
             
-    
+            
             table.setBackground(Color.GREEN);
-            table.setForeground(Color.WHITE);
+            table.setForeground(Color.BLACK);
             table.setRowHeight(30);
             
-            
-            JTextField reservation_id = new JTextField();
-            JTextField telephone_number = new JTextField();
-            JTextField show_id = new JTextField();
-            JTextField row_number = new JTextField();
-            JTextField seat_number = new JTextField();
-            
-            
-            JButton btnSearch = new JButton("Customer Search");
+            JTextField searchCustomer = new JTextField();
+            JLabel searchInfo = new JLabel("Search for Customer:");
             JButton btnDelete = new JButton("Delete Reservation");
             
+            searchCustomer.setBounds(210,265,150,25);
+            searchInfo.setBounds(80,265,150,25);
+            btnDelete.setBounds(210,310,150,25);
             
-            telephone_number.setBounds(20,265,100,25);
-            
-            btnSearch.setBounds(150,265,150,25);
-            btnDelete.setBounds(150,310,150,25);
-            
+           
             JScrollPane pane = new JScrollPane(table);
             pane.setBounds(0,0,880,200);
             
             frame.setLayout(null);
             frame.add(pane);
             
-            frame.add(reservation_id);
-            frame.add(telephone_number);
-            frame.add(show_id);
-            frame.add(row_number);
-            frame.add(seat_number);
-            
-            frame.add(btnSearch);
+            frame.add(searchCustomer);   
+            frame.add(searchInfo);
             frame.add(btnDelete);
             
             
-            //Display Data in JTable
+             // Filter rows by adding a KeyListener to the Search Textfield - using TableRowSorter library class.}
+            
+             searchCustomer.addKeyListener(new KeyAdapter() {
+                        @Override
+                        public void keyReleased(KeyEvent e) {
+                            TableRowSorter<DefaultTableModel> rowSorter = new TableRowSorter<DefaultTableModel>(model);
+                            table.setRowSorter(rowSorter);
+                            String text = searchCustomer.getText();
             
             
+                            rowSorter.setRowFilter(RowFilter.regexFilter(text));
+                        }
+                    });
+            
+            
+            // Delete rows by adding an ActionListener to the delete button
             
             btnDelete.addActionListener(new ActionListener() {
                         @Override
@@ -859,7 +890,9 @@ public class BiografViewer
                 row[4] = list.get(x).seat_number();
                 
                 
+            }
         }
+<<<<<<< HEAD
     }
     
     public void finalizeReservation(String name, int phone){
@@ -902,5 +935,8 @@ public class BiografViewer
     
    
     
+=======
+        
+>>>>>>> abb128880fe0f330b896d25f5eb6e31963213067
 }
 

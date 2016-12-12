@@ -161,7 +161,46 @@ public class BiografViewer
         
         
         
-        // -----------------------------------------------------
+        // ----------------------------------------------------
+          
+          JPanel eastPanel = new JPanel(new GridBagLayout());
+          GridBagConstraints ebc = new GridBagConstraints();
+          ebc.insets = new Insets(5,5,5,5);
+
+          ebc.gridx = 1;
+          ebc.gridy = 0;
+          eastPanel.add(new JLabel("Ledige pladser"), ebc);          
+          ebc.gridx = 0;
+          ebc.gridy = 0;
+          JButton ledigeKnap = new JButton();          
+          ledigeKnap.setBackground(Color.GREEN);
+          ledigeKnap.setContentAreaFilled(false);
+          ledigeKnap.setOpaque(true);
+          eastPanel.add(ledigeKnap, ebc);
+          
+          ebc.gridx = 1;
+          ebc.gridy = 1;
+          eastPanel.add(new JLabel("Optagede"), ebc);
+          ebc.gridx = 0;
+          ebc.gridy = 1;
+          JButton optagetKnap = new JButton();          
+          optagetKnap.setBackground(Color.RED);
+          optagetKnap.setContentAreaFilled(false);
+          optagetKnap.setOpaque(true);
+          eastPanel.add(optagetKnap, ebc);
+          
+          ebc.gridx = 1;
+          ebc.gridy = 2;
+          eastPanel.add(new JLabel("Valgte pladser"), ebc);
+          ebc.gridx = 0; 
+          ebc.gridy = 2;
+          JButton valgteKnap = new JButton();          
+          valgteKnap.setBackground(new Color(138,43,226));
+          valgteKnap.setContentAreaFilled(false);
+          valgteKnap.setOpaque(true);
+          eastPanel.add(valgteKnap, ebc);
+          
+          
         
         
         
@@ -269,6 +308,11 @@ public class BiografViewer
           DownLeft.add(xddd);
           DownLeft.add(xd);
           DownLeft.add(xdddd);
+          
+          
+          
+          
+          
          
          // opretter et JPanel som DownRight og DownLeft skal nestes ind i 
           JPanel southPanel = new JPanel(new BorderLayout());
@@ -276,13 +320,14 @@ public class BiografViewer
           southPanel.add(DownRight, BorderLayout.EAST);
           southPanel.add(DownLeft, BorderLayout.WEST);
           
+          
           //2 nye JPanels som skal bruges til at få pladserne til at være i midten af det hele
           JPanel centerPanel = new JPanel(new BorderLayout());
           //JPanel midterFlowPanel = new JPanel(new FlowLayout());
           JPanel midterFlowPanel = new JPanel();
          
         midterFlowPanel.setLayout(new GridBagLayout());
-        midterFlowPanel.setBorder(new EmptyBorder(30, 110, 30, 110));
+        midterFlowPanel.setBorder(new EmptyBorder(30, 110, 30, 100));
         GridBagConstraints gbc = new GridBagConstraints();
         for (int row = 1; row < 21; row++) {
             for (int col = 1; col < 21; col++) {
@@ -349,11 +394,38 @@ public class BiografViewer
           //adder midterflowlayout til et centerpanel for at få det til at være centreret
           centerPanel.add(midterFlowPanel, BorderLayout.CENTER);
           
+          
+          // adder skærmen øverst i borderlayoutet så man kan se hvor salen vender XD 
+          JPanel centerNorthScreenPanel = new JPanel(new GridBagLayout());
+                  GridBagConstraints rbc = new GridBagConstraints();
+          centerNorthScreenPanel.setBorder(new EmptyBorder(30, 0, 30, 0));
+            rbc.fill = GridBagConstraints.HORIZONTAL;
+
+            rbc.weightx = 20;
+            rbc.weighty = 20;
+            rbc.gridx = 1;
+            rbc.gridy = 1;
+  
+            
+
+           JLabel Screen = new JLabel("---- SCREEN ----");
+           Screen.setOpaque(true);
+           Screen.setPreferredSize(new Dimension(500, 20));
+           Screen.setBackground(Color.BLACK);
+           Screen.setForeground (Color.WHITE);
+           Screen.setHorizontalAlignment(SwingConstants.CENTER);
+
+
+
+          centerNorthScreenPanel.add(Screen);
+          centerPanel.add(centerNorthScreenPanel, BorderLayout.NORTH); 
+          
         // nu nestes de forskellige borderlayouts ind i det store borderlayout  
         innerBorderLayout.add(northPanel, BorderLayout.NORTH);       
         innerBorderLayout.add(southPanel, BorderLayout.SOUTH);
         innerBorderLayout.add(centerPanel, BorderLayout.CENTER);
-
+        innerBorderLayout.add(eastPanel, BorderLayout.EAST); 
+        
         // sætter jtp aka TabbedPane ind i contentPame
         contentPane.add(jtp, BorderLayout.CENTER);
 

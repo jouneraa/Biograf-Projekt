@@ -97,6 +97,7 @@ target11.editor.x=7
 target11.editor.y=288
 target11.height=50
 target11.name=ButtonValue
+target11.naviview.expanded=false
 target11.showInterface=false
 target11.type=ClassTarget
 target11.typeParameters=

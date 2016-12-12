@@ -22,6 +22,7 @@ public class DataFactory
     }
     
     public void addReservation(int telephone_number, int show_id, int row_number, int seat_number){
+        // Virker kun såfremt at telefonnummeret peger på en oprettet customer.
         MySQL.queryUpdate("INSERT INTO reservations (telephone_number, show_id, row_number, seat_number) VALUES ('"+ telephone_number +"', '" + show_id + "', '" + row_number + "', '" + seat_number + "');"); 
     }
     //retunerer en titel på film

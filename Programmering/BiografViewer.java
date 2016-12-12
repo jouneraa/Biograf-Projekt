@@ -325,7 +325,7 @@ public class BiografViewer
           JPanel midterFlowPanel = new JPanel();
          
         midterFlowPanel.setLayout(new GridBagLayout());
-        midterFlowPanel.setBorder(new EmptyBorder(30, 110, 30, 110));
+        midterFlowPanel.setBorder(new EmptyBorder(30, 110, 30, 100));
         GridBagConstraints gbc = new GridBagConstraints();
         for (int row = 1; row < 21; row++) {
             for (int col = 1; col < 21; col++) {
@@ -393,20 +393,30 @@ public class BiografViewer
           centerPanel.add(midterFlowPanel, BorderLayout.CENTER);
           
           
-          // adder skærmen nederst i borderlayoutet så man kan se hvor salen vender XD 
-          JPanel centerSouthScreenPanel = new JPanel(new FlowLayout());
+          // adder skærmen øverst i borderlayoutet så man kan se hvor salen vender XD 
+          JPanel centerNorthScreenPanel = new JPanel(new GridBagLayout());
+                  GridBagConstraints rbc = new GridBagConstraints();
+          centerNorthScreenPanel.setBorder(new EmptyBorder(30, 0, 30, 0));
+            rbc.fill = GridBagConstraints.HORIZONTAL;
+
+            rbc.weightx = 20;
+            rbc.weighty = 20;
+            rbc.gridx = 1;
+            rbc.gridy = 1;
+  
             
+
            JLabel Screen = new JLabel("---- SCREEN ----");
            Screen.setOpaque(true);
-           Screen.setPreferredSize(new Dimension(300, 20));
+           Screen.setPreferredSize(new Dimension(500, 20));
            Screen.setBackground(Color.BLACK);
            Screen.setForeground (Color.WHITE);
            Screen.setHorizontalAlignment(SwingConstants.CENTER);
 
-  
 
-          centerSouthScreenPanel.add(Screen, BorderLayout.CENTER); 
-          centerPanel.add(centerSouthScreenPanel, BorderLayout.NORTH); 
+
+          centerNorthScreenPanel.add(Screen);
+          centerPanel.add(centerNorthScreenPanel, BorderLayout.NORTH); 
           
         // nu nestes de forskellige borderlayouts ind i det store borderlayout  
         innerBorderLayout.add(northPanel, BorderLayout.NORTH);       

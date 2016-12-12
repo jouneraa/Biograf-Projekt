@@ -197,7 +197,14 @@ public class BiografViewer
                         public void actionPerformed(ActionEvent e) {
                             int i = table.getSelectedRow();
                             
+                            
+                            
+                            int selectedColumnIndex = table.getSelectedColumn();
+                            int selectedReservationId = (Integer) table.getModel().getValueAt(i, 0);
+                            //int selectedReservationId = selectedReservation.reservation_id();
+                            
                             if(i>=0){
+                                dataFactory.deleteReservation(selectedReservationId);
                                 //MySQL.queryUpdate("DELETE FROM reservations WHERE reservation_id = " + reservation_id.getText() + ";");  virker ikke :(
                                 model.removeRow(i);                                
                             }

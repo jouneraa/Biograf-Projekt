@@ -121,46 +121,99 @@ public class BiografViewer
         
         // lave et gridbaglayout som reservationerne skal opbevares i 
         
-        JPanel retReservationGrid = new JPanel();
-         
-        retReservationGrid.setLayout(new GridBagLayout());
-        retReservationGrid.setBorder(new EmptyBorder(30, 110, 30, 110));
-        GridBagConstraints dbc = new GridBagConstraints();
-        dbc.insets = new Insets(15,15,15,15);
-        dbc.gridx = 1;
-        dbc.gridy = 0;
-        retReservationGrid.add(new JLabel("First row, first column"), dbc);
-        dbc.gridx = 2;
-        dbc.gridy = 0;
-        retReservationGrid.add(new JLabel("First row, second column"), dbc);
-        dbc.gridx = 3;
-        dbc.gridy = 0;
-        retReservationGrid.add(new JLabel("First row, first column"), dbc);
-        dbc.gridx = 4;
-        dbc.gridy = 0;
-        retReservationGrid.add(new JLabel("First row, second column"), dbc);
-        dbc.gridx = 5;
-        dbc.gridy = 0;
-        retReservationGrid.add(new JLabel("First row, second column"), dbc);
-        dbc.gridx = 6;
-        dbc.gridy = 0;
-        retReservationGrid.add(new JButton("Ret reservation"), dbc);
+        
+        JPanel frame1 = new JPanel(new BorderLayout()); 
+        
+        
+        
+            JTable table = new JTable();
+            
+            Object[] columns = {"Reservation ID","Telephone Number","Show ID","Row Number","Seat Number"};
+            
+            DefaultTableModel model = new DefaultTableModel();
+            model.setColumnIdentifiers(columns);
+            table.setModel(model);
+            
+            // find Reservations and display them in the table
+             ArrayList<Reservation> list = dataFactory.getDetailsForAllReservations();
+            Object[] row1 = new Object[5];
+            for(int x = 0; x < list.size(); x++) {
+                row1[0] = list.get(x).reservation_id();
+                row1[1] = list.get(x).telephone_number();
+                row1[2] = list.get(x).show_id();
+                row1[3] = list.get(x).row_number();
+                row1[4] = list.get(x).seat_number();
+                
+                model.addRow(row1);
+            }
+            
+            
+            table.setBackground(Color.GREEN);
+            table.setForeground(Color.BLACK);
+            table.setRowHeight(30);
+            
+            JTextField searchCustomer = new JTextField();
+            JLabel searchInfo = new JLabel("Search for Customer:");
+            JButton btnDelete = new JButton("Delete Reservation");
+            
+            searchCustomer.setBounds(210,265,150,25);
+            searchInfo.setBounds(80,265,150,25);
+            searchCustomer.setPreferredSize( new Dimension( 200, 24 ) );
+            btnDelete.setBounds(210,310,150,25);
+            
+           
+            JScrollPane pane = new JScrollPane(table);
+            pane.setBounds(0,0,880,200);
+            
+           
+            frame1.add(pane);
+            JPanel lowerFlowLayout = new JPanel(new FlowLayout()); 
+            lowerFlowLayout.add(searchCustomer);
+            lowerFlowLayout.add(searchInfo);
+            lowerFlowLayout.add(btnDelete);
+            frame1.add(lowerFlowLayout, BorderLayout.SOUTH);   
+
+            
+            
+             // Filter rows by adding a KeyListener to the Search Textfield - using TableRowSorter library class.}
+            
+            searchCustomer.addKeyListener(new KeyAdapter() {
+                        @Override
+                        public void keyReleased(KeyEvent e) {
+                            TableRowSorter<DefaultTableModel> rowSorter = new TableRowSorter<DefaultTableModel>(model);
+                            table.setRowSorter(rowSorter);
+                            String text = searchCustomer.getText();
+            
+            
+                            rowSorter.setRowFilter(RowFilter.regexFilter(text));
+                        }
+                    });
+            
+            
+            // Delete rows by adding an ActionListener to the delete button
+            
+            btnDelete.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            int i = table.getSelectedRow();
+                            
+                            if(i>=0){
+                                //MySQL.queryUpdate("DELETE FROM reservations WHERE reservation_id = " + reservation_id.getText() + ";");  virker ikke :(
+                                model.removeRow(i);                                
+                            }
+                            else{
+                                System.out.println("No rows to delete");
+                            }
+                        }
+                    });
+                  
+
         
        
+        // ----------------------------------------------------
         
-       /* for (int row = 1; row < 21; row++) {
-            for (int col = 1; col < 21; col++) {
-                JButton btn = new JButton();
-                dbc.gridx = col;
-                dbc.gridy = row;
-                dbc.gridwidth = dbc.gridheight = 1;
-                dbc.fill = GridBagConstraints.BOTH;
-                dbc.anchor = GridBagConstraints.NORTHWEST;
-                dbc.weightx = 20;
-                dbc.weighty = 20;
-                retReservationGrid.add(btn, dbc);
-            }
-        } */ 
+       
+
         
         
         
@@ -221,7 +274,7 @@ public class BiografViewer
         jp1.add(InnerGrid, BorderLayout.WEST);
         jp1.add(CenterBorder, BorderLayout.CENTER);
         jp2.add(innerBorderLayout);
-        jp3.add(retReservationGrid);
+        jp3.add(frame1);
         
         jtp.addTab("Forestillinger", jp1);
         jtp.addTab("Reservation", jp2);
@@ -742,29 +795,23 @@ public class BiografViewer
                                 selectedSeats.add(new Seat(rowNr, colNr));
                             }
                             JButton btn = (JButton) e.getSource();
+                            
 
                             System.out.println("clicked column "
                                 + btn.getClientProperty("column")
                                 + ", row " + btn.getClientProperty("row"));
                             }
                     });
-                    /*
+                    
                     btn.addMouseListener( new MouseAdapter() {
                         public void mouseEntered( MouseEvent e ) {
-                            btn.setBackground(new Color(138,43,226));
-                
+                            
                             btn.setToolTipText(sutmig);
-                
-                
+
                         }
-                    });
-                    btn.addMouseListener( new MouseAdapter() {
-                        public void mouseExited( MouseEvent e ) {
-                            btn.setForeground(Color.GREEN);
-                            btn.setBackground(Color.GREEN);
-                        }
-                    } );
-                    */
+
+                    }); 
+                    
                     gbc.gridx = col;
                     gbc.gridy = row;
                     gbc.gridwidth = gbc.gridheight = 1;
@@ -786,97 +833,7 @@ public class BiografViewer
         }
         
        
-        public void addReservationTable()
-        {
-            // Tilføje reverseknap, hvis man kommer til at slette den forkerte reservation
-            
-            // Ny JTable
-            JFrame frame = new JFrame();
-            JTable table = new JTable();
-            
-            Object[] columns = {"Reservation ID","Telephone Number","Show ID","Row Number","Seat Number"};
-            
-            DefaultTableModel model = new DefaultTableModel();
-            model.setColumnIdentifiers(columns);
-            table.setModel(model);
-            
-            // find Reservations and display them in the table
-             ArrayList<Reservation> list = dataFactory.getDetailsForAllReservations();
-            Object[] row = new Object[5];
-            for(int x = 0; x < list.size(); x++) {
-                row[0] = list.get(x).reservation_id();
-                row[1] = list.get(x).telephone_number();
-                row[2] = list.get(x).show_id();
-                row[3] = list.get(x).row_number();
-                row[4] = list.get(x).seat_number();
-                
-                model.addRow(row);
-            }
-            
-            
-            table.setBackground(Color.GREEN);
-            table.setForeground(Color.BLACK);
-            table.setRowHeight(30);
-            
-            JTextField searchCustomer = new JTextField();
-            JLabel searchInfo = new JLabel("Search for Customer:");
-            JButton btnDelete = new JButton("Delete Reservation");
-            
-            searchCustomer.setBounds(210,265,150,25);
-            searchInfo.setBounds(80,265,150,25);
-            btnDelete.setBounds(210,310,150,25);
-            
-           
-            JScrollPane pane = new JScrollPane(table);
-            pane.setBounds(0,0,880,200);
-            
-            frame.setLayout(null);
-            frame.add(pane);
-            
-            frame.add(searchCustomer);   
-            frame.add(searchInfo);
-            frame.add(btnDelete);
-            
-            
-             // Filter rows by adding a KeyListener to the Search Textfield - using TableRowSorter library class.}
-            
-             searchCustomer.addKeyListener(new KeyAdapter() {
-                        @Override
-                        public void keyReleased(KeyEvent e) {
-                            TableRowSorter<DefaultTableModel> rowSorter = new TableRowSorter<DefaultTableModel>(model);
-                            table.setRowSorter(rowSorter);
-                            String text = searchCustomer.getText();
-            
-            
-                            rowSorter.setRowFilter(RowFilter.regexFilter(text));
-                        }
-                    });
-            
-            
-            // Delete rows by adding an ActionListener to the delete button
-            
-            btnDelete.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            int i = table.getSelectedRow();
-                            
-                            if(i>=0){
-                                //MySQL.queryUpdate("DELETE FROM reservations WHERE reservation_id = " + reservation_id.getText() + ";");  virker ikke :(
-                                model.removeRow(i);                                
-                            }
-                            else{
-                                System.out.println("No rows to delete");
-                            }
-                        }
-                    });
-                  
 
-            frame.setSize(1500,400);
-            frame.setLocationRelativeTo(null);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);
-            
-        }
         
         public void Show_Users_In_JTable()
         {

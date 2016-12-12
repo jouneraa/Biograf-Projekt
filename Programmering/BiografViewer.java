@@ -36,6 +36,7 @@ public class BiografViewer
     private ButtonValue[][] buttonValues;
     
     private Color pinkColor;
+    private JTextField phoneField;
     
     // konstruktoren som kalder funktionen til at lave framen
     public BiografViewer()
@@ -189,12 +190,25 @@ public class BiografViewer
         HøjreKnap.setFocusPainted(false);
         
         CenterBorder.add(VenstreKnap, BorderLayout.WEST); 
-        CenterBorder.add(HøjreKnap, BorderLayout.EAST); 
+        
+        
+       
+        JPanel gridEastCenter = new JPanel(new BorderLayout());
+        JLabel phoneLabelField = new JLabel("telephone number");
+        gridEastCenter.add(phoneLabelField, BorderLayout.SOUTH);
+        
+        JPanel gridEastSouth = new JPanel(new BorderLayout());
+        phoneField = new JTextField(20);
+        gridEastSouth.add(phoneField, BorderLayout.SOUTH);
+        gridEastSouth.add(gridEastCenter, BorderLayout.CENTER);
+        
+       
+        CenterBorder.add(gridEastSouth, BorderLayout.EAST); 
         
         
         
        
-        
+       
         
         
         addShowsInBar();
@@ -354,7 +368,8 @@ public class BiografViewer
 
         // arrangerer componenterne   
 
-        frame.pack();
+        //frame.pack();
+        frame.setSize(1200,800);
         
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setLocation(d.width/2 - frame.getWidth()/2, d.height/2 - frame.getHeight()/2);
@@ -437,19 +452,22 @@ public class BiografViewer
             showButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    displayBookingPage(show);
+                    
+                    List<Integer> allReservationIds = dataFactory.getAllShowReservationIds(show.show_id());
+                    
+                    displayBookingPage(show, allReservationIds);
                             }
             });
         } 
         
-        public void displayBookingPage(Show show){
+        public void displayBookingPage(Show show, List<Integer> allReservationIds){
             JPanel bookingLayout = new JPanel(); 
             bookingLayout.setLayout(new BorderLayout(6, 6));
             bookingLayout.setBorder(new EtchedBorder());
             // de forskellige borderlayout laves i seperate metoder
             JPanel northPanel = makeNorthPanel(show);
-            JPanel southPanel = makeSouthPanel(show);
-            JPanel centerPanel = makeCenterPanel(show); 
+            JPanel southPanel = makeSouthPanel(show, allReservationIds);
+            JPanel centerPanel = makeCenterPanel(show, allReservationIds); 
             // nu nestes de forskellige borderlayouts ind i det store borderlayout  
             bookingLayout.add(northPanel, BorderLayout.NORTH);       
             bookingLayout.add(southPanel, BorderLayout.SOUTH);
@@ -472,7 +490,7 @@ public class BiografViewer
              return northPanel;
         }
         
-        public JPanel makeSouthPanel(Show show){
+        public JPanel makeSouthPanel(Show show, List<Integer> allReservationIds){
             JComboBox<Integer> myNumbers = new JComboBox<Integer>();
             myNumbers.addItemListener(new ItemListener() {
 
@@ -507,11 +525,16 @@ public class BiografViewer
             JPanel DownLeft = new JPanel(new GridLayout(2,2));
             DownLeft.setBorder(new EtchedBorder());
             JLabel freeLabel = new JLabel("Ledige Pladser");
-            JLabel freeSeats = new JLabel("  5/100");
+            
+            //checker hvor mange sæder er optagede
+            int seatsTaken = allReservationIds.size();
+            Auditorium auditorium = dataFactory.getAuditorium(show.auditorium_id());
+            int seatsInAudit = auditorium.row_number() * auditorium.seat_number();
+            JLabel freeSeats = new JLabel("  " + seatsTaken + "/" + seatsInAudit);
             
             JLabel auditLabel = new JLabel("Sal");
-            int auditorium = show.auditorium_id();
-            JLabel curAudit = new JLabel("  " + auditorium);
+            int auditoriumId = show.auditorium_id();
+            JLabel curAudit = new JLabel("  " + auditoriumId);
             
             // adder ovenstående labels til gridlayoutet
             DownLeft.add(auditLabel);
@@ -529,7 +552,7 @@ public class BiografViewer
         
         
 
-         public JPanel makeCenterPanel(Show show){
+         public JPanel makeCenterPanel(Show show, List<Integer> allReservationIds){
             JPanel seatsGraphical = new JPanel();
          
             seatsGraphical.setLayout(new GridBagLayout());
@@ -542,7 +565,6 @@ public class BiografViewer
             int colNumbers = auditorium.seat_number();
             
             //find alle reservationerne til showet
-            List<Integer> allReservationIds = dataFactory.getAllShowReservationIds(show.show_id());
             List<Reservation> allReservations = new ArrayList<>();
             for(int x : allReservationIds){
                 allReservations.add(dataFactory.getReservation(x));
@@ -767,7 +789,7 @@ public class BiografViewer
                     });
                   
 
-            frame.setSize(900,400);
+            frame.setSize(1500,400);
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
@@ -789,9 +811,6 @@ public class BiografViewer
         }
     }
     
-    public boolean isCellEditable(int row, int column) {
-       //all cells false
-       return false;
-    }
+    
 }
 

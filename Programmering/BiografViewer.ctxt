@@ -17,6 +17,19 @@ comment15.params=show\ allReservationIds
 comment15.target=javax.swing.JPanel\ makeSouthPanel(Show,\ java.util.List)
 comment16.params=e
 comment16.target=void\ itemStateChanged(java.awt.event.ItemEvent)
+<<<<<<< HEAD
+comment17.params=e
+comment17.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment18.params=show\ allReservationIds
+comment18.target=javax.swing.JPanel\ makeCenterPanel(Show,\ java.util.List)
+comment19.params=e
+comment19.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment2.params=
+comment2.target=void\ showAbout()
+comment20.params=
+comment20.target=void\ addReservationTable()
+comment20.text=public\ void\ addReservationsInRetReservations()\r\n\ \ \ \ \ \ \ \ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ //\ tilf\u00F8j\ reservation_id,\ telephone_number,\ osv.\ \u00F8verst\ som\ titler\r\n\ \ \ \ \ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ \ \ \ \ //\ tilf\u00F8j\ reservationerne\ som\ GridBagConstraints\r\n\ \ \ \ \ \ \ \ \ \ \ \ List<Integer>\ reservationIds\ \=\ dataFactory.getAllReservations();\r\n\ \ \ \ \ \ \ \ \ \ \ \ for(int\ x\:\ reservationIds){\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Reservation\ reservation\ \=\ dataFactory.getReservation(x);\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int\ reservation_id\ \=\ reservation.getReservation_id();\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int\ customer_id\ \=\ reservation.getCustomer_id();\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int\ show_id\ \=\ reservation.getShow_id();\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int\ row_number\ \=\ reservation.getRow_number();\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int\ seat_number\ \=\ reservation.getSeat_number();\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //JPanel\ retReservationGrid\ \=\ new\ JPanel();\r\n\ \ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //retReservationGrid.setLayout(new\ GridBagLayout());\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //retReservationGrid.setBorder(new\ EmptyBorder(30,\ 110,\ 30,\ 110));\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //GridBagConstraints\ dbc\ \=\ new\ GridBagConstraints();\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dbc.insets\ \=\ new\ Insets(15,15,15,15);\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dbc.gridx\ \=\ 1;\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dbc.gridx\ \=\ 0;\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ retReservationGrid.add(new\ JLabel(Integer.toString(reservation_id)),\ dbc);\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dbc.gridx\ \=\ 2;\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dbc.gridy\ \=\ 0;\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ retReservationGrid.add(new\ JLabel(Integer.toString(customer_id)),\ dbc);\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dbc.gridx\ \=\ 3;\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dbc.gridy\ \=\ 0;\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ retReservationGrid.add(new\ JLabel(Integer.toString(show_id)),\ dbc);\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dbc.gridx\ \=\ 4;\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dbc.gridy\ \=\ 0;\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ retReservationGrid.add(new\ JLabel(Integer.toString(row_number)),\ dbc);\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dbc.gridx\ \=\ 5;\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dbc.gridy\ \=\ 0;\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ retReservationGrid.add(new\ JLabel(Integer.toString(seat_number)),\ dbc);\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dbc.gridx\ \=\ 6;\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dbc.gridy\ \=\ 0;\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ retReservationGrid.add(new\ JButton("Ret\ reservation"),\ dbc);\r\n\ \ \ \ \ \ \ \ \ \ \ \ }\r\n}
+=======
 comment17.params=show\ allReservationIds
 comment17.target=javax.swing.JPanel\ makeCenterPanel(Show,\ java.util.List)
 comment18.params=e
@@ -27,10 +40,18 @@ comment2.params=
 comment2.target=void\ showAbout()
 comment20.params=e
 comment20.target=void\ keyReleased(java.awt.event.KeyEvent)
+>>>>>>> abb128880fe0f330b896d25f5eb6e31963213067
 comment21.params=e
 comment21.target=void\ actionPerformed(java.awt.event.ActionEvent)
 comment22.params=
 comment22.target=void\ Show_Users_In_JTable()
+<<<<<<< HEAD
+comment23.params=name\ phone
+comment23.target=void\ finalizeReservation(java.lang.String,\ int)
+comment24.params=nameResult\ phoneResult
+comment24.target=boolean\ testInputString(java.lang.String,\ java.lang.String)
+=======
+>>>>>>> abb128880fe0f330b896d25f5eb6e31963213067
 comment3.params=
 comment3.target=void\ makeFrame()
 comment4.params=e
@@ -45,4 +66,8 @@ comment8.params=frame
 comment8.target=void\ makeMenuBar(javax.swing.JFrame)
 comment9.params=
 comment9.target=void\ addShowsInBar()
+<<<<<<< HEAD
+numComments=25
+=======
 numComments=23
+>>>>>>> abb128880fe0f330b896d25f5eb6e31963213067

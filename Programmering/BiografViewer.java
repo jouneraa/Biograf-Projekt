@@ -39,12 +39,15 @@ public class BiografViewer
     
     private Color pinkColor;
     private JTextField phoneField;
+    private List<Seat> selectedSeats;
+    private int showIdSelected;
     
     // konstruktoren som kalder funktionen til at lave framen
     public BiografViewer()
     {
         pinkColor = new Color(138,43,226);
         reservationSystem = new ReservationSystem();
+        selectedSeats = new ArrayList<>();
         dataFactory = new DataFactory();
         
         makeFrame();
@@ -225,7 +228,7 @@ public class BiografViewer
         jtp.addTab("Ret reservationer", jp3);
         
         // højst sandsynligt sætte focuspainted ind i en metode så man undgår kodeduplikering
-        JButton VenstreKnap = new JButton("<--");
+        /*JButton VenstreKnap = new JButton("<--");
         VenstreKnap.setFocusPainted(false);
         JButton HøjreKnap = new JButton("-->"); 
         HøjreKnap.setFocusPainted(false);
@@ -233,12 +236,15 @@ public class BiografViewer
         CenterBorder.add(VenstreKnap, BorderLayout.WEST); 
         
         
-       
+       /*
+        
         JPanel gridEastCenter = new JPanel(new BorderLayout());
         JLabel phoneLabelField = new JLabel("telephone number");
         gridEastCenter.add(phoneLabelField, BorderLayout.SOUTH);
+        */
         
-        JPanel gridEastSouth = new JPanel(new BorderLayout());
+
+        /*JPanel gridEastSouth = new JPanel(new BorderLayout());
         phoneField = new JTextField(20);
         gridEastSouth.add(phoneField, BorderLayout.SOUTH);
         gridEastSouth.add(gridEastCenter, BorderLayout.CENTER);
@@ -247,7 +253,7 @@ public class BiografViewer
         CenterBorder.add(gridEastSouth, BorderLayout.EAST); 
         
         
-        
+        */
        
        
         
@@ -293,6 +299,7 @@ public class BiografViewer
          // nyt JPanel som nestes ind i southPanel, bemærk flowlayout og ikke borderlayout da knapperne skal "floate på en række" i højre hjørne
           JPanel DownRight = new JPanel(new FlowLayout());
           JButton Knap1 = new JButton("Book");
+          
           DownRight.add(Knap1);
           DownRight.add(myNumbers); 
           
@@ -528,7 +535,7 @@ public class BiografViewer
                 public void actionPerformed(ActionEvent e) {
                     
                     List<Integer> allReservationIds = dataFactory.getAllShowReservationIds(show.show_id());
-                    
+                    showIdSelected = show.show_id();
                     displayBookingPage(show, allReservationIds);
                             }
             });
@@ -592,6 +599,39 @@ public class BiografViewer
             // nyt JPanel som nestes ind i southPanel, bemærk flowlayout og ikke borderlayout da knapperne skal "floate på en række" i højre hjørne
             JPanel DownRight = new JPanel(new FlowLayout());
             JButton Knap1 = new JButton("Book");
+            Knap1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    
+                     //input felterne
+                     JTextField nameField = new JTextField(20);
+                     JTextField phoneField = new JTextField(20);
+                        
+                     JPanel dialogPanel = new JPanel();
+                     dialogPanel.add(new JLabel("Navn: "));
+                     dialogPanel.add(nameField);
+                     //lav mellemrum
+                     dialogPanel.add(Box.createHorizontalStrut(15)); // a spacer
+                     dialogPanel.add(new JLabel("Telefon: "));
+                     dialogPanel.add(phoneField);
+                     
+                     
+                     int result = JOptionPane.showConfirmDialog(null, dialogPanel, 
+                     null, JOptionPane.OK_CANCEL_OPTION);
+                     if (result == JOptionPane.OK_OPTION) {
+                         String nameResult = nameField.getText();
+                         String phoneResult = phoneField.getText();
+                         //test for om navn og telefonnummer er gyldige
+                         boolean validInput = testInputString(nameResult, phoneResult);
+                         int phoneParsed = Integer.parseInt(phoneResult);
+
+                         if(validInput){
+                             finalizeReservation(nameResult, phoneParsed);
+                         }
+                        }
+                        
+                    
+                    }});
             DownRight.add(Knap1);
             DownRight.add(myNumbers); 
           
@@ -604,7 +644,7 @@ public class BiografViewer
             int seatsTaken = allReservationIds.size();
             Auditorium auditorium = dataFactory.getAuditorium(show.auditorium_id());
             int seatsInAudit = auditorium.row_number() * auditorium.seat_number();
-            JLabel freeSeats = new JLabel("  " + seatsTaken + "/" + seatsInAudit);
+            JLabel freeSeats = new JLabel("  " + (seatsInAudit - seatsTaken) + "/" + seatsInAudit);
             
             JLabel auditLabel = new JLabel("Sal");
             int auditoriumId = show.auditorium_id();
@@ -684,11 +724,22 @@ public class BiografViewer
                     btn.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
+                            int rowNr = Integer.parseInt(btn.getClientProperty("row").toString());
+                            int colNr = Integer.parseInt(btn.getClientProperty("column").toString());
                             if(btn.getBackground() == pinkColor){
                                 btn.setBackground(Color.GREEN);
+                                //slet sædet fra selectedSeats
+                                Iterator<Seat> it = selectedSeats.iterator();
+                                while(it.hasNext()){
+                                    Seat x = it.next();
+                                    if(x.getRow() == rowNr && x.getColumn() == colNr){
+                                        it.remove();
+                                    }
+                                }
                             }
                             else if(btn.getBackground() == Color.GREEN){
                                 btn.setBackground(pinkColor);
+                                selectedSeats.add(new Seat(rowNr, colNr));
                             }
                             JButton btn = (JButton) e.getSource();
 
@@ -841,6 +892,51 @@ public class BiografViewer
                 
             }
         }
+<<<<<<< HEAD
+    }
+    
+    public void finalizeReservation(String name, int phone){
+        for(Seat x : selectedSeats){
+            dataFactory.addReservation(phone, showIdSelected, x.getRow(), x.getColumn());
+            selectedSeats.clear();
+        }
+    }
+    
+    public boolean testInputString(String nameResult, String phoneResult){
+        //checker at strengen er længere end null
+        if(nameResult.length() < 1){
+            JOptionPane.showMessageDialog(frame,
+            "Navn skal være mindst ét bogstav!");
+            return false;
+        }
+        //checker at der kun indtastes bogstaver
+        else if(!nameResult.chars().allMatch(Character::isLetter)){
+            JOptionPane.showMessageDialog(frame,
+            "Navn må kun indeholde bogstaver!");
+            return false;
+        }
+        if(phoneResult.length() != 8){
+            JOptionPane.showMessageDialog(frame,
+            "Telefonnummer skal være otte tal!");
+            return false;
+        }
+        else{
+            try {
+                Integer.parseInt(phoneResult);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(frame,
+                "Telefonnummer skal bestå af tal!");
+                return false;
+            }
+        }
+        return true;
         
+    }
+    
+   
+    
+=======
+        
+>>>>>>> abb128880fe0f330b896d25f5eb6e31963213067
 }
 

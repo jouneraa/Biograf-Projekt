@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 // combobox integer = klik på reserver plads = klik på specifik sæde + highlighter de sæder til højre for sædet + comboboxnummer 
 
@@ -32,6 +33,7 @@ public class BiografViewer
     private JPanel CenterWestGrid;
     private JPanel CenterCenterBorder;
     private CardLayout cardLayout = new CardLayout();
+    
     
     private ButtonValue[][] buttonValues;
     
@@ -661,50 +663,6 @@ public class BiografViewer
         }
         
        
-
-        /*public void addReservationsInRetReservations()
-        {
-            // tilføj reservation_id, telephone_number, osv. øverst som titler
-            
-            // tilføj reservationerne som GridBagConstraints
-            List<Integer> reservationIds = dataFactory.getAllReservations();
-            for(int x: reservationIds){
-                Reservation reservation = dataFactory.getReservation(x);
-                int reservation_id = reservation.getReservation_id();
-                int customer_id = reservation.getCustomer_id();
-                int show_id = reservation.getShow_id();
-                int row_number = reservation.getRow_number();
-                int seat_number = reservation.getSeat_number();
-                
-                
-                //JPanel retReservationGrid = new JPanel();
-         
-                //retReservationGrid.setLayout(new GridBagLayout());
-                //retReservationGrid.setBorder(new EmptyBorder(30, 110, 30, 110));
-                //GridBagConstraints dbc = new GridBagConstraints();
-                
-                
-                dbc.insets = new Insets(15,15,15,15);
-                dbc.gridx = 1;
-                dbc.gridx = 0;
-                retReservationGrid.add(new JLabel(Integer.toString(reservation_id)), dbc);
-                dbc.gridx = 2;
-                dbc.gridy = 0;
-                retReservationGrid.add(new JLabel(Integer.toString(customer_id)), dbc);
-                dbc.gridx = 3;
-                dbc.gridy = 0;
-                retReservationGrid.add(new JLabel(Integer.toString(show_id)), dbc);
-                dbc.gridx = 4;
-                dbc.gridy = 0;
-                retReservationGrid.add(new JLabel(Integer.toString(row_number)), dbc);
-                dbc.gridx = 5;
-                dbc.gridy = 0;
-                retReservationGrid.add(new JLabel(Integer.toString(seat_number)), dbc);
-                dbc.gridx = 6;
-                dbc.gridy = 0;
-                retReservationGrid.add(new JButton("Ret reservation"), dbc);
-            }
-        }*/
         public void addReservationTable()
         {
             // Tilføje reverseknap, hvis man kommer til at slette den forkerte reservation
@@ -719,6 +677,7 @@ public class BiografViewer
             model.setColumnIdentifiers(columns);
             table.setModel(model);
             
+            // find Reservations and display them in the table
              ArrayList<Reservation> list = dataFactory.getDetailsForAllReservations();
             Object[] row = new Object[5];
             for(int x = 0; x < list.size(); x++) {
@@ -731,47 +690,47 @@ public class BiografViewer
                 model.addRow(row);
             }
             
-    
+            
             table.setBackground(Color.GREEN);
-            table.setForeground(Color.WHITE);
+            table.setForeground(Color.BLACK);
             table.setRowHeight(30);
             
-            
-            JTextField reservation_id = new JTextField();
-            JTextField telephone_number = new JTextField();
-            JTextField show_id = new JTextField();
-            JTextField row_number = new JTextField();
-            JTextField seat_number = new JTextField();
-            
-            
-            JButton btnSearch = new JButton("Customer Search");
+            JTextField searchCustomer = new JTextField();
+            JLabel searchInfo = new JLabel("Search for Customer:");
             JButton btnDelete = new JButton("Delete Reservation");
             
+            searchCustomer.setBounds(210,265,150,25);
+            searchInfo.setBounds(80,265,150,25);
+            btnDelete.setBounds(210,310,150,25);
             
-            telephone_number.setBounds(20,265,100,25);
-            
-            btnSearch.setBounds(150,265,150,25);
-            btnDelete.setBounds(150,310,150,25);
-            
+           
             JScrollPane pane = new JScrollPane(table);
             pane.setBounds(0,0,880,200);
             
             frame.setLayout(null);
             frame.add(pane);
             
-            frame.add(reservation_id);
-            frame.add(telephone_number);
-            frame.add(show_id);
-            frame.add(row_number);
-            frame.add(seat_number);
-            
-            frame.add(btnSearch);
+            frame.add(searchCustomer);   
+            frame.add(searchInfo);
             frame.add(btnDelete);
             
             
-            //Display Data in JTable
+             // Filter rows by adding a KeyListener to the Search Textfield - using TableRowSorter library class.}
+            
+             searchCustomer.addKeyListener(new KeyAdapter() {
+                        @Override
+                        public void keyReleased(KeyEvent e) {
+                            TableRowSorter<DefaultTableModel> rowSorter = new TableRowSorter<DefaultTableModel>(model);
+                            table.setRowSorter(rowSorter);
+                            String text = searchCustomer.getText();
             
             
+                            rowSorter.setRowFilter(RowFilter.regexFilter(text));
+                        }
+                    });
+            
+            
+            // Delete rows by adding an ActionListener to the delete button
             
             btnDelete.addActionListener(new ActionListener() {
                         @Override
@@ -808,9 +767,8 @@ public class BiografViewer
                 row[4] = list.get(x).seat_number();
                 
                 
+            }
         }
-    }
-    
-    
+        
 }
 

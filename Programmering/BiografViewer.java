@@ -713,30 +713,45 @@ public class BiografViewer
             JFrame frame = new JFrame();
             JTable table = new JTable();
             
-            Object[] columns = {"Reservation ID","Customer ID","Show ID","Row Number","Seat Number"};
+            Object[] columns = {"Reservation ID","Telephone Number","Show ID","Row Number","Seat Number"};
+            
             DefaultTableModel model = new DefaultTableModel();
             model.setColumnIdentifiers(columns);
             table.setModel(model);
             
+             ArrayList<Reservation> list = dataFactory.getDetailsForAllReservations();
+            Object[] row = new Object[5];
+            for(int x = 0; x < list.size(); x++) {
+                row[0] = list.get(x).reservation_id();
+                row[1] = list.get(x).telephone_number();
+                row[2] = list.get(x).show_id();
+                row[3] = list.get(x).row_number();
+                row[4] = list.get(x).seat_number();
+                
+                model.addRow(row);
+            }
+            
+    
             table.setBackground(Color.GREEN);
             table.setForeground(Color.WHITE);
             table.setRowHeight(30);
             
             
             JTextField reservation_id = new JTextField();
-            JTextField customer_id = new JTextField();
+            JTextField telephone_number = new JTextField();
             JTextField show_id = new JTextField();
             JTextField row_number = new JTextField();
             JTextField seat_number = new JTextField();
+            
             
             JButton btnSearch = new JButton("Customer Search");
             JButton btnDelete = new JButton("Delete Reservation");
             
             
-            customer_id.setBounds(20,265,100,25);
+            telephone_number.setBounds(20,265,100,25);
             
-            btnSearch.setBounds(150,265,100,25);
-            btnDelete.setBounds(150,310,100,25);
+            btnSearch.setBounds(150,265,150,25);
+            btnDelete.setBounds(150,310,150,25);
             
             JScrollPane pane = new JScrollPane(table);
             pane.setBounds(0,0,880,200);
@@ -745,7 +760,7 @@ public class BiografViewer
             frame.add(pane);
             
             frame.add(reservation_id);
-            frame.add(customer_id);
+            frame.add(telephone_number);
             frame.add(show_id);
             frame.add(row_number);
             frame.add(seat_number);
@@ -754,21 +769,25 @@ public class BiografViewer
             frame.add(btnDelete);
             
             
+            //Display Data in JTable
             
             
-            Object[] row = new Object[4];
+            
             btnDelete.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             int i = table.getSelectedRow();
+                            
                             if(i>=0){
-                                model.removeRow(i);
+                                //MySQL.queryUpdate("DELETE FROM reservations WHERE reservation_id = " + reservation_id.getText() + ";");  virker ikke :(
+                                model.removeRow(i);                                
                             }
                             else{
                                 System.out.println("No rows to delete");
                             }
                         }
                     });
+                  
 
             frame.setSize(1500,400);
             frame.setLocationRelativeTo(null);
@@ -776,5 +795,22 @@ public class BiografViewer
             frame.setVisible(true);
             
         }
+        
+        public void Show_Users_In_JTable()
+        {
+            ArrayList<Reservation> list = dataFactory.getDetailsForAllReservations();
+            Object[] row = new Object[5];
+            for(int x = 0; x < list.size(); x++) {
+                row[0] = list.get(x).reservation_id();
+                row[1] = list.get(x).telephone_number();
+                row[2] = list.get(x).show_id();
+                row[3] = list.get(x).row_number();
+                row[4] = list.get(x).seat_number();
+                
+                
+        }
+    }
+    
+    
 }
 

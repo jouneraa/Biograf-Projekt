@@ -195,8 +195,8 @@ public class DataFactory
         return null;
     }
    
-   public List<Reservation> getDetailsForAllReservations(){
-       List<Reservation> reservations = new ArrayList<>();
+   public ArrayList<Reservation> getDetailsForAllReservations(){
+       ArrayList<Reservation> reservations = new ArrayList<>();
        ResultSet r = MySQL.query("SELECT * FROM reservations" + ";");
         try{
             // How to get data from the ResultSet

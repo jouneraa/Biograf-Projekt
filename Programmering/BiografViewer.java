@@ -10,10 +10,6 @@ import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-// combobox integer = klik på reserver plads = klik på specifik sæde + highlighter de sæder til højre for sædet + comboboxnummer 
-
-
-
 public class BiografViewer
 {
     // static fields:
@@ -107,17 +103,19 @@ public class BiografViewer
         JPanel CenterBorder = new JPanel(new BorderLayout(6,6));
         
          // -----------------------------------------------------
-        CenterCenterBorder = new JPanel(new BorderLayout(6,6));
+        //CenterCenterBorder = new JPanel(new BorderLayout(6,6));
         CenterWestGrid = new JPanel(); 
         CenterWestGrid.setLayout(cardLayout);
-        JPanel startGrid = new JPanel(new GridLayout(20,1));
+        JPanel CenterWestGridGrid = new JPanel();
+        CenterWestGridGrid.setLayout(cardLayout); 
+        JPanel startGrid = new JPanel(new GridLayout(20,2));
            
         CenterWestGrid.add(startGrid, "startGrid");
         cardLayout.show(CenterWestGrid, "startGrid");
         
         
-        CenterCenterBorder.add(CenterWestGrid, BorderLayout.WEST);
-        CenterBorder.add(CenterCenterBorder, BorderLayout.CENTER);
+        //CenterCenterBorder.add(CenterWestGrid, BorderLayout.WEST);
+        CenterBorder.add(CenterWestGrid, BorderLayout.CENTER);
         
         // lave et gridbaglayout som reservationerne skal opbevares i 
         
@@ -219,56 +217,7 @@ public class BiografViewer
        
         // ----------------------------------------------------
         
-       
-
-        
-        
-        
-        // ----------------------------------------------------
-          
-          JPanel eastPanel = new JPanel(new GridBagLayout());
-          GridBagConstraints ebc = new GridBagConstraints();
-          ebc.insets = new Insets(5,5,5,5);
-
-          ebc.gridx = 1;
-          ebc.gridy = 0;
-          eastPanel.add(new JLabel("Ledige pladser"), ebc);          
-          ebc.gridx = 0;
-          ebc.gridy = 0;
-          JButton ledigeKnap = new JButton();          
-          ledigeKnap.setBackground(Color.GREEN);
-          ledigeKnap.setContentAreaFilled(false);
-          ledigeKnap.setOpaque(true);
-          eastPanel.add(ledigeKnap, ebc);
-          
-          ebc.gridx = 1;
-          ebc.gridy = 1;
-          eastPanel.add(new JLabel("Optagede"), ebc);
-          ebc.gridx = 0;
-          ebc.gridy = 1;
-          JButton optagetKnap = new JButton();          
-          optagetKnap.setBackground(Color.RED);
-          optagetKnap.setContentAreaFilled(false);
-          optagetKnap.setOpaque(true);
-          eastPanel.add(optagetKnap, ebc);
-          
-          ebc.gridx = 1;
-          ebc.gridy = 2;
-          eastPanel.add(new JLabel("Valgte pladser"), ebc);
-          ebc.gridx = 0; 
-          ebc.gridy = 2;
-          JButton valgteKnap = new JButton();          
-          valgteKnap.setBackground(new Color(138,43,226));
-          valgteKnap.setContentAreaFilled(false);
-          valgteKnap.setOpaque(true);
-          eastPanel.add(valgteKnap, ebc);
-          
-          
-        
-        
-        
-        
-        
+      // --> slettet colorcodekoden og sat den ned i en metode 
         
         // laver fanerne som innerBorderLayout skal være inde i og det næste layout som skal vise forestillinger
         
@@ -288,42 +237,11 @@ public class BiografViewer
         jtp.addTab("Ret reservationer", jp3);
         
         // højst sandsynligt sætte focuspainted ind i en metode så man undgår kodeduplikering
-        /*JButton VenstreKnap = new JButton("<--");
-        VenstreKnap.setFocusPainted(false);
-        JButton HøjreKnap = new JButton("-->"); 
-        HøjreKnap.setFocusPainted(false);
-        
-        CenterBorder.add(VenstreKnap, BorderLayout.WEST); 
-        
-        
-       /*
-        
-        JPanel gridEastCenter = new JPanel(new BorderLayout());
-        JLabel phoneLabelField = new JLabel("telephone number");
-        gridEastCenter.add(phoneLabelField, BorderLayout.SOUTH);
-        */
-        
 
-        /*JPanel gridEastSouth = new JPanel(new BorderLayout());
-        phoneField = new JTextField(20);
-        gridEastSouth.add(phoneField, BorderLayout.SOUTH);
-        gridEastSouth.add(gridEastCenter, BorderLayout.CENTER);
-        
-       
-        CenterBorder.add(gridEastSouth, BorderLayout.EAST); 
-        
-        
-        */
-       
-       
-        
-        
+
         addShowsInBar();
         
-       
-        
-        
-         
+      
         
         // laver et til borderlayout som nestes ind i contentpane senere
         JPanel northPanel = new JPanel(new BorderLayout());
@@ -472,9 +390,7 @@ public class BiografViewer
             rbc.weighty = 20;
             rbc.gridx = 1;
             rbc.gridy = 1;
-  
             
-
            JLabel Screen = new JLabel("---- SCREEN ----");
            Screen.setOpaque(true);
            Screen.setPreferredSize(new Dimension(500, 20));
@@ -482,16 +398,14 @@ public class BiografViewer
            Screen.setForeground (Color.WHITE);
            Screen.setHorizontalAlignment(SwingConstants.CENTER);
 
-
-
           centerNorthScreenPanel.add(Screen);
-          centerPanel.add(centerNorthScreenPanel, BorderLayout.NORTH); 
+          centerPanel.add(centerNorthScreenPanel(), BorderLayout.NORTH); 
           
         // nu nestes de forskellige borderlayouts ind i det store borderlayout  
         innerBorderLayout.add(northPanel, BorderLayout.NORTH);       
         innerBorderLayout.add(southPanel, BorderLayout.SOUTH);
         innerBorderLayout.add(centerPanel, BorderLayout.CENTER);
-        innerBorderLayout.add(eastPanel, BorderLayout.EAST); 
+        innerBorderLayout.add(ColorCode(), BorderLayout.EAST); 
         
         // sætter jtp aka TabbedPane ind i contentPame
         contentPane.add(jtp, BorderLayout.CENTER);
@@ -835,11 +749,79 @@ public class BiografViewer
             centerPanel.add(seatsGraphical, BorderLayout.CENTER);
                // opretter et JPanel som DownRight og DownLeft skal nestes ind i 
                //JPanel panelResult = addRest(seatsGraphical);
+               
+            centerPanel.add(ColorCode(), BorderLayout.EAST); 
+            centerPanel.add(centerNorthScreenPanel(), BorderLayout.NORTH);
         
             return centerPanel;
         }
         
-       
+        // sætter colorcoden ind ved siden af biografen, lavet som en metode for at undgå kodeduplikering. 
+       public JPanel ColorCode(){
+           
+          JPanel eastPanel = new JPanel(new GridBagLayout());
+          GridBagConstraints ebc = new GridBagConstraints();
+          ebc.insets = new Insets(5,5,5,5);
+
+          ebc.gridx = 1;
+          ebc.gridy = 0;
+          eastPanel.add(new JLabel("Ledige pladser"), ebc);          
+          ebc.gridx = 0;
+          ebc.gridy = 0;
+          JButton ledigeKnap = new JButton();          
+          ledigeKnap.setBackground(Color.GREEN);
+          ledigeKnap.setContentAreaFilled(false);
+          ledigeKnap.setOpaque(true);
+          eastPanel.add(ledigeKnap, ebc);
+          
+          ebc.gridx = 1;
+          ebc.gridy = 1;
+          eastPanel.add(new JLabel("Optagede"), ebc);
+          ebc.gridx = 0;
+          ebc.gridy = 1;
+          JButton optagetKnap = new JButton();          
+          optagetKnap.setBackground(Color.RED);
+          optagetKnap.setContentAreaFilled(false);
+          optagetKnap.setOpaque(true);
+          eastPanel.add(optagetKnap, ebc);
+          
+          ebc.gridx = 1;
+          ebc.gridy = 2;
+          eastPanel.add(new JLabel("Valgte pladser"), ebc);
+          ebc.gridx = 0; 
+          ebc.gridy = 2;
+          JButton valgteKnap = new JButton();          
+          valgteKnap.setBackground(new Color(138,43,226));
+          valgteKnap.setContentAreaFilled(false);
+          valgteKnap.setOpaque(true);
+          eastPanel.add(valgteKnap, ebc);
+          
+          return eastPanel;
+        }
+        
+        
+       public JPanel centerNorthScreenPanel(){
+           JPanel centerNorthScreenPanel = new JPanel(new GridBagLayout());
+                  GridBagConstraints rbc = new GridBagConstraints();
+          centerNorthScreenPanel.setBorder(new EmptyBorder(30, 0, 30, 0));
+            rbc.fill = GridBagConstraints.HORIZONTAL;
+
+            rbc.weightx = 20;
+            rbc.weighty = 20;
+            rbc.gridx = 1;
+            rbc.gridy = 1;
+            
+           JLabel Screen = new JLabel("---- SCREEN ----");
+           Screen.setOpaque(true);
+           Screen.setPreferredSize(new Dimension(500, 20));
+           Screen.setBackground(Color.BLACK);
+           Screen.setForeground (Color.WHITE);
+           Screen.setHorizontalAlignment(SwingConstants.CENTER);
+
+          centerNorthScreenPanel.add(Screen);
+          
+          return centerNorthScreenPanel;
+        }
 
         
         public void Show_Users_In_JTable()

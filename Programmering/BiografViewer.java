@@ -892,8 +892,8 @@ public class BiografViewer
                 
             }
         }
-<<<<<<< HEAD
-    }
+
+    
     
     public void finalizeReservation(String name, int phone){
         for(Seat x : selectedSeats){
@@ -932,11 +932,8 @@ public class BiografViewer
         return true;
         
     }
+}
     
    
     
-=======
-        
->>>>>>> abb128880fe0f330b896d25f5eb6e31963213067
-}
 

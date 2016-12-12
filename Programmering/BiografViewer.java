@@ -795,29 +795,23 @@ public class BiografViewer
                                 selectedSeats.add(new Seat(rowNr, colNr));
                             }
                             JButton btn = (JButton) e.getSource();
+                            
 
                             System.out.println("clicked column "
                                 + btn.getClientProperty("column")
                                 + ", row " + btn.getClientProperty("row"));
                             }
                     });
-                    /*
+                    
                     btn.addMouseListener( new MouseAdapter() {
                         public void mouseEntered( MouseEvent e ) {
-                            btn.setBackground(new Color(138,43,226));
-                
+                            
                             btn.setToolTipText(sutmig);
-                
-                
+
                         }
-                    });
-                    btn.addMouseListener( new MouseAdapter() {
-                        public void mouseExited( MouseEvent e ) {
-                            btn.setForeground(Color.GREEN);
-                            btn.setBackground(Color.GREEN);
-                        }
-                    } );
-                    */
+
+                    }); 
+                    
                     gbc.gridx = col;
                     gbc.gridy = row;
                     gbc.gridwidth = gbc.gridheight = 1;

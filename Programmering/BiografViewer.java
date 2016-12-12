@@ -318,6 +318,7 @@ public class BiografViewer
           southPanel.add(DownRight, BorderLayout.EAST);
           southPanel.add(DownLeft, BorderLayout.WEST);
           
+          
           //2 nye JPanels som skal bruges til at få pladserne til at være i midten af det hele
           JPanel centerPanel = new JPanel(new BorderLayout());
           //JPanel midterFlowPanel = new JPanel(new FlowLayout());
@@ -390,6 +391,22 @@ public class BiografViewer
               
           //adder midterflowlayout til et centerpanel for at få det til at være centreret
           centerPanel.add(midterFlowPanel, BorderLayout.CENTER);
+          
+          
+          // adder skærmen nederst i borderlayoutet så man kan se hvor salen vender XD 
+          JPanel centerSouthScreenPanel = new JPanel(new FlowLayout());
+            
+           JLabel Screen = new JLabel("---- SCREEN ----");
+           Screen.setOpaque(true);
+           Screen.setPreferredSize(new Dimension(300, 20));
+           Screen.setBackground(Color.BLACK);
+           Screen.setForeground (Color.WHITE);
+           Screen.setHorizontalAlignment(SwingConstants.CENTER);
+
+  
+
+          centerSouthScreenPanel.add(Screen, BorderLayout.CENTER); 
+          centerPanel.add(centerSouthScreenPanel, BorderLayout.NORTH); 
           
         // nu nestes de forskellige borderlayouts ind i det store borderlayout  
         innerBorderLayout.add(northPanel, BorderLayout.NORTH);       

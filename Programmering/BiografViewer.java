@@ -28,7 +28,9 @@ public class BiografViewer
     private JPanel InnerGrid;
     private JPanel CenterWestGrid;
     private JPanel CenterCenterBorder;
+    private JPanel frame1;
     private CardLayout cardLayout = new CardLayout();
+
     
     
     private ButtonValue[][] buttonValues;
@@ -101,14 +103,16 @@ public class BiografViewer
         
         InnerGrid = new JPanel(new GridLayout(20,1)); 
         JPanel CenterBorder = new JPanel(new BorderLayout(6,6));
+        //lavet til reservation tabben
+        JPanel resTabBorder = new JPanel(new BorderLayout(6,6));
         
          // -----------------------------------------------------
         //CenterCenterBorder = new JPanel(new BorderLayout(6,6));
         CenterWestGrid = new JPanel(); 
         CenterWestGrid.setLayout(cardLayout);
-        JPanel CenterWestGridGrid = new JPanel();
-        CenterWestGridGrid.setLayout(cardLayout); 
         JPanel startGrid = new JPanel(new GridLayout(20,2));
+        JButton bbb = new JButton("jonathan");
+        startGrid.add(bbb);
            
         CenterWestGrid.add(startGrid, "startGrid");
         cardLayout.show(CenterWestGrid, "startGrid");
@@ -120,11 +124,71 @@ public class BiografViewer
         // lave et gridbaglayout som reservationerne skal opbevares i 
         
         
-        JPanel frame1 = new JPanel(new BorderLayout()); 
+        frame1 = new JPanel(new BorderLayout()); 
         
         
         
-            JTable table = new JTable();
+            addJTable();
+                  
+
+        
+       
+        // ----------------------------------------------------
+        
+      // --> slettet colorcodekoden og sat den ned i en metode 
+        
+        // laver fanerne som innerBorderLayout skal være inde i og det næste layout som skal vise forestillinger
+        
+        JTabbedPane jtp = new JTabbedPane();
+        
+        JPanel jp1 = new JPanel(new BorderLayout(6, 6));
+      
+        JPanel jp3 = new JPanel(new BorderLayout(6, 6));
+        
+        jp1.add(InnerGrid, BorderLayout.WEST);
+        jp1.add(CenterBorder, BorderLayout.CENTER);
+        //jp2.add(CenterBorder);
+      
+        jp3.add(frame1);
+        
+        jtp.addTab("Forestillinger", jp1);
+       
+        jtp.addTab("Ret reservationer", jp3);
+        
+        // højst sandsynligt sætte focuspainted ind i en metode så man undgår kodeduplikering
+
+
+        addShowsInBar();
+        
+     
+        // sætter jtp aka TabbedPane ind i contentPame
+        contentPane.add(jtp, BorderLayout.CENTER);
+
+        // sætter en lille titel oppe i toppen og i bunden
+        filenameLabel = new JLabel("Bookingsystem til Biograf");
+        filenameLabel.setFont(new Font("Serif", Font.PLAIN, 20));
+        
+        contentPane.add(filenameLabel, BorderLayout.NORTH);
+
+        //statusLabel = new JLabel(VERSION);
+        //contentPane.add(statusLabel, BorderLayout.SOUTH);
+        
+
+
+        // arrangerer componenterne   
+
+        //frame.pack();
+        frame.setSize(1200,800);
+        
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setLocation(d.width/2 - frame.getWidth()/2, d.height/2 - frame.getHeight()/2);
+        frame.setVisible(true);
+ 
+
+        }
+        
+        public void addJTable(){
+        JTable table = new JTable();
             
             Object[] columns = {"Reservation ID","Telephone Number","Show ID","Row Number","Seat Number"};
             
@@ -153,11 +217,13 @@ public class BiografViewer
             JTextField searchCustomer = new JTextField();
             JLabel searchInfo = new JLabel("Search for Customer:");
             JButton btnDelete = new JButton("Delete Reservation");
+            JButton btnEdit = new JButton("Edit Reservation");
             
             searchCustomer.setBounds(210,265,150,25);
             searchInfo.setBounds(80,265,150,25);
             searchCustomer.setPreferredSize( new Dimension( 200, 24 ) );
             btnDelete.setBounds(210,310,150,25);
+            btnEdit.setBounds(210,310,150,25);
             
            
             JScrollPane pane = new JScrollPane(table);
@@ -169,6 +235,7 @@ public class BiografViewer
             lowerFlowLayout.add(searchCustomer);
             lowerFlowLayout.add(searchInfo);
             lowerFlowLayout.add(btnDelete);
+            lowerFlowLayout.add(btnEdit);
             frame1.add(lowerFlowLayout, BorderLayout.SOUTH);   
 
             
@@ -195,8 +262,6 @@ public class BiografViewer
                         public void actionPerformed(ActionEvent e) {
                             int i = table.getSelectedRow();
                             
-                            
-                            
                             int selectedColumnIndex = table.getSelectedColumn();
                             int selectedReservationId = (Integer) table.getModel().getValueAt(i, 0);
                             //int selectedReservationId = selectedReservation.reservation_id();
@@ -211,228 +276,31 @@ public class BiografViewer
                             }
                         }
                     });
-                  
-
-        
-       
-        // ----------------------------------------------------
-        
-      // --> slettet colorcodekoden og sat den ned i en metode 
-        
-        // laver fanerne som innerBorderLayout skal være inde i og det næste layout som skal vise forestillinger
-        
-        JTabbedPane jtp = new JTabbedPane();
-        
-        JPanel jp1 = new JPanel(new BorderLayout(6, 6));
-        JPanel jp2 = new JPanel(new BorderLayout(6, 6));
-        JPanel jp3 = new JPanel(new BorderLayout(6, 6));
-        
-        jp1.add(InnerGrid, BorderLayout.WEST);
-        jp1.add(CenterBorder, BorderLayout.CENTER);
-        jp2.add(innerBorderLayout);
-        jp3.add(frame1);
-        
-        jtp.addTab("Forestillinger", jp1);
-        jtp.addTab("Reservation", jp2);
-        jtp.addTab("Ret reservationer", jp3);
-        
-        // højst sandsynligt sætte focuspainted ind i en metode så man undgår kodeduplikering
-
-
-        addShowsInBar();
-        
-      
-        
-        // laver et til borderlayout som nestes ind i contentpane senere
-        JPanel northPanel = new JPanel(new BorderLayout());
-        // sætter to jlabel til west og east i northPanel så de kan være ud i siden, senere kommer northpanel til at sættes mod north i contentpane
-        northPanel.add(new JLabel("Forestilling: 15. Dec, 2015, kl 12:50"), BorderLayout.EAST);
-        JLabel Tekst = new JLabel("Film: One Night in Paris with Paris Hilton ");
-        Tekst.setFont(new Font("Serif", Font.PLAIN, 20));
-        northPanel.add(Tekst, BorderLayout.WEST);
-          
-            //sætteer comboboxen til at vælge pladser med et ArrayList af integers
-         JComboBox<Integer> myNumbers = new JComboBox<Integer>();
-         myNumbers.addItemListener(new ItemListener() {
-
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if ((e.getStateChange() == ItemEvent.SELECTED)) {
-                    BiografPladserValgte = (Integer)myNumbers.getSelectedItem();
-                    System.out.println(BiografPladserValgte);
                     
-                    
-                }
-            }
-        });
-        
-        
-         myNumbers.addItem(1);
-         myNumbers.addItem(2);
-         myNumbers.addItem(3);
-         myNumbers.addItem(4);
-         myNumbers.addItem(5);
-         myNumbers.addItem(6);
-          
-         // nyt JPanel som nestes ind i southPanel, bemærk flowlayout og ikke borderlayout da knapperne skal "floate på en række" i højre hjørne
-          JPanel DownRight = new JPanel(new FlowLayout());
-          JButton Knap1 = new JButton("Book");
-          
-          DownRight.add(Knap1);
-          DownRight.add(myNumbers); 
-          
-          // nyt JPanel som nestes ind i southPanel som nestes ind i ContentPane
-          JPanel DownLeft = new JPanel(new GridLayout(2,2));
-          DownLeft.setBorder(new EtchedBorder());
-          JLabel xd = new JLabel("Ledige Pladser");
-          JLabel xddd = new JLabel("  3");
-          JLabel xdddd = new JLabel("  5/100");
-          JLabel xdd = new JLabel("Sal");
-          // adder ovenstående labels til gridlayoutet
-          DownLeft.add(xdd);
-          DownLeft.add(xddd);
-          DownLeft.add(xd);
-          DownLeft.add(xdddd);
-          
-          
-          
-          
-          
-         
-         // opretter et JPanel som DownRight og DownLeft skal nestes ind i 
-          JPanel southPanel = new JPanel(new BorderLayout());
-         
-          southPanel.add(DownRight, BorderLayout.EAST);
-          southPanel.add(DownLeft, BorderLayout.WEST);
-          
-          
-          //2 nye JPanels som skal bruges til at få pladserne til at være i midten af det hele
-          JPanel centerPanel = new JPanel(new BorderLayout());
-          //JPanel midterFlowPanel = new JPanel(new FlowLayout());
-          JPanel midterFlowPanel = new JPanel();
-         
-        midterFlowPanel.setLayout(new GridBagLayout());
-        midterFlowPanel.setBorder(new EmptyBorder(30, 110, 30, 100));
-        GridBagConstraints gbc = new GridBagConstraints();
-        for (int row = 1; row < 21; row++) {
-            for (int col = 1; col < 21; col++) {
-            JButton btn = new JButton();
-
-            btn.putClientProperty("column", col);
-            btn.putClientProperty("row", row);
-            
-            // tekst streng der skal stå over hover
-            ToolTipManager.sharedInstance().setInitialDelay(0);
-            String sutmig = ("Række " + row + " " +"\n" + "Sæde " + col +  " ");
-            
-            
-            btn.setBackground(Color.GREEN);
-            btn.setBorder(new LineBorder(Color.WHITE));
-            // fjerner blå highlihght når man klikker på knappen
-            btn.setFocusPainted(false);
-            // gør så at UI.manageLookAndFeel ikke farver knapperne grå som UI/baggrunden 
-            btn.setContentAreaFilled(false);
-            btn.setOpaque(true);
-            
-            int kolonne = col; 
-            btn.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    btn.setBackground(Color.RED);
-                    JButton btn = (JButton) e.getSource();
-                    for(int i =0; i < BiografPladserValgte; i++){                  
-                        gbc.gridx = kolonne + 1;
-                        btn.setBackground(Color.RED);
-                    }
-                     
-                    System.out.println("clicked column "
-                            + btn.getClientProperty("column")
-                            + ", row " + btn.getClientProperty("row"));
-                }
-            });
-            
-            btn.addMouseListener( new MouseAdapter() {
-            public void mouseEntered( MouseEvent e ) {
-                btn.setBackground(new Color(138,43,226));
-                
-                btn.setToolTipText(sutmig);
-                
-                
-            }
-            });
-            btn.addMouseListener( new MouseAdapter() {
-            public void mouseExited( MouseEvent e ) {
-                btn.setForeground(Color.GREEN);
-                btn.setBackground(Color.GREEN);
-            }
-            } );
-            gbc.gridx = col;
-            gbc.gridy = row;
-            gbc.gridwidth = gbc.gridheight = 1;
-            gbc.fill = GridBagConstraints.BOTH;
-            gbc.anchor = GridBagConstraints.NORTHWEST;
-            gbc.weightx = 20;
-            gbc.weighty = 20;
-            midterFlowPanel.add(btn, gbc);
-        }   
-              
-          //adder midterflowlayout til et centerpanel for at få det til at være centreret
-          centerPanel.add(midterFlowPanel, BorderLayout.CENTER);
-          
-          
-          // adder skærmen øverst i borderlayoutet så man kan se hvor salen vender XD 
-          JPanel centerNorthScreenPanel = new JPanel(new GridBagLayout());
-                  GridBagConstraints rbc = new GridBagConstraints();
-          centerNorthScreenPanel.setBorder(new EmptyBorder(30, 0, 30, 0));
-            rbc.fill = GridBagConstraints.HORIZONTAL;
-
-            rbc.weightx = 20;
-            rbc.weighty = 20;
-            rbc.gridx = 1;
-            rbc.gridy = 1;
-            
-           JLabel Screen = new JLabel("---- SCREEN ----");
-           Screen.setOpaque(true);
-           Screen.setPreferredSize(new Dimension(500, 20));
-           Screen.setBackground(Color.BLACK);
-           Screen.setForeground (Color.WHITE);
-           Screen.setHorizontalAlignment(SwingConstants.CENTER);
-
-          centerNorthScreenPanel.add(Screen);
-          centerPanel.add(centerNorthScreenPanel(), BorderLayout.NORTH); 
-          
-        // nu nestes de forskellige borderlayouts ind i det store borderlayout  
-        innerBorderLayout.add(northPanel, BorderLayout.NORTH);       
-        innerBorderLayout.add(southPanel, BorderLayout.SOUTH);
-        innerBorderLayout.add(centerPanel, BorderLayout.CENTER);
-        innerBorderLayout.add(ColorCode(), BorderLayout.EAST); 
-        
-        // sætter jtp aka TabbedPane ind i contentPame
-        contentPane.add(jtp, BorderLayout.CENTER);
-
-        // sætter en lille titel oppe i toppen og i bunden
-        filenameLabel = new JLabel("Bookingsystem til Biograf");
-        filenameLabel.setFont(new Font("Serif", Font.PLAIN, 20));
-        
-        contentPane.add(filenameLabel, BorderLayout.NORTH);
-
-        //statusLabel = new JLabel(VERSION);
-        //contentPane.add(statusLabel, BorderLayout.SOUTH);
-        
-
-
-        // arrangerer componenterne   
-
-        //frame.pack();
-        frame.setSize(1200,800);
-        
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setLocation(d.width/2 - frame.getWidth()/2, d.height/2 - frame.getHeight()/2);
-        frame.setVisible(true);
- 
-
+             btnEdit.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            int i = table.getSelectedRow();
+                            
+                            //jtp.setSelectedIndex(0);
+                            
+                            int selectedColumnIndex = table.getSelectedColumn();
+                            int selectedReservationId = (Integer) table.getModel().getValueAt(i, 0);
+                            //int selectedReservationId = (Integer) table.getModel().getValueAt(i, 0);
+                            //int selectedReservationId = selectedReservation.reservation_id();
+                            
+                            if(i>=0){
+                                dataFactory.deleteReservation(selectedReservationId);
+                                //MySQL.queryUpdate("DELETE FROM reservations WHERE reservation_id = " + reservation_id.getText() + ";");  virker ikke :(
+                                model.removeRow(i);                                
+                            }
+                            else{
+                                System.out.println("No rows to delete");
+                            }
+                        }
+                    });
         }
-    }
+    
     
 
     private void makeMenuBar(JFrame frame)

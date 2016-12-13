@@ -537,6 +537,7 @@ public class BiografViewer
                     
                     btn.putClientProperty("column", col);
                     btn.putClientProperty("row", row);
+                    
                 
                     // tekst streng der skal stå over hover
                     ToolTipManager.sharedInstance().setInitialDelay(0);
@@ -561,6 +562,7 @@ public class BiografViewer
                     
                    
                     btn.setBorder(new LineBorder(Color.WHITE));
+                    
                     // fjerner blå highlihght når man klikker på knappen
                     btn.setFocusPainted(false);
                     // gør så at UI.manageLookAndFeel ikke farver knapperne grå som UI/baggrunden 

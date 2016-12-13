@@ -38,9 +38,6 @@ public class BiografViewer
     JPanel jp3;
 
     
-    
-    private ButtonValue[][] buttonValues;
-    
     private Color pinkColor;
     private JTextField phoneField;
     private List<Seat> selectedSeats;
@@ -117,8 +114,6 @@ public class BiografViewer
         CenterWestGrid = new JPanel(); 
         CenterWestGrid.setLayout(cardLayout);
         JPanel startGrid = new JPanel(new GridLayout(20,2));
-        JButton bbb = new JButton("jonathan");
-        startGrid.add(bbb);
            
         CenterWestGrid.add(startGrid, "startGrid");
         cardLayout.show(CenterWestGrid, "startGrid");
@@ -194,7 +189,7 @@ public class BiografViewer
         }
         
         public void addJTable(){
-        table = new JTable();
+            table = new JTable();
             
            
             
@@ -296,16 +291,14 @@ public class BiografViewer
                                 displayBookingPage(selectedShow);
                                 
                                 jtp.setSelectedIndex(0);
-                                
-                                
                             }
                             else{
-
+                                JOptionPane.showMessageDialog(frame,
+                                "ingen reservation valgt!");
+                            
                             }
-                            model.fireTableDataChanged();
-                            makeTableModel();
-                            jp3.validate();
-                            jp3.repaint();
+                           // model.fireTableDataChanged();
+                            //makeTableModel();
                             addJTable();
                             
                         }
@@ -331,6 +324,7 @@ public class BiografViewer
                 
                 model.addRow(row1);
             }
+            //model.fireTableDataChanged();
             table.setModel(model);
         }
     
@@ -776,6 +770,7 @@ public class BiografViewer
         selectedSeats.clear();
         cardLayout.show(CenterWestGrid, "startGrid");
         makeTableModel();
+        addJTable();
         
     }
     

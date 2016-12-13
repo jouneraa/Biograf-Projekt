@@ -11,6 +11,15 @@ import java.sql.Timestamp;
  */
 public class DataFactory
 {
+    public static DataFactory dataFactory = null;
+    private DataFactory(){}
+    
+    public static DataFactory getInstance(){
+        if(dataFactory == null){
+            dataFactory = new DataFactory();
+        }
+        return dataFactory;
+    }
     public void addMovie(String title)
     {
         MySQL.queryUpdate("INSERT INTO movies (title) VALUES ('"+ title +"');");

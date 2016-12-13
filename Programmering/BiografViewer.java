@@ -582,6 +582,7 @@ public class BiografViewer
                                         it.remove();
                                     }
                                 }
+                                updateSelectedSeats(); 
                             }
                             else if(btn.getBackground() == Color.GREEN){
                                 btn.setBackground(pinkColor);

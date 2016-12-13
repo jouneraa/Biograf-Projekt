@@ -33,6 +33,7 @@ public class BiografViewer
     private JTabbedPane jtp;
     JLabel AntalPladser; 
     JTable table;
+    DefaultTableModel model;
     
     JPanel jp3;
 
@@ -195,24 +196,9 @@ public class BiografViewer
         public void addJTable(){
         table = new JTable();
             
-            Object[] columns = {"Reservation ID","Telephone Number","Show ID","Row Number","Seat Number"};
+           
             
-            DefaultTableModel model = new DefaultTableModel();
-            model.setColumnIdentifiers(columns);
-            table.setModel(model);
-            
-            // find Reservations and display them in the table
-             ArrayList<Reservation> list = dataFactory.getDetailsForAllReservations();
-            Object[] row1 = new Object[5];
-            for(int x = 0; x < list.size(); x++) {
-                row1[0] = list.get(x).reservation_id();
-                row1[1] = list.get(x).telephone_number();
-                row1[2] = list.get(x).show_id();
-                row1[3] = list.get(x).row_number();
-                row1[4] = list.get(x).seat_number();
-                
-                model.addRow(row1);
-            }
+           makeTableModel();
             
             
             table.setBackground(Color.GREEN);
@@ -311,23 +297,47 @@ public class BiografViewer
                                 
                                 jtp.setSelectedIndex(0);
                                 
-                                addJTable();
+                                
                             }
                             else{
 
                             }
-                              
-                            
+                            model.fireTableDataChanged();
+                            makeTableModel();
+                            jp3.validate();
+                            jp3.repaint();
+                            addJTable();
                             
                         }
                     });
         }
     
+        //resetter data table modellen!
+        public void makeTableModel(){
+             Object[] columns = {"Reservation ID","Telephone Number","Show ID","Row Number","Seat Number"};
+            model = new DefaultTableModel();
+            model.setColumnIdentifiers(columns);
+            
+            
+            // find Reservations and display them in the table
+             ArrayList<Reservation> list = dataFactory.getDetailsForAllReservations();
+            Object[] row1 = new Object[5];
+            for(int x = 0; x < list.size(); x++) {
+                row1[0] = list.get(x).reservation_id();
+                row1[1] = list.get(x).telephone_number();
+                row1[2] = list.get(x).show_id();
+                row1[3] = list.get(x).row_number();
+                row1[4] = list.get(x).seat_number();
+                
+                model.addRow(row1);
+            }
+            table.setModel(model);
+        }
     
 
     private void makeMenuBar(JFrame frame)
     {
-        final int SHORTCUT_MASK =
+        final int SHORTCUT_MASK =       
         Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
 
 
@@ -765,8 +775,7 @@ public class BiografViewer
         }
         selectedSeats.clear();
         cardLayout.show(CenterWestGrid, "startGrid");
-        frame.dispose();
-        makeFrame();
+        makeTableModel();
         
     }
     

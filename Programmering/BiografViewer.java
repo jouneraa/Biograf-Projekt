@@ -125,7 +125,7 @@ public class BiografViewer
         // lave et gridbaglayout som reservationerne skal opbevares i 
         
         
-        frame1 = new JPanel(new BorderLayout()); 
+        
         
         
         
@@ -189,6 +189,7 @@ public class BiografViewer
         }
         
         public void addJTable(){
+            frame1 = new JPanel(new BorderLayout()); 
             table = new JTable();
             
            
@@ -214,6 +215,9 @@ public class BiografViewer
            
             JScrollPane pane = new JScrollPane(table);
             pane.setBounds(0,0,880,200);
+            
+            
+           
             
            
             frame1.add(pane);
@@ -297,9 +301,10 @@ public class BiografViewer
                                 "ingen reservation valgt!");
                             
                             }
-                           // model.fireTableDataChanged();
-                            //makeTableModel();
+                          
+                            jp3.remove(frame1);
                             addJTable();
+                            jp3.add(frame1);
                             
                         }
                     });
@@ -769,8 +774,15 @@ public class BiografViewer
         }
         selectedSeats.clear();
         cardLayout.show(CenterWestGrid, "startGrid");
-        makeTableModel();
+       //sletter gammelt frame med jtable og laver et nyt, for at opdaterer indhold
+        jp3.remove(frame1);
         addJTable();
+        jp3.add(frame1);
+     /*
+        addJTable();
+        model.fireTableDataChanged();
+        */
+       
         
     }
     

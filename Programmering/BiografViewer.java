@@ -31,6 +31,7 @@ public class BiografViewer
     private JPanel frame1;
     private CardLayout cardLayout = new CardLayout();
     private JTabbedPane jtp;
+    JLabel AntalPladser; 
 
     
     
@@ -433,13 +434,6 @@ public class BiografViewer
                 }
             });
         
-        
-            myNumbers.addItem(1);
-            myNumbers.addItem(2);
-            myNumbers.addItem(3);
-            myNumbers.addItem(4);
-            myNumbers.addItem(5);
-            myNumbers.addItem(6);
           
         
             
@@ -479,8 +473,11 @@ public class BiografViewer
                         
                     
                     }});
+                    
+            AntalPladser =  new JLabel("Antal valgte pladser: " + selectedSeats.size()); 
+            
+            DownRight.add(AntalPladser); 
             DownRight.add(Knap1);
-            DownRight.add(myNumbers); 
           
             // nyt JPanel som nestes ind i southPanel som nestes ind i ContentPane
             JPanel DownLeft = new JPanel(new GridLayout(2,2));
@@ -589,6 +586,8 @@ public class BiografViewer
                             else if(btn.getBackground() == Color.GREEN){
                                 btn.setBackground(pinkColor);
                                 selectedSeats.add(new Seat(rowNr, colNr));
+                                updateSelectedSeats(); 
+                                
                             }
                             JButton btn = (JButton) e.getSource();
                             
@@ -714,7 +713,10 @@ public class BiografViewer
             }
         }
 
-    
+    public void updateSelectedSeats(){
+        AntalPladser.setText("Antal pladser valgte: " + selectedSeats.size());
+        
+    }
     
     public void finalizeReservation(String name, int phone){
         dataFactory.addCustomer(phone, name);

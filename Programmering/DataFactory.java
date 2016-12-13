@@ -138,6 +138,9 @@ public class DataFactory
     public void deleteReservation(int id){
         MySQL.queryUpdate("DELETE FROM reservations WHERE reservation_id = " + id + ";");
     }
+     public void deleteReservation(int showId, int customerId ){
+        MySQL.queryUpdate("DELETE FROM reservations WHERE show_id = " + showId + " AND telephone_number = " + customerId + ";");
+    }
     
     public List<Integer> getAllMovieIds(){
         List<Integer> movieIds = new ArrayList<>();
@@ -161,6 +164,25 @@ public class DataFactory
     public List<Integer> getAllShowReservationIds(int show_id){
         List<Integer> reservationIds = new ArrayList<>();
         ResultSet r = MySQL.query("SELECT reservation_id FROM reservations WHERE show_id = " + show_id + ";");
+        try{
+            // How to get data from the ResultSet
+            while(r.next())
+            {
+                //get the title
+                int reservationId = r.getInt("reservation_id");
+                // Finally will still be called, even if we return here!
+                reservationIds.add(reservationId);
+            }
+            return reservationIds;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return null;
+    }
+    
+    public List<Integer> getAllCustomerShowIds(int show_id, int telephone){
+        List<Integer> reservationIds = new ArrayList<>();
+        ResultSet r = MySQL.query("SELECT reservation_id FROM reservations WHERE show_id = " + show_id + " AND telephone_number = " + telephone +";");
         try{
             // How to get data from the ResultSet
             while(r.next())

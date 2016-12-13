@@ -264,11 +264,10 @@ public class BiografViewer
                         public void actionPerformed(ActionEvent e) {
                             int i = table.getSelectedRow();
                             
-                            int selectedColumnIndex = table.getSelectedColumn();
-                            int selectedReservationId = (Integer) table.getModel().getValueAt(i, 0);
-                            //int selectedReservationId = selectedReservation.reservation_id();
-                            
                             if(i>=0){
+                                
+                                 int selectedColumnIndex = table.getSelectedColumn();
+                                 int selectedReservationId = (Integer) table.getModel().getValueAt(i, 0);
                                 dataFactory.deleteReservation(selectedReservationId);
                                 //MySQL.queryUpdate("DELETE FROM reservations WHERE reservation_id = " + reservation_id.getText() + ";");  virker ikke :(
                                 model.removeRow(i);                                
@@ -285,11 +284,29 @@ public class BiografViewer
                             int i = table.getSelectedRow();
                             
                             
-                            
-                            int selectedColumnIndex = table.getSelectedColumn();
-                            int selectedShowId = (Integer) table.getModel().getValueAt(i, 2);
-                            
                             if(i>=0){
+                                int selectedColumnIndex = table.getSelectedColumn();
+                                int selectedShowId = (Integer) table.getModel().getValueAt(i, 2);
+                                int selectedCustomerId = (Integer) table.getModel().getValueAt(i, 1);
+                                
+                                Show selectedShow = dataFactory.getShow(selectedShowId);
+                                
+                                
+                                
+                                List<Integer> allCustomerShowId = dataFactory.getAllCustomerShowIds(selectedShowId, selectedCustomerId);
+                                
+                                //showIdSelected = show.show_id();
+                                List<Reservation> allReservationsToEdit = new ArrayList<>();
+                                for(int x : allCustomerShowId){
+                                    allReservationsToEdit.add(dataFactory.getReservation(x));
+                                }
+                                for(Reservation y : allReservationsToEdit){
+                                    selectedSeats.add(new Seat(y.row_number(), y.seat_number()));
+                                }
+                                //slet alle reservationer
+                                dataFactory.deleteReservation(selectedShowId, selectedCustomerId);
+                                displayBookingPage(selectedShow);
+                                
                                 jtp.setSelectedIndex(0);
                             }
                             else{
@@ -377,8 +394,7 @@ public class BiografViewer
             showButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    
-                   
+                    selectedSeats.clear();
                     displayBookingPage(show);
                             }
             });
@@ -541,22 +557,41 @@ public class BiografViewer
                     String sutmig = ("Række " + row + " " +"\n" + "Sæde " + col +  " ");
                 
                     //tjekker om pladsen er reserveret
-                    boolean reserved = false;
+                    String status = "null";
+                    //boolean status = false;
                     if(!allReservations.isEmpty()){
                         for(Reservation y : allReservations){
                             if(y.row_number() == row && y.seat_number() == col){
-                                reserved = true;
+                                status = "reserved";
+                                //status = true;
                             }
                         }
                     }
                     
-                    if(reserved){
-                        btn.setBackground(Color.RED);
+                    if(!selectedSeats.isEmpty()){
+                        for(Seat s : selectedSeats){
+                            if(s.getRow() == row && s.getColumn() == col){
+                                status = "selected";
+                            }
+                        }
                     }
-                    else{
-                        btn.setBackground(Color.GREEN);
+                   
+                    //sætter sædets farve ud fra status
+                    switch (status){
+                        case "reserved":
+                            btn.setBackground(Color.RED);
+                            break;
+                        case "selected":
+                            btn.setBackground(pinkColor);
+                            break;
+                        default:
+                            btn.setBackground(Color.GREEN);
+                            break;
+                        
+                            
                     }
                     
+
                    
                     btn.setBorder(new LineBorder(Color.WHITE));
                     

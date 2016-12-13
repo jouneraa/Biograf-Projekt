@@ -458,7 +458,7 @@ public class BiografViewer
             
             // nyt JPanel som nestes ind i southPanel, bemærk flowlayout og ikke borderlayout da knapperne skal "floate på en række" i højre hjørne
             JPanel DownRight = new JPanel(new FlowLayout());
-            JButton Knap1 = new JButton("Book");
+            JButton Knap1 = new JButton("Reservér");
             Knap1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -716,7 +716,7 @@ public class BiografViewer
        public JPanel centerNorthScreenPanel(){
            JPanel centerNorthScreenPanel = new JPanel(new GridBagLayout());
                   GridBagConstraints rbc = new GridBagConstraints();
-          centerNorthScreenPanel.setBorder(new EmptyBorder(30, 0, 30, 135));
+          centerNorthScreenPanel.setBorder(new EmptyBorder(30, 0, 30, 122));
             rbc.fill = GridBagConstraints.HORIZONTAL;
 
             rbc.weightx = 20;
@@ -724,7 +724,7 @@ public class BiografViewer
             rbc.gridx = 1;
             rbc.gridy = 1;
             
-           JLabel Screen = new JLabel("---- SCREEN ----");
+           JLabel Screen = new JLabel("---- SKÆRM ----");
            Screen.setOpaque(true);
            Screen.setPreferredSize(new Dimension(500, 20));
            Screen.setBackground(Color.BLACK);
@@ -753,7 +753,7 @@ public class BiografViewer
         }
 
     public void updateSelectedSeats(){
-        AntalPladser.setText("Antal pladser valgte: " + selectedSeats.size());
+        AntalPladser.setText("Antal valgte pladser: " + selectedSeats.size());
         
     }
     

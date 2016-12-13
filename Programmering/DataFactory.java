@@ -55,6 +55,11 @@ public class DataFactory
         return null; 
     }
     
+    /**
+     * Accessormetode, som kunne anvendes til at checke for, om en customer allerede er oprettet i databasen.
+     * Da vi allerede har en primary key i form af telephone_number i vores customertabel
+     * bliver der dog allerede checket for, at samme customer ikke kan oprettes flere gange.
+     */
     public Customer getCustomer(int id){
         ResultSet r = MySQL.query("SELECT * FROM customers WHERE telephone_number = " + id + ";");
         try{
@@ -164,6 +169,25 @@ public class DataFactory
                 movieIds.add(movieId);
             }
             return movieIds;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return null;
+    }
+    
+    public List<Integer> getAllShowIds() {
+        List<Integer> showIds = new ArrayList<>();
+        ResultSet r = MySQL.query("SELECT show_id FROM shows;");
+        try{
+            // How to get data from the ResultSet
+            while(r.next())
+            {
+                //get the title
+                int showId = r.getInt("show_id");
+                // Finally will still be called, even if we return here!
+                showIds.add(showId);
+            }
+            return showIds;
         } catch (SQLException e) {
             e.printStackTrace();
         } 

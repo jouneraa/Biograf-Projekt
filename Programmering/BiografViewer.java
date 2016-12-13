@@ -676,7 +676,7 @@ public class BiografViewer
        public JPanel centerNorthScreenPanel(){
            JPanel centerNorthScreenPanel = new JPanel(new GridBagLayout());
                   GridBagConstraints rbc = new GridBagConstraints();
-          centerNorthScreenPanel.setBorder(new EmptyBorder(30, 0, 30, 0));
+          centerNorthScreenPanel.setBorder(new EmptyBorder(30, 0, 30, 135));
             rbc.fill = GridBagConstraints.HORIZONTAL;
 
             rbc.weightx = 20;

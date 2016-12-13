@@ -32,6 +32,9 @@ public class BiografViewer
     private CardLayout cardLayout = new CardLayout();
     private JTabbedPane jtp;
     JLabel AntalPladser; 
+    JTable table;
+    
+    JPanel jp3;
 
     
     
@@ -145,7 +148,7 @@ public class BiografViewer
         
         JPanel jp1 = new JPanel(new BorderLayout(6, 6));
       
-        JPanel jp3 = new JPanel(new BorderLayout(6, 6));
+        jp3 = new JPanel(new BorderLayout(6, 6));
         
         jp1.add(InnerGrid, BorderLayout.WEST);
         jp1.add(CenterBorder, BorderLayout.CENTER);
@@ -190,7 +193,7 @@ public class BiografViewer
         }
         
         public void addJTable(){
-        JTable table = new JTable();
+        table = new JTable();
             
             Object[] columns = {"Reservation ID","Telephone Number","Show ID","Row Number","Seat Number"};
             
@@ -281,6 +284,7 @@ public class BiografViewer
              btnEdit.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
+                            selectedSeats.clear();
                             int i = table.getSelectedRow();
                             
                             
@@ -290,8 +294,6 @@ public class BiografViewer
                                 int selectedCustomerId = (Integer) table.getModel().getValueAt(i, 1);
                                 
                                 Show selectedShow = dataFactory.getShow(selectedShowId);
-                                
-                                
                                 
                                 List<Integer> allCustomerShowId = dataFactory.getAllCustomerShowIds(selectedShowId, selectedCustomerId);
                                 
@@ -308,12 +310,13 @@ public class BiografViewer
                                 displayBookingPage(selectedShow);
                                 
                                 jtp.setSelectedIndex(0);
+                                
+                                addJTable();
                             }
                             else{
-                                System.out.println("No rows to delete");
-                               
+
                             }
-                             
+                              
                             
                             
                         }
@@ -486,7 +489,7 @@ public class BiografViewer
                              finalizeReservation(nameResult, phoneParsed);
                          }
                         }
-                        
+                         table.repaint();
                     
                     }});
                     
@@ -761,6 +764,10 @@ public class BiografViewer
             dataFactory.addReservation(phone, showIdSelected, x.getRow(), x.getColumn());
         }
         selectedSeats.clear();
+        cardLayout.show(CenterWestGrid, "startGrid");
+        frame.dispose();
+        makeFrame();
+        
     }
     
     public boolean testInputString(String nameResult, String phoneResult){

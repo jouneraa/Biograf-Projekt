@@ -30,6 +30,7 @@ public class BiografViewer
     private JPanel CenterCenterBorder;
     private JPanel frame1;
     private CardLayout cardLayout = new CardLayout();
+    private JTabbedPane jtp;
 
     
     
@@ -139,7 +140,7 @@ public class BiografViewer
         
         // laver fanerne som innerBorderLayout skal være inde i og det næste layout som skal vise forestillinger
         
-        JTabbedPane jtp = new JTabbedPane();
+        jtp = new JTabbedPane();
         
         JPanel jp1 = new JPanel(new BorderLayout(6, 6));
       
@@ -282,21 +283,21 @@ public class BiografViewer
                         public void actionPerformed(ActionEvent e) {
                             int i = table.getSelectedRow();
                             
-                            //jtp.setSelectedIndex(0);
+                            
                             
                             int selectedColumnIndex = table.getSelectedColumn();
-                            int selectedReservationId = (Integer) table.getModel().getValueAt(i, 0);
-                            //int selectedReservationId = (Integer) table.getModel().getValueAt(i, 0);
-                            //int selectedReservationId = selectedReservation.reservation_id();
+                            int selectedShowId = (Integer) table.getModel().getValueAt(i, 2);
                             
                             if(i>=0){
-                                dataFactory.deleteReservation(selectedReservationId);
-                                //MySQL.queryUpdate("DELETE FROM reservations WHERE reservation_id = " + reservation_id.getText() + ";");  virker ikke :(
-                                model.removeRow(i);                                
+                                jtp.setSelectedIndex(0);
                             }
                             else{
                                 System.out.println("No rows to delete");
+                               
                             }
+                             
+                            
+                            
                         }
                     });
         }
@@ -376,18 +377,22 @@ public class BiografViewer
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     
-                    List<Integer> allReservationIds = dataFactory.getAllShowReservationIds(show.show_id());
-                    showIdSelected = show.show_id();
-                    displayBookingPage(show, allReservationIds);
+                   
+                    displayBookingPage(show);
                             }
             });
         } 
         
-        public void displayBookingPage(Show show, List<Integer> allReservationIds){
+        public void displayBookingPage(Show show){
+            
+            
             JPanel bookingLayout = new JPanel(); 
             bookingLayout.setLayout(new BorderLayout(6, 6));
             bookingLayout.setBorder(new EtchedBorder());
             // de forskellige borderlayout laves i seperate metoder
+            
+            List<Integer> allReservationIds = dataFactory.getAllShowReservationIds(show.show_id());
+            showIdSelected = show.show_id();
             JPanel northPanel = makeNorthPanel(show);
             JPanel southPanel = makeSouthPanel(show, allReservationIds);
             JPanel centerPanel = makeCenterPanel(show, allReservationIds); 

@@ -146,11 +146,6 @@ public class AuditoriumView extends JPanel
                                 
                             }
                             JButton btn = (JButton) e.getSource();
-                            
-
-                            System.out.println("clicked column "
-                                + btn.getClientProperty("column")
-                                + ", row " + btn.getClientProperty("row"));
                             }
                     });
                     
@@ -233,6 +228,8 @@ public class AuditoriumView extends JPanel
 
                          if(validInput){
                              finalizeReservation(nameResult, phoneParsed);
+                             JOptionPane.showMessageDialog(frame,
+                             "Reservationen er tilføjet!");
                          }
                         }
                          table.repaint();
@@ -333,7 +330,7 @@ public class AuditoriumView extends JPanel
             rbc.gridx = 1;
             rbc.gridy = 1;
             
-           JLabel Screen = new JLabel("---- SKÆRM ----");
+           JLabel Screen = new JLabel("---- LÆRRED ----");
            Screen.setOpaque(true);
            Screen.setPreferredSize(new Dimension(500, 20));
            Screen.setBackground(Color.BLACK);

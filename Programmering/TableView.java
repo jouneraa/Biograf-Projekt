@@ -106,7 +106,8 @@ public class TableView extends JPanel
                                 model.removeRow(i);                                
                             }
                             else{
-                                System.out.println("No rows to delete");
+                                JOptionPane.showMessageDialog(frame,
+                                "Ingen valgte reservationer!");
                             }
                         }
                     });

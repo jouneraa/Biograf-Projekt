@@ -35,6 +35,7 @@ public class BiografViewer
     DefaultTableModel model;
     
     JPanel jp3;
+    JPanel jp1;
 
     
     private Color pinkColor;
@@ -135,8 +136,7 @@ public class BiografViewer
         
         jtp = new JTabbedPane();
         
-        JPanel jp1 = new JPanel(new BorderLayout(6, 6));
-      
+        jp1 = new JPanel(new BorderLayout(6, 6));
         jp3 = new JPanel(new BorderLayout(6, 6));
         
         jp1.add(InnerGrid, BorderLayout.WEST);
@@ -386,46 +386,14 @@ public class BiografViewer
         for(int x : movieIds){
             Movie movie = dataFactory.getMovie(x);
             String movieTitle = movie.title();
-            int movieId = movie.getMovieId();
+            
             // muligvis en til filmene også JScrollPane scrollPaneInnerGrid = new JScrollPane();
             JButton forestilling = new JButton(movieTitle);
             forestilling.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JPanel buttonGrid = new JPanel(new GridLayout(100,1));
-                    // initialiser scrollpanet, til sidst i løkken sættes panet ind i centerwestgrid
-                    JScrollPane scrollPaneWestGrid = new JScrollPane(buttonGrid);
-                    List<Integer> showIds = dataFactory.getActiveShows(movieId);
-                    
-                    for(int y : showIds){
-                        Show show = dataFactory.getShow(y);
-                        String buttonInfo = "Auditorium: " + show.auditorium_id() + " Tid: " + show.start_time();
-                        JButton showButton = new JButton(buttonInfo);
-                        // nogle ekstra knapper jeg har addet fordi jeg ikke kan komme ind i databasen :/ 
-                        JButton showButton1 = new JButton(buttonInfo);
-                        JButton showButton2 = new JButton(buttonInfo);
-                        JButton showButton3 = new JButton(buttonInfo);
-                        JButton showButton4 = new JButton(buttonInfo);
-                        JButton showButton5 = new JButton(buttonInfo);
-                        JButton showButton6 = new JButton(buttonInfo);
-                        JButton showButton7 = new JButton(buttonInfo);
-                        JButton showButton8 = new JButton(buttonInfo);
-                        //tilføjer listenere igen, til sædefordelingen
-                        addShowButtonListeners(showButton, show);
-                        buttonGrid.add(showButton);
-                        // nogle ekstra knapper jeg har addet fordi jeg ikke kan komme ind i databasen :/ 
-                        buttonGrid.add(showButton1);
-                        buttonGrid.add(showButton2);
-                        buttonGrid.add(showButton3);
-                        buttonGrid.add(showButton4);
-                        buttonGrid.add(showButton5);
-                        buttonGrid.add(showButton6);
-                        buttonGrid.add(showButton7);
-                        buttonGrid.add(showButton8);
-                    }
-                    //viser listen af spilletider i rammen
-                    CenterWestGrid.add(scrollPaneWestGrid, "buttonGrid");
-                    cardLayout.show(CenterWestGrid, "buttonGrid");
+                    ShowView showView = new ShowView(buttonGrid, movie, BiografViewer.this, CenterWestGrid, cardLayout, selectedSeats);
                             }
             });
              forestilling.setBackground(contentPane.getBackground ());
@@ -434,15 +402,7 @@ public class BiografViewer
                     
     }
     
-    public void addShowButtonListeners(JButton showButton, Show show){
-            showButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    selectedSeats.clear();
-                    displayBookingPage(show);
-                            }
-            });
-        } 
+
         
         public void displayBookingPage(Show show){
             

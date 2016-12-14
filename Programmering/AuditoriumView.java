@@ -235,18 +235,7 @@ public class AuditoriumView extends JPanel
                              finalizeReservation(nameResult, phoneParsed);
                          }
                         }
-                      /*
-                        if(table == null){
-                            System.out.println("nullll");
-                        }
-                        try{
-                            table.repaint();
-                        }
-                        catch(Exception ex){
-                            System.out.println("Exception ,   klasse: auditoriumView    metode: makeSoutpanel");
-                        }
-                        */
-                        
+                         table.repaint();
                     
                     }});
                     
@@ -288,7 +277,7 @@ public class AuditoriumView extends JPanel
         //checker at strengen er længere end null
         if(nameResult.length() < 1){
             JOptionPane.showMessageDialog(frame,
-            "Navn skal udfyldes!");
+            "Navn skal være mindst ét bogstav!");
             return false;
         }
         //checker at der kun indtastes bogstaver
@@ -317,8 +306,7 @@ public class AuditoriumView extends JPanel
     
     public void finalizeReservation(String name, int phone){
         dataFactory.addCustomer(phone, name);
-        
-        
+ 
         for(Seat x : selectedSeats){
             dataFactory.addReservation(phone, showIdSelected, x.getRow(), x.getColumn());
         }
@@ -326,13 +314,7 @@ public class AuditoriumView extends JPanel
         cardLayout.show(CenterWestGrid, "startGrid");
        //sletter gammelt frame med jtable og laver et nyt, for at opdaterer indhold
        
-        biografViewer.updateJTable();
-     /*
-        addJTable();
-        model.fireTableDataChanged();
-        */
-       
-        
+        biografViewer.updateJTable();   
     }
     
     public void updateSelectedSeats(){

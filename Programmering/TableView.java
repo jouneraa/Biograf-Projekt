@@ -163,12 +163,9 @@ public class TableView extends JPanel
                 }
             };
             model.setColumnIdentifiers(columns);
-            
-            
             // find Reservations and related shows to each reservation and display them in the table
              ArrayList<Reservation> list = dataFactory.getDetailsForAllReservations();
-             
-             
+ 
             Object[] row1 = new Object[8];
             for(int x = 0; x < list.size(); x++) {
                 Show show = dataFactory.getShow(list.get(x).show_id());
@@ -184,8 +181,6 @@ public class TableView extends JPanel
                 
                 model.addRow(row1);
                 }
-            
-            
             //model.fireTableDataChanged();
             table.setModel(model);
     }

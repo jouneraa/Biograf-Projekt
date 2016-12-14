@@ -18,7 +18,7 @@ public class BiografViewer
 
     //reservation system reference
     ReservationSystem reservationSystem;
-    DataFactory dataFactory;
+    DataFactory dataFactory = DataFactory.getInstance();
     // fields:
     private JFrame frame;
     private JLabel filenameLabel;
@@ -28,6 +28,7 @@ public class BiografViewer
     private JPanel CenterWestGrid;
 
     private JPanel frame1;
+    private TableView tableView;
     private CardLayout cardLayout = new CardLayout();
     private JTabbedPane jtp;
     
@@ -49,7 +50,7 @@ public class BiografViewer
         pinkColor = new Color(138,43,226);
         reservationSystem = new ReservationSystem();
         selectedSeats = new ArrayList<>();
-        dataFactory = DataFactory.getInstance();
+        
         
         makeFrame();
     }
@@ -125,7 +126,7 @@ public class BiografViewer
         // lave et gridbaglayout som reservationerne skal opbevares i 
         
         
-            addJTable();
+            //addJTable();
                   
 
         // ----------------------------------------------------
@@ -139,11 +140,14 @@ public class BiografViewer
         jp1 = new JPanel(new BorderLayout(6, 6));
         jp3 = new JPanel(new BorderLayout(6, 6));
         
+        
+        
         jp1.add(InnerGrid, BorderLayout.WEST);
         jp1.add(CenterBorder, BorderLayout.CENTER);
         //jp2.add(CenterBorder);
       
-        jp3.add(frame1);
+        makeTableView();
+        jp3.add(tableView);
         
         jtp.addTab("Forestillinger", jp1);
        
@@ -178,7 +182,11 @@ public class BiografViewer
  
 
         }
-        
+      
+        public void makeTableView(){
+            tableView = new TableView(this, selectedSeats, jtp, frame, jp3, table, model);
+        }
+        /*
         public void addJTable(){
             frame1 = new JPanel(new BorderLayout()); 
             table = new JTable();
@@ -300,7 +308,8 @@ public class BiografViewer
                         }
                     });
         }
-    
+        */
+    /*
         //resetter data table modellen!
          public void makeTableModel(){
              Object[] columns = {"Reservation ID","Telephone Number","Show ID","Row Number","Seat Number","Film","Auditorium","Start Time"};
@@ -341,7 +350,7 @@ public class BiografViewer
             //model.fireTableDataChanged();
             table.setModel(model);
         }
-    
+    */
 
     private void makeMenuBar(JFrame frame)
     {
@@ -415,7 +424,7 @@ public class BiografViewer
             // de forskellige borderlayout laves i seperate metoder
             
             // 
-            AuditoriumView auditoriumView = new AuditoriumView(show, allReservationIds, table, selectedSeats,  frame, CenterWestGrid, cardLayout, frame1, this);
+            AuditoriumView auditoriumView = new AuditoriumView(show, allReservationIds, table, selectedSeats,  frame, CenterWestGrid, cardLayout, tableView, this);
             
             //viser bookinglayoutet i rammen
             CenterWestGrid.add(auditoriumView, "showView");
@@ -449,10 +458,11 @@ public class BiografViewer
         }
         
         public void updateJTable(){
-            jp3.remove(frame1);
-            addJTable();
-            jp3.add(frame1);
+            jp3.remove(tableView);
+            tableView = new TableView(this, selectedSeats, jtp, frame, jp3, table, model);
+            jp3.add(tableView);
         }
+     
 
     
     

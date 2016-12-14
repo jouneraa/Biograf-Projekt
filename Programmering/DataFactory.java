@@ -50,7 +50,7 @@ public class DataFactory
                 return movie;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Exception, klasse: DataFactory   Metode: getMovie");
         } 
         return null; 
     }
@@ -75,7 +75,7 @@ public class DataFactory
                 return customer;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Exception, klasse: DataFactory   Metode: getCustomer");
         } 
         return null; 
     }
@@ -96,7 +96,7 @@ public class DataFactory
                 return auditorium;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Exception, klasse: DataFactory   Metode: getAuditorium");
         } 
         return null; 
     }
@@ -120,7 +120,7 @@ public class DataFactory
                 return show;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Exception, klasse: DataFactory   Metode: getShow");
         } 
         return null; 
     }
@@ -144,7 +144,7 @@ public class DataFactory
                 return reservation;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Exception, klasse: DataFactory   Metode: getReservation");
         } 
         return null; 
     }
@@ -170,7 +170,7 @@ public class DataFactory
             }
             return movieIds;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Exception, klasse: DataFactory   Metode: getAllMovieIds");
         } 
         return null;
     }
@@ -189,7 +189,7 @@ public class DataFactory
             }
             return showIds;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Exception, klasse: DataFactory   Metode: getAllShowIds");
         } 
         return null;
     }
@@ -208,7 +208,7 @@ public class DataFactory
             }
             return reservationIds;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Exception, klasse: DataFactory   Metode: getAllReservationIds");
         } 
         return null;
     }
@@ -227,7 +227,7 @@ public class DataFactory
             }
             return reservationIds;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Exception, klasse: DataFactory   Metode: getallcustomerShowIds");
         } 
         return null;
     }
@@ -246,7 +246,7 @@ public class DataFactory
             }
             return showIds;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Exception, klasse: DataFactory   Metode: getActiveShows");
         } 
         return null;
     }
@@ -271,7 +271,7 @@ public class DataFactory
             }
             return reservations;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Exception, klasse: DataFactory   Metode: getDeatailsForAllReservations");
         } 
         return null;
    }

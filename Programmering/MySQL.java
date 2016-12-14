@@ -25,7 +25,7 @@ public class MySQL {
             rs = statement.executeQuery(query);
             return rs;
         } catch(Exception e) { // handle errors:
-            e.printStackTrace();
+            System.out.println("Exception, klasse: MySQL   Metode: query");
         }
         return null;
     }
@@ -40,7 +40,7 @@ public class MySQL {
             statement = connection.createStatement(); // Create statement
             statement.executeUpdate(query);
         } catch(Exception e) { // handle errors:
-            e.printStackTrace();
+            System.out.println("Exception, klasse: MySQL   Metode: queryUpdate");
         }
     }
 

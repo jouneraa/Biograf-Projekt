@@ -16,18 +16,18 @@ public class AuditoriumView extends JPanel
     private int showIdSelected;
     private JPanel CenterWestGrid;
     private CardLayout cardLayout;
-    private JPanel frame1;
+    private JPanel tableView;
     private JFrame frame;
     private BiografViewer biografViewer;
     private List<Seat> selectedSeats;
     private Color pinkColor = new Color(138,43,226);
-    public AuditoriumView(Show show, List<Integer> allReservationIds, JTable table, List<Seat> selectedSeats, JFrame frame, JPanel CenterWestGrid, CardLayout cardLayout, JPanel frame1, BiografViewer biografViewer ){
+    public AuditoriumView(Show show, List<Integer> allReservationIds, JTable table, List<Seat> selectedSeats, JFrame frame, JPanel CenterWestGrid, CardLayout cardLayout, JPanel tableView, BiografViewer biografViewer ){
         super(new BorderLayout(6,6));
         this.setBorder(new EtchedBorder());
         showIdSelected = show.show_id();
         this.CenterWestGrid = CenterWestGrid;
         this.cardLayout = cardLayout;
-        this.frame1 = frame1;
+        this.tableView = tableView;
         this.selectedSeats = selectedSeats;
         this.frame = frame;
         this.biografViewer = biografViewer;

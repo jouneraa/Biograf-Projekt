@@ -213,8 +213,8 @@ public class BiografViewer
            
             frame1.add(pane);
             JPanel lowerFlowLayout = new JPanel(new FlowLayout()); 
-            lowerFlowLayout.add(searchCustomer);
             lowerFlowLayout.add(searchInfo);
+            lowerFlowLayout.add(searchCustomer);
             lowerFlowLayout.add(btnDelete);
             lowerFlowLayout.add(btnEdit);
             frame1.add(lowerFlowLayout, BorderLayout.SOUTH);   
@@ -252,7 +252,8 @@ public class BiografViewer
                                 model.removeRow(i);                                
                             }
                             else{
-                                System.out.println("No rows to delete");
+                                JOptionPane.showMessageDialog(frame,
+                                "Ingen valgte reservationer at slette!");
                             }
                         }
                     });

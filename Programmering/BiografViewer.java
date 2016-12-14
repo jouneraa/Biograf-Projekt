@@ -124,15 +124,9 @@ public class BiografViewer
         // lave et gridbaglayout som reservationerne skal opbevares i 
         
         
-        
-        
-        
-        
             addJTable();
                   
 
-        
-       
         // ----------------------------------------------------
         
       // --> slettet colorcodekoden og sat den ned i en metode 
@@ -368,7 +362,8 @@ public class BiografViewer
         //tilføj title på panelet
         JLabel forestilling1 = new JLabel();
         forestilling1.setText("Film:");
-        InnerGrid.add(forestilling1); 
+        InnerGrid.add(forestilling1);
+        
         
         //tilføj knapperne der viser spillefilm
         List<Integer> movieIds = dataFactory.getAllMovieIds();
@@ -376,22 +371,44 @@ public class BiografViewer
             Movie movie = dataFactory.getMovie(x);
             String movieTitle = movie.title();
             int movieId = movie.getMovieId();
+            // muligvis en til filmene også JScrollPane scrollPaneInnerGrid = new JScrollPane();
             JButton forestilling = new JButton(movieTitle);
             forestilling.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JPanel buttonGrid = new JPanel(new GridLayout(20,1));
+                    JPanel buttonGrid = new JPanel(new GridLayout(100,1));
+                    // initialiser scrollpanet, til sidst i løkken sættes panet ind i centerwestgrid
+                    JScrollPane scrollPaneWestGrid = new JScrollPane(buttonGrid);
                     List<Integer> showIds = dataFactory.getActiveShows(movieId);
+                    
                     for(int y : showIds){
                         Show show = dataFactory.getShow(y);
                         String buttonInfo = "Auditorium: " + show.auditorium_id() + " Tid: " + show.start_time();
                         JButton showButton = new JButton(buttonInfo);
+                        // nogle ekstra knapper jeg har addet fordi jeg ikke kan komme ind i databasen :/ 
+                        JButton showButton1 = new JButton(buttonInfo);
+                        JButton showButton2 = new JButton(buttonInfo);
+                        JButton showButton3 = new JButton(buttonInfo);
+                        JButton showButton4 = new JButton(buttonInfo);
+                        JButton showButton5 = new JButton(buttonInfo);
+                        JButton showButton6 = new JButton(buttonInfo);
+                        JButton showButton7 = new JButton(buttonInfo);
+                        JButton showButton8 = new JButton(buttonInfo);
                         //tilføjer listenere igen, til sædefordelingen
                         addShowButtonListeners(showButton, show);
                         buttonGrid.add(showButton);
+                        // nogle ekstra knapper jeg har addet fordi jeg ikke kan komme ind i databasen :/ 
+                        buttonGrid.add(showButton1);
+                        buttonGrid.add(showButton2);
+                        buttonGrid.add(showButton3);
+                        buttonGrid.add(showButton4);
+                        buttonGrid.add(showButton5);
+                        buttonGrid.add(showButton6);
+                        buttonGrid.add(showButton7);
+                        buttonGrid.add(showButton8);
                     }
                     //viser listen af spilletider i rammen
-                    CenterWestGrid.add(buttonGrid, "buttonGrid");
+                    CenterWestGrid.add(scrollPaneWestGrid, "buttonGrid");
                     cardLayout.show(CenterWestGrid, "buttonGrid");
                             }
             });

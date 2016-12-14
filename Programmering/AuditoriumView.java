@@ -277,7 +277,7 @@ public class AuditoriumView extends JPanel
         //checker at strengen er længere end null
         if(nameResult.length() < 1){
             JOptionPane.showMessageDialog(frame,
-            "Navn skal være mindst ét bogstav!");
+            "Navn skal udfyldes!");
             return false;
         }
         //checker at der kun indtastes bogstaver

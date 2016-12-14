@@ -164,12 +164,10 @@ public class BiografViewer
         
         contentPane.add(filenameLabel, BorderLayout.NORTH);
 
-        //statusLabel = new JLabel(VERSION);
-        //contentPane.add(statusLabel, BorderLayout.SOUTH);
         
 
 
-        // arrangerer componenterne   
+ 
 
         //frame.pack();
         frame.setSize(1200,800);
@@ -304,24 +302,42 @@ public class BiografViewer
         }
     
         //resetter data table modellen!
-        public void makeTableModel(){
-             Object[] columns = {"Reservation ID","Telephone Number","Show ID","Row Number","Seat Number"};
-            model = new DefaultTableModel();
+         public void makeTableModel(){
+             Object[] columns = {"Reservation ID","Telephone Number","Show ID","Row Number","Seat Number","Film","Auditorium","Start Time"};
+            model = new DefaultTableModel(){
+            
+                @Override
+                public boolean isCellEditable(int row, int column){
+                    return false;
+                }
+            };
             model.setColumnIdentifiers(columns);
             
             
-            // find Reservations and display them in the table
+            // find Reservations and related shows to each reservation and display them in the table
              ArrayList<Reservation> list = dataFactory.getDetailsForAllReservations();
-            Object[] row1 = new Object[5];
+             
+             
+            Object[] row1 = new Object[8];
             for(int x = 0; x < list.size(); x++) {
+                Show show = dataFactory.getShow(list.get(x).show_id());
                 row1[0] = list.get(x).reservation_id();
                 row1[1] = list.get(x).telephone_number();
                 row1[2] = list.get(x).show_id();
                 row1[3] = list.get(x).row_number();
                 row1[4] = list.get(x).seat_number();
                 
+                
+                  
+                    row1[5] = dataFactory.getMovie(show.movie_id()).title();
+                    row1[6] = show.auditorium_id();
+                    row1[7] = show.start_time();
+                    
+                
                 model.addRow(row1);
-            }
+                }
+            
+            
             //model.fireTableDataChanged();
             table.setModel(model);
         }

@@ -235,7 +235,18 @@ public class AuditoriumView extends JPanel
                              finalizeReservation(nameResult, phoneParsed);
                          }
                         }
-                         table.repaint();
+                      /*
+                        if(table == null){
+                            System.out.println("nullll");
+                        }
+                        try{
+                            table.repaint();
+                        }
+                        catch(Exception ex){
+                            System.out.println("Exception ,   klasse: auditoriumView    metode: makeSoutpanel");
+                        }
+                        */
+                        
                     
                     }});
                     

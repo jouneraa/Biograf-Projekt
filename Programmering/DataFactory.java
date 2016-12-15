@@ -38,17 +38,19 @@ public class DataFactory
     /**
      * SQL-query til at tilføje kunder til databasen
      */
-     public void addCustomer(int telephone_number, String name)
+     public void addCustomer(int telephoneNumber, String name)
     {
-         MySQL.queryUpdate("INSERT INTO customers (telephone_number, name) VALUES ('"+ telephone_number + "', '" + name +"');");
+        if(getCustomer(telephoneNumber) == null){ 
+            MySQL.queryUpdate("INSERT INTO customers (telephone_number, name) VALUES ('"+ telephoneNumber + "', '" + name +"');");
+        }
     }
     
     /**
      * SQL-query til at tilføje reservationer til databasen
      */
-    public void addReservation(int telephone_number, int show_id, int row_number, int seat_number){
+    public void addReservation(int telephoneNumber, int showId, int rowNumber, int seatNumber){
         // Virker kun såfremt at telefonnummeret peger på en oprettet customer.
-        MySQL.queryUpdate("INSERT INTO reservations (telephone_number, show_id, row_number, seat_number) VALUES ('"+ telephone_number +"', '" + show_id + "', '" + row_number + "', '" + seat_number + "');"); 
+        MySQL.queryUpdate("INSERT INTO reservations (telephone_number, show_id, row_number, seat_number) VALUES ('"+ telephoneNumber +"', '" + showId + "', '" + rowNumber + "', '" + seatNumber + "');"); 
     }
     
     /**
@@ -237,9 +239,9 @@ public class DataFactory
     /**
      * SQL-query til at hente alle reservation_id's i databasen til en bestemt forestilling, og returneres som en arrayliste af integers.
      */
-    public List<Integer> getAllShowReservationIds(int show_id){
+    public List<Integer> getAllShowReservationIds(int showId){
         List<Integer> reservationIds = new ArrayList<>();
-        ResultSet r = MySQL.query("SELECT reservation_id FROM reservations WHERE show_id = " + show_id + ";");
+        ResultSet r = MySQL.query("SELECT reservation_id FROM reservations WHERE show_id = " + showId + ";");
         try{
             // How to get data from the ResultSet
             while(r.next())
@@ -259,9 +261,9 @@ public class DataFactory
     /**
      * SQL-query til at hente alle reservation_id's i databasen til en bestemt forestilling til en bestemt kunde, og returneres som en arrayliste af integers.
      */
-    public List<Integer> getAllCustomerShowIds(int show_id, int telephone){
+    public List<Integer> getAllCustomerShowIds(int showId, int telephoneNumber){
         List<Integer> reservationIds = new ArrayList<>();
-        ResultSet r = MySQL.query("SELECT reservation_id FROM reservations WHERE show_id = " + show_id + " AND telephone_number = " + telephone +";");
+        ResultSet r = MySQL.query("SELECT reservation_id FROM reservations WHERE show_id = " + showId + " AND telephone_number = " + telephoneNumber +";");
         try{
             // How to get data from the ResultSet
             while(r.next())
@@ -280,9 +282,9 @@ public class DataFactory
     /**
      * SQL-query til at hente alle aktive show_id's i databasen, og returneres som en arrayliste af integers.
      */
-    public List<Integer> getActiveShows(int movie_id){
+    public List<Integer> getActiveShows(int movieId){
         List<Integer> showIds = new ArrayList<>();
-        ResultSet r = MySQL.query("SELECT show_id FROM shows WHERE movie_id = " + movie_id + ";");
+        ResultSet r = MySQL.query("SELECT show_id FROM shows WHERE movie_id = " + movieId + ";");
         try{
             // How to get data from the ResultSet
             while(r.next())
@@ -326,4 +328,6 @@ public class DataFactory
         } 
         return null;
     }
+    
+    
 }

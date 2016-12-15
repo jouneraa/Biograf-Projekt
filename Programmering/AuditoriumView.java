@@ -12,10 +12,12 @@ import javax.swing.table.TableRowSorter;
 /**
  * Gruppe 33: Jonas, Jonathan, Julius
  * Itu-mails: jskr@itu.dk - josn@itu.dk - jufi@itu.dk
+ * 
+ * Beskrivelse af klassen
  */
 public class AuditoriumView extends JPanel
 {
-     private DataFactory dataFactory = DataFactory.getInstance();
+    private DataFactory dataFactory = DataFactory.getInstance();
     private JLabel AntalPladser;
     private int showIdSelected;
     private JPanel CenterWestGrid;
@@ -25,6 +27,10 @@ public class AuditoriumView extends JPanel
     private BiografViewer biografViewer;
     private List<Seat> selectedSeats;
     private Color pinkColor = new Color(138,43,226);
+    
+    /**
+     * 
+     */
     public AuditoriumView(Show show, List<Integer> allReservationIds, JTable table, List<Seat> selectedSeats, JFrame frame, JPanel CenterWestGrid, CardLayout cardLayout, JPanel tableView, BiografViewer biografViewer ){
         super(new BorderLayout(6,6));
         this.setBorder(new EtchedBorder());
@@ -38,189 +44,192 @@ public class AuditoriumView extends JPanel
         makeFrame(show, allReservationIds, table);
     }
     
+    /**
+     * 
+     */
     public void makeFrame(Show show, List<Integer> allReservationIds, JTable table ){
         JPanel northPanel = makeNorthPanel(show);
         JPanel southPanel = makeSouthPanel(show, allReservationIds, table);
         JPanel centerPanel = makeCenterPanel(show, allReservationIds); 
         
-         this.add(northPanel, BorderLayout.NORTH);       
-            this.add(southPanel, BorderLayout.SOUTH);
-            this.add(centerPanel, BorderLayout.CENTER);
+        this.add(northPanel, BorderLayout.NORTH);       
+        this.add(southPanel, BorderLayout.SOUTH);
+        this.add(centerPanel, BorderLayout.CENTER);
     }
     
-    
-
-         public JPanel makeCenterPanel(Show show, List<Integer> allReservationIds){
-            JPanel seatsGraphical = new JPanel();
+    /**
+     * 
+     */
+    public JPanel makeCenterPanel(Show show, List<Integer> allReservationIds){
+        JPanel seatsGraphical = new JPanel();
          
-            seatsGraphical.setLayout(new GridBagLayout());
-            seatsGraphical.setBorder(new EmptyBorder(20, 90, 20, 90));
-            GridBagConstraints gbc = new GridBagConstraints();
+        seatsGraphical.setLayout(new GridBagLayout());
+        seatsGraphical.setBorder(new EmptyBorder(20, 90, 20, 90));
+        GridBagConstraints gbc = new GridBagConstraints();
         
-            int auditoriumId = show.getAuditoriumId();
-            Auditorium auditorium = dataFactory.getAuditorium(auditoriumId);
-            int rowNumbers = auditorium.getRowNumber();
-            int colNumbers = auditorium.getColumnNumber();
-            
-            //find alle reservationerne til showet
-            List<Reservation> allReservations = new ArrayList<>();
-            for(int x : allReservationIds){
-                allReservations.add(dataFactory.getReservation(x));
-            }
-            
-            for (int row = 1; row < (rowNumbers + 1); row++) {
-                for (int col = 1; col < (colNumbers + 1); col++) {
-                    JButton btn = new JButton();
+        int auditoriumId = show.getAuditoriumId();
+        Auditorium auditorium = dataFactory.getAuditorium(auditoriumId);
+        int rowNumbers = auditorium.getRowNumber();
+        int colNumbers = auditorium.getColumnNumber();
+        
+        // find alle reservationerne til showet
+        List<Reservation> allReservations = new ArrayList<>();
+        for(int x : allReservationIds){
+            allReservations.add(dataFactory.getReservation(x));
+        }
+        
+        //
+        for (int row = 1; row < (rowNumbers + 1); row++) {
+            for (int col = 1; col < (colNumbers + 1); col++) {
+                JButton btn = new JButton();
                     
-                    btn.putClientProperty("column", col);
-                    btn.putClientProperty("row", row);
-                    
-                
-                    // tekst streng der skal stå over hover
-                    ToolTipManager.sharedInstance().setInitialDelay(0);
-                    String sutmig = ("Række " + row + " " +"\n" + "Sæde " + col +  " ");
-                
-                    //tjekker om pladsen er reserveret
-                    String status = "null";
-                    //boolean status = false;
-                    if(!allReservations.isEmpty()){
-                        for(Reservation y : allReservations){
-                            if(y.getRowNumber() == row && y.getColumnNumber() == col){
-                                status = "reserved";
-                                //status = true;
-                            }
-                        }
-                    }
-                    
-                    if(!selectedSeats.isEmpty()){
-                        for(Seat s : selectedSeats){
-                            if(s.getRow() == row && s.getColumn() == col){
-                                status = "selected";
-                            }
-                        }
-                    }
+                btn.putClientProperty("column", col);
+                btn.putClientProperty("row", row);
                    
-                    //sætter sædets farve ud fra status
-                    switch (status){
-                        case "reserved":
-                            btn.setBackground(Color.RED);
-                            break;
-                        case "selected":
-                            btn.setBackground(pinkColor);
-                            break;
-                        default:
-                            btn.setBackground(Color.GREEN);
-                            break;
-                        
-                            
-                    }
-                    
-
-                   
-                    btn.setBorder(new LineBorder(Color.WHITE));
-                    
-                    // fjerner blå highlihght når man klikker på knappen
-                    btn.setFocusPainted(false);
-                    // gør så at UI.manageLookAndFeel ikke farver knapperne grå som UI/baggrunden 
-                    btn.setContentAreaFilled(false);
-                    btn.setOpaque(true);
-            
-                    int kolonne = col; 
-                    btn.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            int rowNr = Integer.parseInt(btn.getClientProperty("row").toString());
-                            int colNr = Integer.parseInt(btn.getClientProperty("column").toString());
-                            if(btn.getBackground() == pinkColor){
-                                btn.setBackground(Color.GREEN);
-                                //slet sædet fra selectedSeats
-                                Iterator<Seat> it = selectedSeats.iterator();
-                                while(it.hasNext()){
-                                    Seat x = it.next();
-                                    if(x.getRow() == rowNr && x.getColumn() == colNr){
-                                        it.remove();
-                                    }
-                                }
-                                updateSelectedSeats(); 
-                            }
-                            else if(btn.getBackground() == Color.GREEN){
-                                btn.setBackground(pinkColor);
-                                selectedSeats.add(new Seat(rowNr, colNr));
-                                updateSelectedSeats(); 
-                                
-                            }
-                            JButton btn = (JButton) e.getSource();
-                            }
-                    });
-                    
-                    btn.addMouseListener( new MouseAdapter() {
-                        public void mouseEntered( MouseEvent e ) {
-                            
-                            btn.setToolTipText(sutmig);
-
-                        }
-
-                    }); 
-                    
-                    gbc.gridx = col;
-                    gbc.gridy = row;
-                    gbc.gridwidth = gbc.gridheight = 1;
-                    gbc.fill = GridBagConstraints.BOTH;
-                    gbc.anchor = GridBagConstraints.NORTHWEST;
-                    gbc.weightx = 20;
-                    gbc.weighty = 20;
-                    seatsGraphical.add(btn, gbc);
-                }   
-            }
-            //2 nye JPanels som skal bruges til at få pladserne til at være i midten af det hele
-            JPanel centerPanel = new JPanel(new BorderLayout());
-            //adder midterflowlayout til et centerpanel for at få det til at være centreret
-            centerPanel.add(seatsGraphical, BorderLayout.CENTER);
-               // opretter et JPanel som DownRight og DownLeft skal nestes ind i 
-               //JPanel panelResult = addRest(seatsGraphical);
                
-            centerPanel.add(ColorCode(), BorderLayout.EAST); 
-            centerPanel.add(centerNorthScreenPanel(), BorderLayout.NORTH);
-        
-            return centerPanel;
+                // tekststreng, der skal stå over hover
+                ToolTipManager.sharedInstance().setInitialDelay(0);
+                String sædeinfo = ("Række " + row + " " +"\n" + "Sæde " + col +  " ");
+               
+                //tjekker, om pladsen er reserveret
+                String status = "null";
+                // boolean status = false;
+                if(!allReservations.isEmpty()){
+                    for(Reservation y : allReservations){
+                        if(y.getRowNumber() == row && y.getColumnNumber() == col){
+                           status = "reserved";
+                           // status = true;
+                        }
+                    }
+                }
+                   
+                if(!selectedSeats.isEmpty()){
+                    for(Seat s : selectedSeats){
+                        if(s.getRow() == row && s.getColumn() == col){
+                            status = "selected";
+                        }
+                    }
+                }
+                  
+                // sætter sædets farve ud fra status
+                switch (status){
+                    case "reserved":
+                        btn.setBackground(Color.RED);
+                        break;
+                    case "selected":
+                        btn.setBackground(pinkColor);
+                        break;
+                    default:
+                        btn.setBackground(Color.GREEN);
+                        break; 
+                }
+                   
+                //
+                btn.setBorder(new LineBorder(Color.WHITE));
+                
+                // fjerner blå highlihght når man klikker på knappen
+                btn.setFocusPainted(false);
+                // gør så at UI.manageLookAndFeel ikke farver knapperne grå som UI/baggrunden 
+                btn.setContentAreaFilled(false);
+                btn.setOpaque(true);
+         
+                int kolonne = col; 
+                btn.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int rowNr = Integer.parseInt(btn.getClientProperty("row").toString());
+                        int colNr = Integer.parseInt(btn.getClientProperty("column").toString());
+                        if(btn.getBackground() == pinkColor){
+                            btn.setBackground(Color.GREEN);
+                            //slet sædet fra selectedSeats
+                            Iterator<Seat> it = selectedSeats.iterator();
+                            while(it.hasNext()){
+                                Seat x = it.next();
+                                if(x.getRow() == rowNr && x.getColumn() == colNr){
+                                    it.remove();
+                                }
+                            }
+                            updateSelectedSeats(); 
+                        }
+                        else if(btn.getBackground() == Color.GREEN){
+                            btn.setBackground(pinkColor);
+                            selectedSeats.add(new Seat(rowNr, colNr));
+                            updateSelectedSeats(); 
+                            
+                        }
+                        JButton btn = (JButton) e.getSource();
+                    }
+                });
+                   
+                btn.addMouseListener( new MouseAdapter() {
+                    public void mouseEntered( MouseEvent e ) {        
+                           btn.setToolTipText(sædeinfo);
+                    }
+                }); 
+                   
+                gbc.gridx = col;
+                gbc.gridy = row;
+                gbc.gridwidth = gbc.gridheight = 1;
+                gbc.fill = GridBagConstraints.BOTH;
+                gbc.anchor = GridBagConstraints.NORTHWEST;
+                gbc.weightx = 20;
+                gbc.weighty = 20;
+                seatsGraphical.add(btn, gbc);
+            }   
         }
+        //2 nye JPanels som skal bruges til at få pladserne til at være i midten af det hele
+        JPanel centerPanel = new JPanel(new BorderLayout());
+        //adder midterflowlayout til et centerpanel for at få det til at være centreret
+        centerPanel.add(seatsGraphical, BorderLayout.CENTER);
+        // opretter et JPanel som DownRight og DownLeft skal nestes ind i 
+        //JPanel panelResult = addRest(seatsGraphical);
+               
+        centerPanel.add(ColorCode(), BorderLayout.EAST); 
+        centerPanel.add(centerNorthScreenPanel(), BorderLayout.NORTH);
+        
+        return centerPanel;
+    }
     
-    
-     public JPanel makeNorthPanel(Show show){
-             JPanel northPanel = new JPanel(new BorderLayout());
-             // sætter to jlabel til west og east i northPanel så de kan være ud i siden, senere kommer northpanel til at sættes mod north i contentpane
-             String showTime = show.getStartTime();
-             northPanel.add(new JLabel("Forestilling: " + showTime), BorderLayout.EAST);
-             String movieName = dataFactory.getMovie(show.getMovieId()).getTitle();
-             JLabel Tekst = new JLabel("Film: " + movieName);
-             Tekst.setFont(new Font("Serif", Font.PLAIN, 20));
-             northPanel.add(Tekst, BorderLayout.WEST);
+    /**
+     * 
+     */
+    public JPanel makeNorthPanel(Show show){
+        JPanel northPanel = new JPanel(new BorderLayout());
+        // sætter to jlabel til west og east i northPanel så de kan være ud i siden, senere kommer northpanel til at sættes mod north i contentpane
+        String showTime = show.getStartTime();
+        northPanel.add(new JLabel("Forestilling: " + showTime), BorderLayout.EAST);
+        String movieName = dataFactory.getMovie(show.getMovieId()).getTitle();
+        JLabel Tekst = new JLabel("Film: " + movieName);
+        Tekst.setFont(new Font("Serif", Font.PLAIN, 20));
+        northPanel.add(Tekst, BorderLayout.WEST);
              
-             return northPanel;
-        }
+        return northPanel;
+    }
         
-         public JPanel makeSouthPanel(Show show, List<Integer> allReservationIds, JTable table){
-            
-            // nyt JPanel som nestes ind i southPanel, bemærk flowlayout og ikke borderlayout da knapperne skal "floate på en række" i højre hjørne
-            JPanel DownRight = new JPanel(new FlowLayout());
-            JButton Knap1 = new JButton("Reservér");
-            Knap1.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
+    /**
+     * 
+     */
+    public JPanel makeSouthPanel(Show show, List<Integer> allReservationIds, JTable table){
+           
+        // nyt JPanel som nestes ind i southPanel, bemærk flowlayout og ikke borderlayout da knapperne skal "floate på en række" i højre hjørne
+        JPanel DownRight = new JPanel(new FlowLayout());
+        JButton Knap1 = new JButton("Reservér");
+        Knap1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                 //input felterne
+                 JTextField nameField = new JTextField(20);
+                 JTextField phoneField = new JTextField(20);
                     
-                     //input felterne
-                     JTextField nameField = new JTextField(20);
-                     JTextField phoneField = new JTextField(20);
-                        
-                     JPanel dialogPanel = new JPanel();
-                     dialogPanel.add(new JLabel("Navn: "));
-                     dialogPanel.add(nameField);
-                     //lav mellemrum
-                     dialogPanel.add(Box.createHorizontalStrut(15)); // a spacer
-                     dialogPanel.add(new JLabel("Telefon: "));
-                     dialogPanel.add(phoneField);
+                 JPanel dialogPanel = new JPanel();
+                 dialogPanel.add(new JLabel("Navn: "));
+                 dialogPanel.add(nameField);
+                 //lav mellemrum
+                 dialogPanel.add(Box.createHorizontalStrut(15)); // a spacer
+                 dialogPanel.add(new JLabel("Telefon: "));
+                 dialogPanel.add(phoneField);
                      
-                     
+<<<<<<< HEAD
                      int result = JOptionPane.showConfirmDialog(null, dialogPanel, 
                      null, JOptionPane.OK_CANCEL_OPTION);
                      if (result == JOptionPane.OK_OPTION) {
@@ -240,47 +249,72 @@ public class AuditoriumView extends JPanel
                     }});
                     
             AntalPladser =  new JLabel("Antal valgte pladser: " + selectedSeats.size()); 
+=======
+                 //
+                 int result = JOptionPane.showConfirmDialog(null, dialogPanel, 
+                 null, JOptionPane.OK_CANCEL_OPTION);
+                 if (result == JOptionPane.OK_OPTION) {
+                     String nameResult = nameField.getText();
+                     String phoneResult = phoneField.getText();
+                     //test for om navn og telefonnummer er gyldige
+                     boolean validInput = testInputString(nameResult, phoneResult, frame);
+                     int phoneParsed = Integer.parseInt(phoneResult);
+                     if(validInput){
+                         finalizeReservation(nameResult, phoneParsed);
+                         JOptionPane.showMessageDialog(frame,
+                         "Reservationen er tilføjet!");
+                     }
+                 }
+                 table.repaint();
+            }
+        });
+                  
+        AntalPladser =  new JLabel("Antal valgte pladser: " + selectedSeats.size()); 
+>>>>>>> 3889a842ab134e4ff7b18f12728b598b2f6164d1
             
-            DownRight.add(AntalPladser); 
-            DownRight.add(Knap1);
+        DownRight.add(AntalPladser); 
+        DownRight.add(Knap1);
           
-            // nyt JPanel som nestes ind i southPanel som nestes ind i ContentPane
-            JPanel DownLeft = new JPanel(new GridLayout(2,2));
-            DownLeft.setBorder(new EtchedBorder());
-            JLabel freeLabel = new JLabel("Ledige Pladser");
+        // nyt JPanel som nestes ind i southPanel som nestes ind i ContentPane
+        JPanel DownLeft = new JPanel(new GridLayout(2,2));
+        DownLeft.setBorder(new EtchedBorder());
+        JLabel freeLabel = new JLabel("Ledige Pladser");
             
-            //checker hvor mange sæder er optagede
-            int seatsTaken = allReservationIds.size();
-            Auditorium auditorium = dataFactory.getAuditorium(show.getAuditoriumId());
-            int seatsInAudit = auditorium.getRowNumber() * auditorium.getColumnNumber();
-            JLabel freeSeats = new JLabel("  " + (seatsInAudit - seatsTaken) + "/" + seatsInAudit);
+        //checker hvor mange sæder er optagede
+        int seatsTaken = allReservationIds.size();
+        Auditorium auditorium = dataFactory.getAuditorium(show.getAuditoriumId());
+        int seatsInAudit = auditorium.getRowNumber() * auditorium.getColumnNumber();
+        JLabel freeSeats = new JLabel("  " + (seatsInAudit - seatsTaken) + "/" + seatsInAudit);
             
-            JLabel auditLabel = new JLabel("Sal");
-            int auditoriumId = show.getAuditoriumId();
-            JLabel curAudit = new JLabel("  " + auditoriumId);
+        JLabel auditLabel = new JLabel("Sal");
+        int auditoriumId = show.getAuditoriumId();
+        JLabel curAudit = new JLabel("  " + auditoriumId);
             
-            // adder ovenstående labels til gridlayoutet
-            DownLeft.add(auditLabel);
-            DownLeft.add(curAudit);
-            DownLeft.add(freeLabel);
-            DownLeft.add(freeSeats);
+        // adder ovenstående labels til gridlayoutet
+        DownLeft.add(auditLabel);
+        DownLeft.add(curAudit);
+        DownLeft.add(freeLabel);
+        DownLeft.add(freeSeats);
     
-            JPanel southPanel = new JPanel(new BorderLayout());
+        JPanel southPanel = new JPanel(new BorderLayout());
          
-            southPanel.add(DownRight, BorderLayout.EAST);
-            southPanel.add(DownLeft, BorderLayout.WEST);
+        southPanel.add(DownRight, BorderLayout.EAST);
+        southPanel.add(DownLeft, BorderLayout.WEST);
             
-            return southPanel;
-        }
-        
+        return southPanel;
+    }
+    
+    /**
+     * 
+     */
         public boolean testInputString(String nameResult, String phoneResult, JFrame frame){
-        //checker at strengen er længere end null
+        //checker, at strengen er længere end null
         if(nameResult.length() < 1){
             JOptionPane.showMessageDialog(frame,
-            "Navn skal være mindst ét bogstav!");
+            "Navn skal udfyldes!");
             return false;
         }
-        //checker at der kun indtastes bogstaver
+        //checker, at der kun indtastes bogstaver
         else if(!nameResult.chars().allMatch(Character::isLetter)){
             JOptionPane.showMessageDialog(frame,
             "Navn må kun indeholde bogstaver!");
@@ -300,10 +334,12 @@ public class AuditoriumView extends JPanel
                 return false;
             }
         }
-        return true;
-        
+        return true; 
     }
     
+    /**
+     * 
+     */
     public void finalizeReservation(String name, int phone){
         dataFactory.addCustomer(phone, name);
  
@@ -317,33 +353,44 @@ public class AuditoriumView extends JPanel
         biografViewer.updateJTable();   
     }
     
+    /**
+     * 
+     */
     public void updateSelectedSeats(){
         AntalPladser.setText("Antal valgte pladser: " + selectedSeats.size());
         
     }
-     
-       public JPanel centerNorthScreenPanel(){
-           JPanel centerNorthScreenPanel = new JPanel(new GridBagLayout());
-                  GridBagConstraints rbc = new GridBagConstraints();
-          centerNorthScreenPanel.setBorder(new EmptyBorder(30, 0, 30, 122));
-            rbc.fill = GridBagConstraints.HORIZONTAL;
+    
+    /**
+     * 
+     */
+    public JPanel centerNorthScreenPanel(){
+        JPanel centerNorthScreenPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints rbc = new GridBagConstraints();
+        centerNorthScreenPanel.setBorder(new EmptyBorder(30, 0, 30, 122));
+        rbc.fill = GridBagConstraints.HORIZONTAL;
+        //
+        rbc.weightx = 20;
+        rbc.weighty = 20;
+        rbc.gridx = 1;
+        rbc.gridy = 1;
+        
+        //
+        JLabel Screen = new JLabel("---- LÆRRED ----");
+        Screen.setOpaque(true);
+        Screen.setPreferredSize(new Dimension(500, 20));
+        Screen.setBackground(Color.BLACK);
+        Screen.setForeground (Color.WHITE);
+        Screen.setHorizontalAlignment(SwingConstants.CENTER);
 
-            rbc.weightx = 20;
-            rbc.weighty = 20;
-            rbc.gridx = 1;
-            rbc.gridy = 1;
-            
-           JLabel Screen = new JLabel("---- LÆRRED ----");
-           Screen.setOpaque(true);
-           Screen.setPreferredSize(new Dimension(500, 20));
-           Screen.setBackground(Color.BLACK);
-           Screen.setForeground (Color.WHITE);
-           Screen.setHorizontalAlignment(SwingConstants.CENTER);
-
-          centerNorthScreenPanel.add(Screen);
+        centerNorthScreenPanel.add(Screen);
           
-          return centerNorthScreenPanel;
-        }
+        return centerNorthScreenPanel;
+    }
+    
+    /**
+     * 
+     */
     public JPanel ColorCode(){
            
           JPanel eastPanel = new JPanel(new GridBagLayout());
@@ -384,6 +431,5 @@ public class AuditoriumView extends JPanel
           eastPanel.add(valgteKnap, ebc);
           
           return eastPanel;
-        }
-        
+    }       
 }

@@ -17,12 +17,14 @@ public class Movie{
         this.movieId = movieId;
         this.title = title;
     }
+    
     /**
      * Accessormetode for filmens titel
      */
     public String getTitle(){
         return title;
     }
+    
     /**
      * Accessormetode for filmens id
      */

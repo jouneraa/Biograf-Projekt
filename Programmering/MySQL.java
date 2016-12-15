@@ -16,6 +16,10 @@ public class MySQL {
     static final String PASS = "kransekage66";
     // JDBC driver name and database URL
     static final String DB_URL = "jdbc:mysql://mydb.itu.dk/" + MYDB;
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 3889a842ab134e4ff7b18f12728b598b2f6164d1
     /**
      * private konstruktor da det ikke er nødvændigt at lave en instans, eftersom alle metoder er static
      */

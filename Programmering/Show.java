@@ -35,6 +35,7 @@ public class Show
     {
         return showId;
     }
+    
     /**
      * Accessormetode for forestillingens movie_id
      */
@@ -42,6 +43,7 @@ public class Show
     {
         return movieId;
     }
+    
     /**
      * Accessormetode for forestillingens auditorium_id
      */
@@ -49,6 +51,7 @@ public class Show
     {
         return auditoriumId;
     }
+    
     /**
      * Accessormetode for forestillingens starttidspunkt
      */

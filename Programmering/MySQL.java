@@ -12,22 +12,35 @@ public class MySQL {
     // Database credentials: replace with *YOUR* data here:
     private static final String MYDB = "CinemaDatabase";
     private static Connection connection;
+    private static Statement statement;
+    private static MySQL instance = null;
     static final String USER = "juliusf";
     static final String PASS = "kransekage66";
     // JDBC driver name and database URL
     static final String DB_URL = "jdbc:mysql://mydb.itu.dk/" + MYDB;
 
     /**
-     * private konstruktor da det ikke er nødvændigt at lave en instans, eftersom alle metoder er static
+     * private konstruktor da det er en singleton
      */
-    private MySQL() {
-
+    private MySQL() {}
+    
+    public static MySQL getInstance(){
+        if(instance == null){
+            instance = new MySQL();
+            try {
+                DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+                connection = DriverManager.getConnection(MySQL.DB_URL, MySQL.USER, MySQL.PASS); // Open connection
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return instance;
     }
     
     /**
      * Metode til at tilgå og udvælge data i databasen, som returneres i et ResultSet objekt. 
      */
-    public static ResultSet query(String query){
+    public ResultSet query(String query){
         Connection connection = null;
         Statement statement = null;
         ResultSet rs = null;
@@ -46,7 +59,7 @@ public class MySQL {
     /**
      * Metode til at tilgå og opdatere data i databasen.
      */
-    public static void queryUpdate(String query){
+    public void queryUpdate(String query){
         Connection connection = null;
         Statement statement = null;
         ResultSet rs = null;

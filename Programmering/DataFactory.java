@@ -18,6 +18,7 @@ public class DataFactory
      * Skriv her Jonathan
      */
     public static DataFactory dataFactory = null;
+    private MySQL mySql = MySQL.getInstance();
     private DataFactory(){}
     
     public static DataFactory getInstance(){
@@ -33,7 +34,7 @@ public class DataFactory
     public boolean addMovie(String title)
     {
         try{
-            MySQL.queryUpdate("INSERT INTO movies (title) VALUES ('"+ title +"');");
+            mySql.queryUpdate("INSERT INTO movies (title) VALUES ('"+ title +"');");
             return true;
         }
         catch(Exception e){
@@ -48,7 +49,7 @@ public class DataFactory
      public boolean addCustomer(int telephoneNumber, String name)
     {
         if(getCustomer(telephoneNumber) == null){ 
-            MySQL.queryUpdate("INSERT INTO customers (telephone_number, name) VALUES ('"+ telephoneNumber + "', '" + name +"');");
+            mySql.queryUpdate("INSERT INTO customers (telephone_number, name) VALUES ('"+ telephoneNumber + "', '" + name +"');");
             return true;
         }
         else{
@@ -62,7 +63,7 @@ public class DataFactory
     public boolean addReservation(int telephoneNumber, int showId, int rowNumber, int seatNumber){
         // Virker kun såfremt at telefonnummeret peger på en oprettet customer.
         if(getCustomer(telephoneNumber) != null){
-            MySQL.queryUpdate("INSERT INTO reservations (telephone_number, show_id, row_number, seat_number) VALUES ('"+ telephoneNumber +"', '" + showId + "', '" + rowNumber + "', '" + seatNumber + "');");
+            mySql.queryUpdate("INSERT INTO reservations (telephone_number, show_id, row_number, seat_number) VALUES ('"+ telephoneNumber +"', '" + showId + "', '" + rowNumber + "', '" + seatNumber + "');");
             return true;
         }
         else{
@@ -74,7 +75,7 @@ public class DataFactory
      * SQL-query til at hente en film fra databasen, og returneres som et Movie objekt
      */
     public Movie getMovie(int id){
-        ResultSet r = MySQL.query("SELECT * FROM movies WHERE movie_id = " + id + ";");
+        ResultSet r = mySql.query("SELECT * FROM movies WHERE movie_id = " + id + ";");
         try{
             // How to get data from the ResultSet
             while(r.next())
@@ -93,13 +94,15 @@ public class DataFactory
         return null; 
     }
     
+  
+    
     /**
      * SQL-query, som kunne anvendes til at checke for, om en customer allerede er oprettet i databasen.
      * Da vi allerede har en primary key i form af telephone_number i vores customertabel
      * bliver der dog allerede checket for, at samme customer ikke kan oprettes flere gange.
      */
     public Customer getCustomer(int id){
-        ResultSet r = MySQL.query("SELECT * FROM customers WHERE telephone_number = " + id + ";");
+        ResultSet r = mySql.query("SELECT * FROM customers WHERE telephone_number = " + id + ";");
         try{
             while(r.next())
             {
@@ -118,7 +121,7 @@ public class DataFactory
      * SQL-query til at hente en sal fra databasen, og returneres som et Auditorium objekt.
      */
     public Auditorium getAuditorium(int id){
-        ResultSet r = MySQL.query("SELECT * FROM auditorium WHERE auditorium_id = " + id + ";");
+        ResultSet r = mySql.query("SELECT * FROM auditorium WHERE auditorium_id = " + id + ";");
         try{
             while(r.next())
             {
@@ -139,7 +142,7 @@ public class DataFactory
      * SQL-query til at hente en forestilling fra databasen, og returneres som et Show objekt.
      */
     public Show getShow(int id){
-        ResultSet r = MySQL.query("SELECT * FROM shows WHERE show_id = " + id + ";");
+        ResultSet r = mySql.query("SELECT * FROM shows WHERE show_id = " + id + ";");
         try{
             while(r.next())
             {
@@ -161,7 +164,7 @@ public class DataFactory
      * SQL-query til at hente en reservation fra databasen, og returneres som et Reservation objekt.
      */
     public Reservation getReservation(int id){
-        ResultSet r = MySQL.query("SELECT * FROM reservations WHERE reservation_id = " + id + ";");
+        ResultSet r = mySql.query("SELECT * FROM reservations WHERE reservation_id = " + id + ";");
         try{
             while(r.next())
             {
@@ -184,7 +187,7 @@ public class DataFactory
      */
     public boolean deleteReservation(int id){
         if(getReservation(id) != null){
-            MySQL.queryUpdate("DELETE FROM reservations WHERE reservation_id = " + id + ";");
+            mySql.queryUpdate("DELETE FROM reservations WHERE reservation_id = " + id + ";");
             return true;
         }
         else{
@@ -196,14 +199,22 @@ public class DataFactory
      * SQL-query til at slette reservationer i databasen ud fra reservationens showid og telefonnummer
      */
      public void deleteReservation(int showId, int customerId ){
-        MySQL.queryUpdate("DELETE FROM reservations WHERE show_id = " + showId + " AND telephone_number = " + customerId + ";");
+        mySql.queryUpdate("DELETE FROM reservations WHERE show_id = " + showId + " AND telephone_number = " + customerId + ";");
     }
     
      /**
      * SQL-query til at slette reservationer i databasen ud fra reservationens telefonnummer. oprettet i forbindelse med testing
      */
      public void deleteAllReservationToCustomer(int telephoneNumber){
-         MySQL.queryUpdate("DELETE FROM reservations WHERE telephone_number = " + telephoneNumber + ";");
+         mySql.queryUpdate("DELETE FROM reservations WHERE telephone_number = " + telephoneNumber + ";");
+    }
+    
+     /**
+     * SQL-query til at slette film i databasen ud fra title. Oprettet i forbindelse med testing og
+     * med henblik på mulighed for at øge funktionaliteten
+     */
+     public void deleteMovieFromTitle(String title){
+         mySql.queryUpdate("DELETE FROM movies WHERE title = '" + title + "';");
     }
     
     /**
@@ -211,7 +222,7 @@ public class DataFactory
      */
      public boolean deleteCustomer(int telephoneNumber){
         if(getCustomer(telephoneNumber) != null){
-            MySQL.queryUpdate("DELETE FROM customers WHERE telephone_number = " + telephoneNumber + ";");
+            mySql.queryUpdate("DELETE FROM customers WHERE telephone_number = " + telephoneNumber + ";");
             return true;
         }
         else{
@@ -224,7 +235,7 @@ public class DataFactory
      */
     public List<Integer> getAllMovieIds(){
         List<Integer> movieIds = new ArrayList<>();
-        ResultSet r = MySQL.query("SELECT movie_id FROM movies;");
+        ResultSet r = mySql.query("SELECT movie_id FROM movies;");
         try{
             while(r.next())
             {
@@ -243,7 +254,7 @@ public class DataFactory
      */
     public List<Integer> getAllShowIds() {
         List<Integer> showIds = new ArrayList<>();
-        ResultSet r = MySQL.query("SELECT show_id FROM shows;");
+        ResultSet r = mySql.query("SELECT show_id FROM shows;");
         try{
             while(r.next())
             {
@@ -262,7 +273,7 @@ public class DataFactory
      */
     public List<Integer> getAllShowReservationIds(int showId){
         List<Integer> reservationIds = new ArrayList<>();
-        ResultSet r = MySQL.query("SELECT reservation_id FROM reservations WHERE show_id = " + showId + ";");
+        ResultSet r = mySql.query("SELECT reservation_id FROM reservations WHERE show_id = " + showId + ";");
         try{
             while(r.next())
             {
@@ -281,7 +292,7 @@ public class DataFactory
      */
     public List<Integer> getAllCustomerShowIds(int showId, int telephoneNumber){
         List<Integer> reservationIds = new ArrayList<>();
-        ResultSet r = MySQL.query("SELECT reservation_id FROM reservations WHERE show_id = " + showId + " AND telephone_number = " + telephoneNumber +";");
+        ResultSet r = mySql.query("SELECT reservation_id FROM reservations WHERE show_id = " + showId + " AND telephone_number = " + telephoneNumber +";");
         try{
             while(r.next())
             {
@@ -299,7 +310,7 @@ public class DataFactory
      */
     public List<Integer> getActiveShows(int movieId){
         List<Integer> showIds = new ArrayList<>();
-        ResultSet r = MySQL.query("SELECT show_id FROM shows WHERE movie_id = " + movieId + ";");
+        ResultSet r = mySql.query("SELECT show_id FROM shows WHERE movie_id = " + movieId + ";");
         try{
             while(r.next())
             {
@@ -318,7 +329,7 @@ public class DataFactory
      */
     public ArrayList<Reservation> getDetailsForAllReservations(){
        ArrayList<Reservation> reservations = new ArrayList<>();
-       ResultSet r = MySQL.query("SELECT * FROM reservations" + ";");
+       ResultSet r = mySql.query("SELECT * FROM reservations" + ";");
        try{
             while(r.next())
             {

@@ -1,11 +1,13 @@
 #BlueJ class context
 comment0.params=
 comment0.target=MySQL()
-comment0.text=\r\n\ private\ konstruktor\ da\ det\ ikke\ er\ n\u00F8dv\u00E6ndigt\ at\ lave\ en\ instans,\ eftersom\ alle\ metoder\ er\ static\r\n
-comment1.params=query
-comment1.target=java.sql.ResultSet\ query(java.lang.String)
-comment1.text=\r\n\ Metode\ til\ at\ tilg\u00E5\ og\ udv\u00E6lge\ data\ i\ databasen,\ som\ returneres\ i\ et\ ResultSet\ objekt.\ \r\n
+comment0.text=\r\n\ private\ konstruktor\ da\ det\ er\ en\ singleton\r\n
+comment1.params=
+comment1.target=MySQL\ getInstance()
 comment2.params=query
-comment2.target=void\ queryUpdate(java.lang.String)
-comment2.text=\r\n\ Metode\ til\ at\ tilg\u00E5\ og\ opdatere\ data\ i\ databasen.\r\n
-numComments=3
+comment2.target=java.sql.ResultSet\ query(java.lang.String)
+comment2.text=\r\n\ Metode\ til\ at\ tilg\u00E5\ og\ udv\u00E6lge\ data\ i\ databasen,\ som\ returneres\ i\ et\ ResultSet\ objekt.\ \r\n
+comment3.params=query
+comment3.target=void\ queryUpdate(java.lang.String)
+comment3.text=\r\n\ Metode\ til\ at\ tilg\u00E5\ og\ opdatere\ data\ i\ databasen.\r\n
+numComments=4

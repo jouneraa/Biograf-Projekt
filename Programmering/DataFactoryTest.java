@@ -73,7 +73,9 @@ public class DataFactoryTest
     @Test
     public void testAddMovie()
     {
+        dataFact1.deleteMovieFromTitle("aa");
         assertEquals(true, dataFact1.addMovie("aa"));
+        dataFact1.deleteMovieFromTitle("aa");
     }
 
     @Test

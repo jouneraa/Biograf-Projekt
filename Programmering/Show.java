@@ -55,7 +55,7 @@ public class Show
     /**
      * Accessormetode for forestillingens starttidspunkt
      */
-    public String getStartTime()
+        public String getStartTime()
     {
         return startTime;
     }

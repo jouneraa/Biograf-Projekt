@@ -229,27 +229,6 @@ public class AuditoriumView extends JPanel
                  dialogPanel.add(new JLabel("Telefon: "));
                  dialogPanel.add(phoneField);
                      
-<<<<<<< HEAD
-                     int result = JOptionPane.showConfirmDialog(null, dialogPanel, 
-                     null, JOptionPane.OK_CANCEL_OPTION);
-                     if (result == JOptionPane.OK_OPTION) {
-                         String nameResult = nameField.getText();
-                         String phoneResult = phoneField.getText();
-                         //test for om navn og telefonnummer er gyldige
-                         boolean validInput = testInputString(nameResult, phoneResult, frame);
-                         int phoneParsed = Integer.parseInt(phoneResult);
-
-                         if(validInput){
-                             finalizeReservation(nameResult, phoneParsed);
-                             JOptionPane.showMessageDialog(frame,
-                             "Reservationen er tilføjet!");
-                         }
-                        }
-                    
-                    }});
-                    
-            AntalPladser =  new JLabel("Antal valgte pladser: " + selectedSeats.size()); 
-=======
                  //
                  int result = JOptionPane.showConfirmDialog(null, dialogPanel, 
                  null, JOptionPane.OK_CANCEL_OPTION);
@@ -270,7 +249,6 @@ public class AuditoriumView extends JPanel
         });
                   
         AntalPladser =  new JLabel("Antal valgte pladser: " + selectedSeats.size()); 
->>>>>>> 3889a842ab134e4ff7b18f12728b598b2f6164d1
             
         DownRight.add(AntalPladser); 
         DownRight.add(Knap1);
@@ -392,44 +370,43 @@ public class AuditoriumView extends JPanel
      * 
      */
     public JPanel ColorCode(){
-           
-          JPanel eastPanel = new JPanel(new GridBagLayout());
-          GridBagConstraints ebc = new GridBagConstraints();
-          ebc.insets = new Insets(5,5,5,5);
+        JPanel eastPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints ebc = new GridBagConstraints();
+        ebc.insets = new Insets(5,5,5,5);
 
-          ebc.gridx = 1;
-          ebc.gridy = 0;
-          eastPanel.add(new JLabel("Ledige pladser"), ebc);          
-          ebc.gridx = 0;
-          ebc.gridy = 0;
-          JButton ledigeKnap = new JButton();          
-          ledigeKnap.setBackground(Color.GREEN);
-          ledigeKnap.setContentAreaFilled(false);
-          ledigeKnap.setOpaque(true);
-          eastPanel.add(ledigeKnap, ebc);
+        ebc.gridx = 1;
+        ebc.gridy = 0;
+        eastPanel.add(new JLabel("Ledige pladser"), ebc);          
+        ebc.gridx = 0;
+        ebc.gridy = 0;
+        JButton ledigeKnap = new JButton();          
+        ledigeKnap.setBackground(Color.GREEN);
+        ledigeKnap.setContentAreaFilled(false);
+        ledigeKnap.setOpaque(true);
+        eastPanel.add(ledigeKnap, ebc);
           
-          ebc.gridx = 1;
-          ebc.gridy = 1;
-          eastPanel.add(new JLabel("Optagede"), ebc);
-          ebc.gridx = 0;
-          ebc.gridy = 1;
-          JButton optagetKnap = new JButton();          
-          optagetKnap.setBackground(Color.RED);
-          optagetKnap.setContentAreaFilled(false);
-          optagetKnap.setOpaque(true);
-          eastPanel.add(optagetKnap, ebc);
+        ebc.gridx = 1;
+        ebc.gridy = 1;
+        eastPanel.add(new JLabel("Optagede"), ebc);
+        ebc.gridx = 0;
+        ebc.gridy = 1;
+        JButton optagetKnap = new JButton();          
+        optagetKnap.setBackground(Color.RED);
+        optagetKnap.setContentAreaFilled(false);
+        optagetKnap.setOpaque(true);
+        eastPanel.add(optagetKnap, ebc);
           
-          ebc.gridx = 1;
-          ebc.gridy = 2;
-          eastPanel.add(new JLabel("Valgte pladser"), ebc);
-          ebc.gridx = 0; 
-          ebc.gridy = 2;
-          JButton valgteKnap = new JButton();          
-          valgteKnap.setBackground(new Color(138,43,226));
-          valgteKnap.setContentAreaFilled(false);
-          valgteKnap.setOpaque(true);
-          eastPanel.add(valgteKnap, ebc);
+        ebc.gridx = 1;
+        ebc.gridy = 2;
+        eastPanel.add(new JLabel("Valgte pladser"), ebc);
+        ebc.gridx = 0; 
+        ebc.gridy = 2;
+        JButton valgteKnap = new JButton();          
+        valgteKnap.setBackground(new Color(138,43,226));
+        valgteKnap.setContentAreaFilled(false);
+        valgteKnap.setOpaque(true);
+        eastPanel.add(valgteKnap, ebc);
           
-          return eastPanel;
+        return eastPanel;
     }       
 }

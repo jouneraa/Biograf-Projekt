@@ -327,9 +327,24 @@ public class AuditoriumView extends JPanel
                     "Telefonnummer skal være otte tal!");
             return false;
         }
+        else if(phoneResult.contains("+")){
+            JOptionPane.showMessageDialog(frame,
+                    "Telefonnummer må ikke indeholde specialtegn!");
+            return false;
+        }
+        else if(phoneResult.startsWith("0")){
+            JOptionPane.showMessageDialog(frame,
+                    "Telefonnummer må ikke starte med 0!");
+            return false;
+        }
         else{
             try {
                 Integer.parseInt(phoneResult);
+                if(Integer.parseInt(phoneResult) < 0){
+                    JOptionPane.showMessageDialog(frame,
+                        "Telefonnummer skal være positivt!");
+                        return false;
+                }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(frame,
                         "Telefonnummer skal bestå af tal!");

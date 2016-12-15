@@ -311,6 +311,7 @@ public class AuditoriumView extends JPanel
      */
     public boolean testInputString(String nameResult, String phoneResult, JFrame frame){
         //checker, at strengen er længere end null
+        nameResult = nameResult.replaceAll("\\s+","");
         if(nameResult.length() < 1){
             JOptionPane.showMessageDialog(frame,
                     "Navn skal udfyldes!");

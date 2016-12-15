@@ -28,29 +28,46 @@ public class DataFactory
     }
     
     /**
-     * SQL-query til at tilføje film til databasen
+     * SQL-query til at tilføje film til databasen. retunerer en boolean for test formål. retur værdien bliver ignoreret af kalderen.
      */
-    public void addMovie(String title)
+    public boolean addMovie(String title)
     {
-        MySQL.queryUpdate("INSERT INTO movies (title) VALUES ('"+ title +"');");
+        try{
+            MySQL.queryUpdate("INSERT INTO movies (title) VALUES ('"+ title +"');");
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
+        
     }
     
     /**
-     * SQL-query til at tilføje kunder til databasen
+     * SQL-query til at tilføje kunder til databasen. retunerer en boolean for test formål. retur værdien bliver ignoreret af kalderen
      */
-     public void addCustomer(int telephoneNumber, String name)
+     public boolean addCustomer(int telephoneNumber, String name)
     {
         if(getCustomer(telephoneNumber) == null){ 
             MySQL.queryUpdate("INSERT INTO customers (telephone_number, name) VALUES ('"+ telephoneNumber + "', '" + name +"');");
+            return true;
+        }
+        else{
+            return false;
         }
     }
     
     /**
-     * SQL-query til at tilføje reservationer til databasen
+     * SQL-query til at tilføje reservationer til databasen. retunerer en boolean for test formål. retur værdien bliver ignoreret af kalderen
      */
-    public void addReservation(int telephoneNumber, int showId, int rowNumber, int seatNumber){
+    public boolean addReservation(int telephoneNumber, int showId, int rowNumber, int seatNumber){
         // Virker kun såfremt at telefonnummeret peger på en oprettet customer.
-        MySQL.queryUpdate("INSERT INTO reservations (telephone_number, show_id, row_number, seat_number) VALUES ('"+ telephoneNumber +"', '" + showId + "', '" + rowNumber + "', '" + seatNumber + "');"); 
+        if(getCustomer(telephoneNumber) != null){
+            MySQL.queryUpdate("INSERT INTO reservations (telephone_number, show_id, row_number, seat_number) VALUES ('"+ telephoneNumber +"', '" + showId + "', '" + rowNumber + "', '" + seatNumber + "');");
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
     /**
@@ -84,15 +101,11 @@ public class DataFactory
     public Customer getCustomer(int id){
         ResultSet r = MySQL.query("SELECT * FROM customers WHERE telephone_number = " + id + ";");
         try{
-            // How to get data from the ResultSet
             while(r.next())
             {
-                //get the title
                 String name = r.getString("name");
-                int telephone_number = r.getInt("telephone_number");
-                
+                int telephone_number = r.getInt("telephone_number");    
                 Customer customer = new Customer(telephone_number, name);
-                // Finally will still be called, even if we return here!
                 return customer;
             }
         } catch (SQLException e) {
@@ -107,16 +120,13 @@ public class DataFactory
     public Auditorium getAuditorium(int id){
         ResultSet r = MySQL.query("SELECT * FROM auditorium WHERE auditorium_id = " + id + ";");
         try{
-            // How to get data from the ResultSet
             while(r.next())
             {
                 int auditorium_id = r.getInt("auditorium_id");
                 String name = r.getString("name");
                 int row_number = r.getInt("row_number");
                 int seat_number = r.getInt("seat_number");
-                
                 Auditorium auditorium = new Auditorium(auditorium_id, name, row_number, seat_number);
-                
                 return auditorium;
             }
         } catch (SQLException e) {
@@ -131,7 +141,6 @@ public class DataFactory
     public Show getShow(int id){
         ResultSet r = MySQL.query("SELECT * FROM shows WHERE show_id = " + id + ";");
         try{
-            // How to get data from the ResultSet
             while(r.next())
             {
                 int showId = id;
@@ -139,10 +148,7 @@ public class DataFactory
                 int auditorium = r.getInt("auditorium_id");
                 Timestamp timestamp = r.getTimestamp("start_time");
                 String time = timestamp.toString();
-                
-                
                 Show show = new Show(showId, movieId, auditorium, time);
-                // Finally will still be called, even if we return here!
                 return show;
             }
         } catch (SQLException e) {
@@ -155,21 +161,16 @@ public class DataFactory
      * SQL-query til at hente en reservation fra databasen, og returneres som et Reservation objekt.
      */
     public Reservation getReservation(int id){
-        // Skal der ikke selectes fra reservations, og ud fra reservationID? - Ikke shows.
         ResultSet r = MySQL.query("SELECT * FROM reservations WHERE reservation_id = " + id + ";");
         try{
-            // How to get data from the ResultSet
             while(r.next())
             {
-                //get the title
                 int resId = id;
                 int telNr = r.getInt("telephone_number");
                 int showId = r.getInt("show_id");
                 int rowNr = r.getInt("row_number");
                 int seatNr = r.getInt("seat_number");
-                
                 Reservation reservation = new Reservation(resId, telNr, showId, rowNr, seatNr);
-                // Finally will still be called, even if we return here!
                 return reservation;
             }
         } catch (SQLException e) {
@@ -181,8 +182,14 @@ public class DataFactory
     /**
      * SQL-query til at slette reservationer i databasen ud fra reservationens id.
      */
-    public void deleteReservation(int id){
-        MySQL.queryUpdate("DELETE FROM reservations WHERE reservation_id = " + id + ";");
+    public boolean deleteReservation(int id){
+        if(getReservation(id) != null){
+            MySQL.queryUpdate("DELETE FROM reservations WHERE reservation_id = " + id + ";");
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
     /**
@@ -193,18 +200,28 @@ public class DataFactory
     }
     
     /**
+     * SQL-query til at slette customer i databasen ud fra telefonnummer. for testformål.
+     */
+     public boolean deleteCustomer(int telephoneNumber){
+        if(getCustomer(telephoneNumber) != null){
+            MySQL.queryUpdate("DELETE FROM customers WHERE telephone_number = " + telephoneNumber + ";");
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    /**
      * SQL-query til at hente alle movie_id's i databasen, og returneres som en arrayliste af integers.
      */
     public List<Integer> getAllMovieIds(){
         List<Integer> movieIds = new ArrayList<>();
         ResultSet r = MySQL.query("SELECT movie_id FROM movies;");
         try{
-            // How to get data from the ResultSet
             while(r.next())
             {
-                //get the title
                 int movieId = r.getInt("movie_id");
-                // Finally will still be called, even if we return here!
                 movieIds.add(movieId);
             }
             return movieIds;
@@ -221,12 +238,9 @@ public class DataFactory
         List<Integer> showIds = new ArrayList<>();
         ResultSet r = MySQL.query("SELECT show_id FROM shows;");
         try{
-            // How to get data from the ResultSet
             while(r.next())
             {
-                //get the title
                 int showId = r.getInt("show_id");
-                // Finally will still be called, even if we return here!
                 showIds.add(showId);
             }
             return showIds;
@@ -243,12 +257,9 @@ public class DataFactory
         List<Integer> reservationIds = new ArrayList<>();
         ResultSet r = MySQL.query("SELECT reservation_id FROM reservations WHERE show_id = " + showId + ";");
         try{
-            // How to get data from the ResultSet
             while(r.next())
             {
-                //get the title
                 int reservationId = r.getInt("reservation_id");
-                // Finally will still be called, even if we return here!
                 reservationIds.add(reservationId);
             }
             return reservationIds;
@@ -265,12 +276,9 @@ public class DataFactory
         List<Integer> reservationIds = new ArrayList<>();
         ResultSet r = MySQL.query("SELECT reservation_id FROM reservations WHERE show_id = " + showId + " AND telephone_number = " + telephoneNumber +";");
         try{
-            // How to get data from the ResultSet
             while(r.next())
             {
-                //get the title
                 int reservationId = r.getInt("reservation_id");
-                // Finally will still be called, even if we return here!
                 reservationIds.add(reservationId);
             }
             return reservationIds;
@@ -286,12 +294,9 @@ public class DataFactory
         List<Integer> showIds = new ArrayList<>();
         ResultSet r = MySQL.query("SELECT show_id FROM shows WHERE movie_id = " + movieId + ";");
         try{
-            // How to get data from the ResultSet
             while(r.next())
             {
-                //get the title
                 int showId = r.getInt("show_id");
-                // Finally will still be called, even if we return here!
                 showIds.add(showId);
             }
             return showIds;
@@ -307,27 +312,21 @@ public class DataFactory
     public ArrayList<Reservation> getDetailsForAllReservations(){
        ArrayList<Reservation> reservations = new ArrayList<>();
        ResultSet r = MySQL.query("SELECT * FROM reservations" + ";");
-        try{
-            // How to get data from the ResultSet
+       try{
             while(r.next())
             {
-                //get the title
                 int resId = r.getInt("reservation_id");
                 int telNr = r.getInt("telephone_number");
                 int showId = r.getInt("show_id");
                 int rowNr = r.getInt("row_number");
                 int seatNr = r.getInt("seat_number");
-                
-                 Reservation reservation = new Reservation(resId, telNr, showId, rowNr, seatNr);
-                // Finally will still be called, even if we return here!
+                Reservation reservation = new Reservation(resId, telNr, showId, rowNr, seatNr);
                 reservations.add(reservation);
             }
             return reservations;
-        } catch (SQLException e) {
+       } catch (SQLException e) {
             System.out.println("Exception, klasse: DataFactory   Metode: getDeatailsForAllReservations");
-        } 
+       } 
         return null;
     }
-    
-    
 }

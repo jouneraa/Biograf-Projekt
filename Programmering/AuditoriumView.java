@@ -236,7 +236,6 @@ public class AuditoriumView extends JPanel
                              "Reservationen er tilføjet!");
                          }
                         }
-                         table.repaint();
                     
                     }});
                     

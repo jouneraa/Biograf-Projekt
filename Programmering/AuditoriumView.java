@@ -29,7 +29,15 @@ public class AuditoriumView extends JPanel
     private Color pinkColor = new Color(138,43,226);
 
     /**
-     *
+     * Konstruktor for Auditoriumview
+     * @param show The company to be used. Must not be null.
+     * @param allReservationIds The company to be used. Must not be null.
+     * @param table
+     * @param selectedSeats
+     * @param CenterWestGrid
+     * @param cardLayout
+     * @param tableView
+     * @param biografViewer
      */
     public AuditoriumView(Show show, List<Integer> allReservationIds, JTable table, List<Seat> selectedSeats, JFrame frame, JPanel CenterWestGrid, CardLayout cardLayout, JPanel tableView, BiografViewer biografViewer ){
         super(new BorderLayout(6,6));
@@ -45,7 +53,10 @@ public class AuditoriumView extends JPanel
     }
 
     /**
-     *
+     *Laver kompenenterne og sætter komponenterne sammen i AuditoriumsView(this)
+     *@param show
+     *@param allReservationIds
+     *@param table
      */
     public void makeFrame(Show show, List<Integer> allReservationIds, JTable table ){
         JPanel northPanel = makeNorthPanel(show);
@@ -58,7 +69,10 @@ public class AuditoriumView extends JPanel
     }
 
     /**
-     *
+     * Laver centerPanel som viser sæderne i biografen og returnerer det
+     *@param show
+     *@param allReservationIds
+     *@return centerPanel 
      */
     public JPanel makeCenterPanel(Show show, List<Integer> allReservationIds){
         JPanel seatsGraphical = new JPanel();
@@ -191,7 +205,9 @@ public class AuditoriumView extends JPanel
     }
 
     /**
-     *
+     * Laver northPanel som viser filmens navn og spilletid i toppen af viewet
+     *@param show
+     *@return northPanel
      */
     public JPanel makeNorthPanel(Show show){
         JPanel northPanel = new JPanel(new BorderLayout());
@@ -207,7 +223,12 @@ public class AuditoriumView extends JPanel
     }
 
     /**
-     *
+     * Laver southPanel som viser ledige pladser i salen og
+     * laver reserverknappen i nedre højre hjørne. Returnerer southPanel. 
+     *@param show
+     *@param allReservationIds
+     *@param table
+     *@return southPanel
      */
     public JPanel makeSouthPanel(Show show, List<Integer> allReservationIds, JTable table){
 
@@ -282,7 +303,11 @@ public class AuditoriumView extends JPanel
     }
 
     /**
-     *
+     * Tester om brugerens indtastede streng er korrekt indtastet
+     *@param nameResult
+     *@param phoneResult
+     *@param table
+     *@return true Hvis strengen er korrekt indtastet, ellers false og en fejlmeddelelse. 
      */
     public boolean testInputString(String nameResult, String phoneResult, JFrame frame){
         //checker, at strengen er længere end null
@@ -315,7 +340,9 @@ public class AuditoriumView extends JPanel
     }
 
     /**
-     *
+     * Tilføjer reservationen til databasen
+     *param name
+     *param phone
      */
     public void finalizeReservation(String name, int phone){
         dataController.addCustomer(phone, name);
@@ -331,7 +358,7 @@ public class AuditoriumView extends JPanel
     }
 
     /**
-     *
+     * Viser antallet af valgte sæder i nedre højre hjørne
      */
     public void updateSelectedSeats(){
         AntalPladser.setText("Antal valgte pladser: " + selectedSeats.size());
@@ -339,7 +366,8 @@ public class AuditoriumView extends JPanel
     }
 
     /**
-     *
+     * Laver skærmen som vises ovenover biografen for at se hvilken retning sæderne vender. 
+     * @return centerNorthScreelPanel Returnerer komponenten. 
      */
     public JPanel centerNorthScreenPanel(){
         JPanel centerNorthScreenPanel = new JPanel(new GridBagLayout());
@@ -366,7 +394,8 @@ public class AuditoriumView extends JPanel
     }
 
     /**
-     *
+     * Laver komponenten der viser farvekoden for sæderne i biografsalen
+     * @return eastPanel Returnerer det panel der viser farvekoden. 
      */
     public JPanel ColorCode(){
         JPanel eastPanel = new JPanel(new GridBagLayout());

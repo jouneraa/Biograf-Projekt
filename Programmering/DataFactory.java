@@ -199,6 +199,13 @@ public class DataFactory
         MySQL.queryUpdate("DELETE FROM reservations WHERE show_id = " + showId + " AND telephone_number = " + customerId + ";");
     }
     
+     /**
+     * SQL-query til at slette reservationer i databasen ud fra reservationens telefonnummer. oprettet i forbindelse med testing
+     */
+     public void deleteAllReservationToCustomer(int telephoneNumber){
+         MySQL.queryUpdate("DELETE FROM reservations WHERE telephone_number = " + telephoneNumber + ";");
+    }
+    
     /**
      * SQL-query til at slette customer i databasen ud fra telefonnummer. for testformål.
      */

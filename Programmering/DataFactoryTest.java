@@ -15,6 +15,8 @@ public class DataFactoryTest
 {
     private DataFactory dataFact1;
 
+    
+
     /**
      * Default constructor for test class DataFactoryTest
      */
@@ -41,6 +43,8 @@ public class DataFactoryTest
     @After
     public void tearDown()
     {
+        dataFact1.deleteAllReservationToCustomer(12345);
+        dataFact1.deleteCustomer(12345);
     }
 
    @Test
@@ -63,10 +67,35 @@ public class DataFactoryTest
      @Test
     public void testAddNewCustomer()
     {
-        dataFact1.deleteCustomer(12345);
         assertEquals(true, dataFact1.addCustomer(12345, "aa"));
     }
+
+    @Test
+    public void testAddMovie()
+    {
+        assertEquals(true, dataFact1.addMovie("aa"));
+    }
+
+    @Test
+    public void testAddReservation()
+    {
+        dataFact1.addCustomer(12345, "aa");
+        assertEquals(true, dataFact1.addReservation(12345, 3, 3, 3));
+    }
+
+    @Test
+    public void testDeleteCustomer()
+    {
+        dataFact1.addCustomer(12345, "aa");
+        assertEquals(true, dataFact1.deleteCustomer(12345));
+    }
+
+   
 }
+
+
+
+
 
 
 

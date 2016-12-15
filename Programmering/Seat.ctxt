@@ -1,11 +1,11 @@
 #BlueJ class context
 comment0.params=row\ column
 comment0.target=Seat(int,\ int)
-comment0.text=\r\n\ Konstrukt\u00F8r\ for\ objekter\ af\ klassen\ Seat\r\n
+comment0.text=\r\n\ Konstrukt\u00F8r\ for\ objekter\ af\ klassen\ Seat\r\n\ @param\ row,\ s\u00E6dets\ r\u00E6kke\r\n\ @param\ column,\ s\u00E6dets\ kolonne\r\n
 comment1.params=
 comment1.target=int\ getRow()
-comment1.text=\r\n\ Accessormetode\ for\ s\u00E6dets\ stoler\u00E6kke\r\n
+comment1.text=\r\n\ Accessormetode\ for\ s\u00E6dets\ stoler\u00E6kke\r\n\ @return\ s\u00E6dets\ r\u00E6kke\r\n
 comment2.params=
 comment2.target=int\ getColumn()
-comment2.text=\r\n\ Accessormetode\ for\ s\u00E6dets\ stolekolonne\r\n
+comment2.text=\r\n\ Accessormetode\ for\ s\u00E6dets\ stolekolonne\r\n\ @return\ s\u00E6dets\ kolonne\r\n
 numComments=3

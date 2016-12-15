@@ -14,13 +14,12 @@ import java.sql.Timestamp;
  */
 public class DataController
 {
-    /**
-     * Skriv her Jonathan
-     */
     public static DataController dataController = null;
     private MySQL mySql = MySQL.getInstance();
     private DataController(){}
-    
+    /**
+     *  DataController er lavet ud fra et singleton pattern og skal tilgås gennem getInstance metoden
+     */
     public static DataController getInstance(){
         if(dataController == null){
             dataController = new DataController();
@@ -30,6 +29,8 @@ public class DataController
     
     /**
      * SQL-query til at tilføje film til databasen. retunerer en boolean for test formål. retur værdien bliver ignoreret af kalderen.
+     * @param title, filmens title som skal tilføjes i databasen. filmens id bliver autoinkrementeret
+     * @return kan bruges af evt. tests
      */
     public boolean addMovie(String title)
     {
@@ -45,6 +46,9 @@ public class DataController
     
     /**
      * SQL-query til at tilføje kunder til databasen. retunerer en boolean for test formål. retur værdien bliver ignoreret af kalderen
+     * @param telephoneNumber, kundens telefonnummer
+     * @param name, kundens navn
+     * @return kan bruges af evt. tests
      */
      public boolean addCustomer(int telephoneNumber, String name)
     {
@@ -59,11 +63,16 @@ public class DataController
     
     /**
      * SQL-query til at tilføje reservationer til databasen. retunerer en boolean for test formål. retur værdien bliver ignoreret af kalderen
+     * @param telephoneNumber, kundens telefonnummer
+     * @param showId, showets id
+     * @param rowNumber, rækkens nummer
+     * @columnNumber, kolonnens nummer
+     * @return kan bruges af evt. tests
      */
-    public boolean addReservation(int telephoneNumber, int showId, int rowNumber, int seatNumber){
+    public boolean addReservation(int telephoneNumber, int showId, int rowNumber, int columnNumber){
         // Virker kun såfremt at telefonnummeret peger på en oprettet customer.
         if(getCustomer(telephoneNumber) != null){
-            mySql.queryUpdate("INSERT INTO reservations (telephone_number, show_id, row_number, seat_number) VALUES ('"+ telephoneNumber +"', '" + showId + "', '" + rowNumber + "', '" + seatNumber + "');");
+            mySql.queryUpdate("INSERT INTO reservations (telephone_number, show_id, row_number, seat_number) VALUES ('"+ telephoneNumber +"', '" + showId + "', '" + rowNumber + "', '" + columnNumber+ "');");
             return true;
         }
         else{
@@ -73,6 +82,8 @@ public class DataController
     
     /**
      * SQL-query til at hente en film fra databasen, og returneres som et Movie objekt
+     * @param id, filmens id
+     * @return film objekt associeret med id'et
      */
     public Movie getMovie(int id){
         ResultSet r = mySql.query("SELECT * FROM movies WHERE movie_id = " + id + ";");
@@ -100,9 +111,11 @@ public class DataController
      * SQL-query, som kunne anvendes til at checke for, om en customer allerede er oprettet i databasen.
      * Da vi allerede har en primary key i form af telephone_number i vores customertabel
      * bliver der dog allerede checket for, at samme customer ikke kan oprettes flere gange.
+     * @param telephoneNumber, kundens telefonnummer som fungerer som unik id
+     * @return kundeobjekt associeret med telefonnummeret
      */
-    public Customer getCustomer(int id){
-        ResultSet r = mySql.query("SELECT * FROM customers WHERE telephone_number = " + id + ";");
+    public Customer getCustomer(int telephoneNumber){
+        ResultSet r = mySql.query("SELECT * FROM customers WHERE telephone_number = " + telephoneNumber + ";");
         try{
             while(r.next())
             {
@@ -119,6 +132,8 @@ public class DataController
     
     /**
      * SQL-query til at hente en sal fra databasen, og returneres som et Auditorium objekt.
+     * @param id, auditoriets id
+     * @return auditoriumobjekt associeret med id'et
      */
     public Auditorium getAuditorium(int id){
         ResultSet r = mySql.query("SELECT * FROM auditorium WHERE auditorium_id = " + id + ";");
@@ -140,6 +155,8 @@ public class DataController
     
     /**
      * SQL-query til at hente en forestilling fra databasen, og returneres som et Show objekt.
+     * @param id, showets id
+     * @return showobjekt associeret med id'et
      */
     public Show getShow(int id){
         ResultSet r = mySql.query("SELECT * FROM shows WHERE show_id = " + id + ";");
@@ -162,6 +179,8 @@ public class DataController
     
     /**
      * SQL-query til at hente en reservation fra databasen, og returneres som et Reservation objekt.
+     * @param id, reservationens id
+     * @return reservationobjekt associeret med id'et
      */
     public Reservation getReservation(int id){
         ResultSet r = mySql.query("SELECT * FROM reservations WHERE reservation_id = " + id + ";");
@@ -184,6 +203,8 @@ public class DataController
     
     /**
      * SQL-query til at slette reservationer i databasen ud fra reservationens id.
+     * @param id, reservationens id
+     * @return kan bruges af evt. tests
      */
     public boolean deleteReservation(int id){
         if(getReservation(id) != null){
@@ -197,6 +218,8 @@ public class DataController
     
     /**
      * SQL-query til at slette reservationer i databasen ud fra reservationens showid og telefonnummer
+     * @param showId, showets id
+     * @param customerId, kundens telefonnummer
      */
      public void deleteReservation(int showId, int customerId ){
         mySql.queryUpdate("DELETE FROM reservations WHERE show_id = " + showId + " AND telephone_number = " + customerId + ";");
@@ -204,6 +227,7 @@ public class DataController
     
      /**
      * SQL-query til at slette reservationer i databasen ud fra reservationens telefonnummer. oprettet i forbindelse med testing
+     * @param customerId, kundens telefonnummer
      */
      public void deleteAllReservationToCustomer(int telephoneNumber){
          mySql.queryUpdate("DELETE FROM reservations WHERE telephone_number = " + telephoneNumber + ";");
@@ -212,6 +236,7 @@ public class DataController
      /**
      * SQL-query til at slette film i databasen ud fra title. Oprettet i forbindelse med testing og
      * med henblik på mulighed for at øge funktionaliteten
+     * @param title, filmens titel
      */
      public void deleteMovieFromTitle(String title){
          mySql.queryUpdate("DELETE FROM movies WHERE title = '" + title + "';");
@@ -219,6 +244,8 @@ public class DataController
     
     /**
      * SQL-query til at slette customer i databasen ud fra telefonnummer. for testformål.
+     * @param telephoneNumber, kundens telefonnummer
+     * @return kan bruges af evt. tests 
      */
      public boolean deleteCustomer(int telephoneNumber){
         if(getCustomer(telephoneNumber) != null){
@@ -232,6 +259,7 @@ public class DataController
     
     /**
      * SQL-query til at hente alle movie_id's i databasen, og returneres som en arrayliste af integers.
+     * @return Alle film id'er i databasen
      */
     public List<Integer> getAllMovieIds(){
         List<Integer> movieIds = new ArrayList<>();
@@ -251,6 +279,7 @@ public class DataController
     
     /**
      * SQL-query til at hente alle show_id's i databasen, og returneres som en arrayliste af integers.
+     * @return Alle film id'er i databasen
      */
     public List<Integer> getAllShowIds() {
         List<Integer> showIds = new ArrayList<>();
@@ -270,6 +299,8 @@ public class DataController
     
     /**
      * SQL-query til at hente alle reservation_id's i databasen til en bestemt forestilling, og returneres som en arrayliste af integers.
+     * @param showId, showets id som man vil have reservations id fra
+     * @return Alle show id'er i databasen associeret med show id'et
      */
     public List<Integer> getAllShowReservationIds(int showId){
         List<Integer> reservationIds = new ArrayList<>();
@@ -289,6 +320,9 @@ public class DataController
     
     /**
      * SQL-query til at hente alle reservation_id's i databasen til en bestemt forestilling til en bestemt kunde, og returneres som en arrayliste af integers.
+     * @param showId, showets id
+     * @param telephoneNumber, kundens telefonnummer
+     * @return Alle reservationer associeret med kundens telefonnummer og showets id
      */
     public List<Integer> getAllCustomerShowIds(int showId, int telephoneNumber){
         List<Integer> reservationIds = new ArrayList<>();
@@ -307,6 +341,8 @@ public class DataController
     }
     /**
      * SQL-query til at hente alle aktive show_id's i databasen, og returneres som en arrayliste af integers.
+     * @param movieId, filmens id
+     * @return alle shows associeret med filmens id
      */
     public List<Integer> getActiveShows(int movieId){
         List<Integer> showIds = new ArrayList<>();
@@ -326,6 +362,7 @@ public class DataController
    
     /**
      * SQL-query til at hente alle reservationer i databasen, og returneres som en arrayliste af Reservation objekter.
+     * @return en liste med reservationsobjekter associeret med alle reservationer i databasen
      */
     public ArrayList<Reservation> getDetailsForAllReservations(){
        ArrayList<Reservation> reservations = new ArrayList<>();

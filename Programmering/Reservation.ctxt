@@ -1,20 +1,20 @@
 #BlueJ class context
 comment0.params=reservationId\ telephoneNumber\ showId\ rowNumber\ columnNumber
 comment0.target=Reservation(int,\ int,\ int,\ int,\ int)
-comment0.text=\r\n\ Konstrukt\u00F8r\ for\ objekter\ af\ klassen\ Reservation\r\n
+comment0.text=\r\n\ Konstrukt\u00F8r\ for\ objekter\ af\ klassen\ Reservation\r\n\ @param\ reservationId,\ reservationens\ id\r\n\ @param\ telephoneNumber,\ kundens\ telefonnummer\r\n\ @param\ show\ id,\ showets\ id\r\n\ @param\ rowNumber,\ r\u00E6kken\ nummeret\r\n\ @param\ columnNumber\ kolonnenavnet\ \r\n
 comment1.params=
 comment1.target=int\ getReservationId()
-comment1.text=\r\n\ Accessormetode\ for\ reservationens\ id\r\n
+comment1.text=\r\n\ Accessormetode\ for\ reservationens\ id\r\n\ @return\ reservationenens\ id\r\n
 comment2.params=
 comment2.target=int\ getTelephoneNumber()
-comment2.text=\r\n\ Accessormetode\ for\ reservationens\ telefonnummer\r\n
+comment2.text=\r\n\ Accessormetode\ for\ kundens\ telefonnummer\r\n\ @return\ kundens\ telefonnummer\r\n
 comment3.params=
 comment3.target=int\ getShowId()
-comment3.text=\r\n\ Accessormetode\ for\ reservationens\ show_id\r\n
+comment3.text=\r\n\ Accessormetode\ for\ reservationens\ show_id\r\n\ @return\ showets\ id\r\n
 comment4.params=
 comment4.target=int\ getRowNumber()
-comment4.text=\r\n\ Accessormetode\ for\ reservationens\ stoler\u00E6kkenummer\r\n
+comment4.text=\r\n\ Accessormetode\ for\ reservationens\ stoler\u00E6kkenummer\r\n\ @return\ r\u00E6kkenummeret\r\n
 comment5.params=
 comment5.target=int\ getColumnNumber()
-comment5.text=\r\n\ Accessormetode\ for\ reservationens\ s\u00E6denummer\r\n
+comment5.text=\r\n\ Accessormetode\ for\ reservationens\ s\u00E6denummer\r\n\ @return\ kolonnenummeret\r\n
 numComments=6

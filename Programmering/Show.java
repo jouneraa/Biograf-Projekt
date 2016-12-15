@@ -19,6 +19,10 @@ public class Show
 
     /**
      * Konstruktør for objekter af klassen Show
+     * @param showId, showets id
+     * @param movieId, filmens id
+     * @param auditoriumId, salens id
+     * @param startTime, showets starttid
      */
     public Show(int showId, int movieId,int auditoriumId, String startTime)
     {
@@ -30,6 +34,7 @@ public class Show
 
     /**
      * Accessormetode for forestillingens id
+     * @return showets id
      */
     public int getShowId()
     {
@@ -38,6 +43,7 @@ public class Show
     
     /**
      * Accessormetode for forestillingens movie_id
+     * @return filmens id
      */
     public int getMovieId()
     {
@@ -46,6 +52,7 @@ public class Show
     
     /**
      * Accessormetode for forestillingens auditorium_id
+     * return auditoriets id
      */
     public int getAuditoriumId()
     {
@@ -54,6 +61,7 @@ public class Show
     
     /**
      * Accessormetode for forestillingens starttidspunkt
+     * @return forestillings tidspunkt
      */
         public String getStartTime()
     {

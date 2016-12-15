@@ -15,6 +15,8 @@ public class Customer
 
     /**
      * Konstruktør for objekter af klassen Customer
+     * @param telephoneNumber, kundens telefonnummer
+     * @param name, kundens navn
      */
     public Customer(int telephoneNumber, String name)
     {
@@ -24,6 +26,7 @@ public class Customer
 
     /**
      * Accessormetode for kundens telefonnummer
+     * @return kundens telefonnummer
      */
     public int getTelephoneNumber()
     {
@@ -32,6 +35,7 @@ public class Customer
     
     /**
      * Accessormetode for kundens navn
+     * return kundens navn
      */
     public String getName()
     {

@@ -1,11 +1,11 @@
 #BlueJ class context
 comment0.params=telephoneNumber\ name
 comment0.target=Customer(int,\ java.lang.String)
-comment0.text=\r\n\ Konstrukt\u00F8r\ for\ objekter\ af\ klassen\ Customer\r\n
+comment0.text=\r\n\ Konstrukt\u00F8r\ for\ objekter\ af\ klassen\ Customer\r\n\ @param\ telephoneNumber,\ kundens\ telefonnummer\r\n\ @param\ name,\ kundens\ navn\r\n
 comment1.params=
 comment1.target=int\ getTelephoneNumber()
-comment1.text=\r\n\ Accessormetode\ for\ kundens\ telefonnummer\r\n
+comment1.text=\r\n\ Accessormetode\ for\ kundens\ telefonnummer\r\n\ @return\ kundens\ telefonnummer\r\n
 comment2.params=
 comment2.target=java.lang.String\ getName()
-comment2.text=\r\n\ Accessormetode\ for\ kundens\ navn\r\n
+comment2.text=\r\n\ Accessormetode\ for\ kundens\ navn\r\n\ return\ kundens\ navn\r\n
 numComments=3

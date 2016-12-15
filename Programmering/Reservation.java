@@ -20,6 +20,11 @@ public class Reservation{
     
     /**
      * Konstruktør for objekter af klassen Reservation
+     * @param reservationId, reservationens id
+     * @param telephoneNumber, kundens telefonnummer
+     * @param show id, showets id
+     * @param rowNumber, rækken nummeret
+     * @param columnNumber kolonnenavnet 
      */
     public Reservation(int reservationId,int telephoneNumber, int showId, int rowNumber, int columnNumber){
         this.reservationId = reservationId;
@@ -31,13 +36,15 @@ public class Reservation{
     
     /**
      * Accessormetode for reservationens id
+     * @return reservationenens id
      */
     public int getReservationId() {
         return reservationId;
     }
     
     /**
-     * Accessormetode for reservationens telefonnummer
+     * Accessormetode for kundens telefonnummer
+     * @return kundens telefonnummer
      */
     public int getTelephoneNumber() {
         return telephoneNumber;
@@ -45,6 +52,7 @@ public class Reservation{
     
     /**
      * Accessormetode for reservationens show_id
+     * @return showets id
      */
     public int getShowId() {
         return showId;
@@ -52,6 +60,7 @@ public class Reservation{
     
     /**
      * Accessormetode for reservationens stolerækkenummer
+     * @return rækkenummeret
      */
     public int getRowNumber() {
         return rowNumber;
@@ -59,6 +68,7 @@ public class Reservation{
     
     /**
      * Accessormetode for reservationens sædenummer
+     * @return kolonnenummeret
      */
     public int getColumnNumber() {
         return columnNumber;

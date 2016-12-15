@@ -1,17 +1,17 @@
 #BlueJ class context
 comment0.params=showId\ movieId\ auditoriumId\ startTime
 comment0.target=Show(int,\ int,\ int,\ java.lang.String)
-comment0.text=\r\n\ Konstrukt\u00F8r\ for\ objekter\ af\ klassen\ Show\r\n
+comment0.text=\r\n\ Konstrukt\u00F8r\ for\ objekter\ af\ klassen\ Show\r\n\ @param\ showId,\ showets\ id\r\n\ @param\ movieId,\ filmens\ id\r\n\ @param\ auditoriumId,\ salens\ id\r\n\ @param\ startTime,\ showets\ starttid\r\n
 comment1.params=
 comment1.target=int\ getShowId()
-comment1.text=\r\n\ Accessormetode\ for\ forestillingens\ id\r\n
+comment1.text=\r\n\ Accessormetode\ for\ forestillingens\ id\r\n\ @return\ showets\ id\r\n
 comment2.params=
 comment2.target=int\ getMovieId()
-comment2.text=\r\n\ Accessormetode\ for\ forestillingens\ movie_id\r\n
+comment2.text=\r\n\ Accessormetode\ for\ forestillingens\ movie_id\r\n\ @return\ filmens\ id\r\n
 comment3.params=
 comment3.target=int\ getAuditoriumId()
-comment3.text=\r\n\ Accessormetode\ for\ forestillingens\ auditorium_id\r\n
+comment3.text=\r\n\ Accessormetode\ for\ forestillingens\ auditorium_id\r\n\ return\ auditoriets\ id\r\n
 comment4.params=
 comment4.target=java.lang.String\ getStartTime()
-comment4.text=\r\n\ Accessormetode\ for\ forestillingens\ starttidspunkt\r\n
+comment4.text=\r\n\ Accessormetode\ for\ forestillingens\ starttidspunkt\r\n\ @return\ forestillings\ tidspunkt\r\n
 numComments=5

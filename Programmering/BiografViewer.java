@@ -249,8 +249,6 @@ public class BiografViewer
         bookingLayout.setLayout(new BorderLayout(6, 6));
         bookingLayout.setBorder(new EtchedBorder());
         // de forskellige borderlayout laves i seperate metoder
-            
-        // 
         AuditoriumView auditoriumView = new AuditoriumView(show, allReservationIds, table, selectedSeats,  frame, CenterWestGrid, cardLayout, tableView, this);
             
         //viser bookinglayoutet i rammen

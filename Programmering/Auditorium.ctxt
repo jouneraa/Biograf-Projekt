@@ -1,16 +1,17 @@
 #BlueJ class context
 comment0.params=auditoriumId\ name\ rowNumber\ columnNumber
 comment0.target=Auditorium(int,\ java.lang.String,\ int,\ int)
+comment0.text=\r\n\ @param\ auditoriumId,\ auditoriets\ id\r\n\ @param\ name,\ auditoriets\ navn\r\n\ @param\ rowNumber,\ r\u00E6kkens\ nummer\r\n\ @param\ columnNumber,\ kolonne\ nummeret\r\n
 comment1.params=
 comment1.target=int\ getAuditoriumId()
-comment1.text=\r\n\ Accessormetode\ for\ salens\ id\r\n
+comment1.text=\r\n\ Accessormetode\ for\ salens\ id\r\n\ @return\ auditoriumId\ \r\n
 comment2.params=
 comment2.target=java.lang.String\ getName()
-comment2.text=\r\n\ Accessormetode\ for\ salens\ navn\r\n
+comment2.text=\r\n\ Accessormetode\ for\ salens\ navn\r\n\ @return\ Salens\ navn\r\n
 comment3.params=
 comment3.target=int\ getRowNumber()
-comment3.text=\r\n\ Accessormetode\ for\ salens\ antal\ s\u00E6der\u00E6kker\r\n
+comment3.text=\r\n\ Accessormetode\ for\ salens\ antal\ s\u00E6der\u00E6kker\r\n\ @return\ r\u00E6kke\ nummeret\r\n
 comment4.params=
 comment4.target=int\ getColumnNumber()
-comment4.text=\r\n\ Accessormetode\ for\ salens\ antal\ s\u00E6dekolonner\r\n
+comment4.text=\r\n\ Accessormetode\ for\ salens\ antal\ s\u00E6dekolonner\r\n\ @return\ kolonnenummer\r\n
 numComments=5

@@ -19,20 +19,20 @@ public class ShowView extends JScrollPane
     private Movie movie;
     private BiografViewer biografViewer;
     private JPanel buttonGrid;
-    private JPanel CenterWestGrid;
+    private JPanel centerWestGrid;
     private CardLayout cardLayout;
     private List<Seat> selectedSeats;
     
     /**
      * 
      */
-    public ShowView(JPanel buttonGrid, Movie movie, BiografViewer biografViewer, JPanel CenterWestGrid, CardLayout cardLayout,List<Seat> selectedSeats){
+    public ShowView(JPanel buttonGrid, Movie movie, BiografViewer biografViewer, JPanel centerWestGrid, CardLayout cardLayout,List<Seat> selectedSeats){
         super(buttonGrid);
         this.buttonGrid = buttonGrid;
         // this.setLayout(new GridLayout(100,1));
         this.movie = movie;
         this.biografViewer = biografViewer;
-        this.CenterWestGrid = CenterWestGrid;
+        this.centerWestGrid = centerWestGrid;
         this.cardLayout = cardLayout;
         this.selectedSeats = selectedSeats;
         makeFrame();
@@ -64,7 +64,7 @@ public class ShowView extends JScrollPane
              buttonGrid.add(showButton);
         }
         //viser listen af spilletider i rammen
-        CenterWestGrid.add(this, "jScrollPane");
-         cardLayout.show(CenterWestGrid, "jScrollPane");
+        centerWestGrid.add(this, "jScrollPane");
+         cardLayout.show(centerWestGrid, "jScrollPane");
     }   
 }

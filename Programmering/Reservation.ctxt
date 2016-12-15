@@ -1,20 +1,20 @@
 #BlueJ class context
-comment0.params=reservation_id\ telephone_number\ show_id\ row_number\ seat_number
+comment0.params=reservationId\ telephoneNumber\ showId\ rowNumber\ columnNumber
 comment0.target=Reservation(int,\ int,\ int,\ int,\ int)
 comment0.text=\r\n\ Konstrukt\u00F8r\ for\ objekter\ af\ klassen\ Reservation\r\n
 comment1.params=
-comment1.target=int\ reservation_id()
+comment1.target=int\ getReservationId()
 comment1.text=\r\n\ Accessormetode\ for\ reservationens\ id\r\n
 comment2.params=
-comment2.target=int\ telephone_number()
+comment2.target=int\ getTelephoneNumber()
 comment2.text=\r\n\ Accessormetode\ for\ reservationens\ telefonnummer\r\n
 comment3.params=
-comment3.target=int\ show_id()
+comment3.target=int\ getShowId()
 comment3.text=\r\n\ Accessormetode\ for\ reservationens\ show_id\r\n
 comment4.params=
-comment4.target=int\ row_number()
+comment4.target=int\ getRowNumber()
 comment4.text=\r\n\ Accessormetode\ for\ reservationens\ stoler\u00E6kkenummer\r\n
 comment5.params=
-comment5.target=int\ seat_number()
+comment5.target=int\ getColumnNumber()
 comment5.text=\r\n\ Accessormetode\ for\ reservationens\ s\u00E6denummer\r\n
 numComments=6

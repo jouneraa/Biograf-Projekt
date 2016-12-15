@@ -207,7 +207,7 @@ public class BiografViewer
         List<Integer> movieIds = dataFactory.getAllMovieIds();
         for(int x : movieIds){
             Movie movie = dataFactory.getMovie(x);
-            String movieTitle = movie.title();
+            String movieTitle = movie.getTitle();
             
             // muligvis en til filmene også JScrollPane scrollPaneInnerGrid = new JScrollPane();
             JButton forestilling = new JButton(movieTitle);
@@ -250,11 +250,11 @@ public class BiografViewer
             ArrayList<Reservation> list = dataFactory.getDetailsForAllReservations();
             Object[] row = new Object[5];
             for(int x = 0; x < list.size(); x++) {
-                row[0] = list.get(x).reservation_id();
-                row[1] = list.get(x).telephone_number();
-                row[2] = list.get(x).show_id();
-                row[3] = list.get(x).row_number();
-                row[4] = list.get(x).seat_number();
+                row[0] = list.get(x).getReservationId();
+                row[1] = list.get(x).getTelephoneNumber();
+                row[2] = list.get(x).getShowId();
+                row[3] = list.get(x).getRowNumber();
+                row[4] = list.get(x).getColumnNumber();
                 
                 
             }

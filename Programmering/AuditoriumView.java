@@ -85,7 +85,7 @@ public class AuditoriumView extends JPanel
                     //boolean status = false;
                     if(!allReservations.isEmpty()){
                         for(Reservation y : allReservations){
-                            if(y.row_number() == row && y.seat_number() == col){
+                            if(y.getRowNumber() == row && y.getColumnNumber() == col){
                                 status = "reserved";
                                 //status = true;
                             }
@@ -191,7 +191,7 @@ public class AuditoriumView extends JPanel
              // sætter to jlabel til west og east i northPanel så de kan være ud i siden, senere kommer northpanel til at sættes mod north i contentpane
              String showTime = show.getStartTime();
              northPanel.add(new JLabel("Forestilling: " + showTime), BorderLayout.EAST);
-             String movieName = dataFactory.getMovie(show.getMovieId()).title();
+             String movieName = dataFactory.getMovie(show.getMovieId()).getTitle();
              JLabel Tekst = new JLabel("Film: " + movieName);
              Tekst.setFont(new Font("Serif", Font.PLAIN, 20));
              northPanel.add(Tekst, BorderLayout.WEST);

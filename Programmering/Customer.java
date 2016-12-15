@@ -9,30 +9,30 @@
 public class Customer
 {
     // Kundens telefonnummer
-    private int telephone_number;
+    private int telephoneNumber;
     // Kundens navn
     private String name;
 
     /**
      * Konstruktør for objekter af klassen Customer
      */
-    public Customer(int telephone_number, String name)
+    public Customer(int telephoneNumber, String name)
     {
-        this.telephone_number = telephone_number;
+        this.telephoneNumber = telephoneNumber;
         this.name = name;
     }
 
     /**
      * Accessormetode for kundens telefonnummer
      */
-    public int getTelephone_Number()
+    public int getTelephoneNumber()
     {
-        return telephone_number;
+        return telephoneNumber;
     }
     /**
      * Accessormetode for kundens navn
      */
-    public String name()
+    public String getName()
     {
         return name;
     }

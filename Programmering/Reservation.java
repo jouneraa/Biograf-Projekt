@@ -8,55 +8,55 @@
  */
 public class Reservation{
     // Reservationens id
-    private int reservation_id;
+    private int reservationId;
     // Reservationens telefonnummer
-    private int telephone_number;
+    private int telephoneNumber;
     // Reservationens show_id
-    private int show_id;
+    private int showId;
     // Reservationens stolerækkenummer
-    private int row_number;
+    private int rowNumber;
     // Reservationens sædenummer
-    private int seat_number;
+    private int columnNumber;
     
     /**
      * Konstruktør for objekter af klassen Reservation
      */
-    public Reservation(int reservation_id,int telephone_number, int show_id, int row_number, int seat_number){
-        this.reservation_id = reservation_id;
-        this.telephone_number = telephone_number;
-        this.show_id = show_id;
-        this.row_number = row_number;
-        this.seat_number =seat_number;
+    public Reservation(int reservationId,int telephoneNumber, int showId, int rowNumber, int columnNumber){
+        this.reservationId = reservationId;
+        this.telephoneNumber = telephoneNumber;
+        this.showId = showId;
+        this.rowNumber = rowNumber;
+        this.columnNumber = columnNumber;
     }
     
     /**
      * Accessormetode for reservationens id
      */
-    public int reservation_id() {
-        return reservation_id;
+    public int getReservationId() {
+        return reservationId;
     }
     /**
      * Accessormetode for reservationens telefonnummer
      */
-    public int telephone_number() {
-        return telephone_number;
+    public int getTelephoneNumber() {
+        return telephoneNumber;
     }
     /**
      * Accessormetode for reservationens show_id
      */
-    public int show_id() {
-        return show_id;
+    public int getShowId() {
+        return showId;
     }
     /**
      * Accessormetode for reservationens stolerækkenummer
      */
-    public int row_number() {
-        return row_number;
+    public int getRowNumber() {
+        return rowNumber;
     }
     /**
      * Accessormetode for reservationens sædenummer
      */
-    public int seat_number() {
-        return seat_number;
+    public int getColumnNumber() {
+        return columnNumber;
     }
 }

@@ -6,27 +6,27 @@
  */
 public class Movie{
     // Filmens id
-    private int movie_id;
+    private int movieId;
     // Filmens navn
     private String title;
     
     /**
      * Konstruktør for objekter af klassen Movie
      */
-    public Movie(int movie_id, String title){
-        this.movie_id = movie_id;
+    public Movie(int movieId, String title){
+        this.movieId = movieId;
         this.title = title;
     }
     /**
      * Accessormetode for filmens titel
      */
-    public String title(){
+    public String getTitle(){
         return title;
     }
     /**
      * Accessormetode for filmens id
      */
     public int getMovieId(){
-        return movie_id;
+        return movieId;
     }
 }

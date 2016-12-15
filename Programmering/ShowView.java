@@ -22,6 +22,10 @@ public class ShowView extends JScrollPane
     private JPanel CenterWestGrid;
     private CardLayout cardLayout;
     private List<Seat> selectedSeats;
+    
+    /**
+     * 
+     */
     public ShowView(JPanel buttonGrid, Movie movie, BiografViewer biografViewer, JPanel CenterWestGrid, CardLayout cardLayout,List<Seat> selectedSeats){
         super(buttonGrid);
         this.buttonGrid = buttonGrid;
@@ -34,35 +38,32 @@ public class ShowView extends JScrollPane
         makeFrame();
     }
     
+    /**
+     * 
+     */
     public void makeFrame(){
         
-                    int movieId = movie.getMovieId();
-                    List<Integer> showIds = dataFactory.getActiveShows(movieId);
+        int movieId = movie.getMovieId();
+        List<Integer> showIds = dataFactory.getActiveShows(movieId);
                     
-                    for(int y : showIds){
-                        Show show = dataFactory.getShow(y);
-                        String buttonInfo = "Auditorium: " + show.getAuditoriumId() + " Tid: " + show.getStartTime();
-                        JButton showButton = new JButton(buttonInfo);
+        for(int y : showIds){
+             Show show = dataFactory.getShow(y);
+             String buttonInfo = "Sal: " + show.getAuditoriumId() + " Tid: " + show.getStartTime();
+             JButton showButton = new JButton(buttonInfo);
                        
-                        //tilføjer listenere igen, til sædefordelingen
-                      
-                        showButton.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            selectedSeats.clear();
-                            biografViewer.displayBookingPage(show);
-                        }
-                        });
-                        
-                        
-                        
-                        buttonGrid.add(showButton);
-                    }
-                    //viser listen af spilletider i rammen
-                    CenterWestGrid.add(this, "jScrollPane");
-                    cardLayout.show(CenterWestGrid, "jScrollPane");
-    }
-    
-        
-    
+             //tilføjer listenere igen, til sædefordelingen
+                  showButton.addActionListener(new ActionListener() {
+                  @Override
+                  public void actionPerformed(ActionEvent e) {
+                      selectedSeats.clear();
+                      biografViewer.displayBookingPage(show);
+                  }
+             });
+                                     
+             buttonGrid.add(showButton);
+        }
+        //viser listen af spilletider i rammen
+        CenterWestGrid.add(this, "jScrollPane");
+         cardLayout.show(CenterWestGrid, "jScrollPane");
+    }   
 }

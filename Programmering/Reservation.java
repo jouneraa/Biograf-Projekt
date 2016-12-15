@@ -35,24 +35,28 @@ public class Reservation{
     public int getReservationId() {
         return reservationId;
     }
+    
     /**
      * Accessormetode for reservationens telefonnummer
      */
     public int getTelephoneNumber() {
         return telephoneNumber;
     }
+    
     /**
      * Accessormetode for reservationens show_id
      */
     public int getShowId() {
         return showId;
     }
+    
     /**
      * Accessormetode for reservationens stolerækkenummer
      */
     public int getRowNumber() {
         return rowNumber;
     }
+    
     /**
      * Accessormetode for reservationens sædenummer
      */

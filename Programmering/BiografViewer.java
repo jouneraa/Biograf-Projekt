@@ -44,7 +44,9 @@ public class BiografViewer
     private JTextField phoneField;
     private List<Seat> selectedSeats;
     private int showIdSelected;
-    
+    /**
+     * 
+     */
     // konstruktoren som kalder funktionen til at lave framen
     public BiografViewer()
     {
@@ -55,13 +57,19 @@ public class BiografViewer
         
         makeFrame();
     }
-
+    
+    /**
+     * 
+     */
     // quitfunction til at udbygge senere
     private void quit()
     {
         System.exit(0);
     }
     
+    /**
+     * 
+     */
     //about function, til at se oplysnigner om programmet
     private void showAbout()
     {
@@ -71,7 +79,9 @@ public class BiografViewer
                     JOptionPane.INFORMATION_MESSAGE);
     }
     
-
+    /**
+     * 
+     */
     // ---- bygger selve frmaen
     private void makeFrame()
     {
@@ -159,14 +169,19 @@ public class BiografViewer
         frame.setVisible(true);
  
 
-        }
-      
-        public void makeTableView(){
-            tableView = new TableView(this, selectedSeats, jtp, frame, jp3, table, model);
-        }
+    }
     
-    private void makeMenuBar(JFrame frame)
-    {
+    /**
+     * 
+     */
+    public void makeTableView(){
+        tableView = new TableView(this, selectedSeats, jtp, frame, jp3, table, model);
+    }
+    
+    /**
+     * 
+     */
+    private void makeMenuBar(JFrame frame){
         final int SHORTCUT_MASK =       
         Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
 
@@ -187,15 +202,18 @@ public class BiografViewer
         menu.add(item);
 
         // create the Help menu
-        menu = new JMenu("Help");
+        menu = new JMenu("Hjælp");
         menubar.add(menu);
         
-        item = new JMenuItem("About BiografHelper...");
+        item = new JMenuItem("Om BiografHelper...");
             item.addActionListener(e -> showAbout());
         menu.add(item);
 
     }
     
+    /**
+     * 
+     */
     public void addShowsInBar(){
         //tilføj title på panelet
         JLabel forestilling1 = new JLabel();
@@ -221,51 +239,33 @@ public class BiografViewer
              forestilling.setBackground(contentPane.getBackground ());
              InnerGrid.add(forestilling);
         }
-                    
+    }       
+    
+    public void displayBookingPage(Show show){
+        List<Integer> allReservationIds = dataFactory.getAllShowReservationIds(show.getShowId());
+            
+            
+        JPanel bookingLayout = new JPanel(); 
+        bookingLayout.setLayout(new BorderLayout(6, 6));
+        bookingLayout.setBorder(new EtchedBorder());
+        // de forskellige borderlayout laves i seperate metoder
+            
+        // 
+        AuditoriumView auditoriumView = new AuditoriumView(show, allReservationIds, table, selectedSeats,  frame, CenterWestGrid, cardLayout, tableView, this);
+            
+        //viser bookinglayoutet i rammen
+        CenterWestGrid.add(auditoriumView, "showView");
+        cardLayout.show(CenterWestGrid, "showView");
     }
     
-
-        
-        public void displayBookingPage(Show show){
-            
-            List<Integer> allReservationIds = dataFactory.getAllShowReservationIds(show.getShowId());
-            
-            
-            JPanel bookingLayout = new JPanel(); 
-            bookingLayout.setLayout(new BorderLayout(6, 6));
-            bookingLayout.setBorder(new EtchedBorder());
-            // de forskellige borderlayout laves i seperate metoder
-            
-            // 
-            AuditoriumView auditoriumView = new AuditoriumView(show, allReservationIds, table, selectedSeats,  frame, CenterWestGrid, cardLayout, tableView, this);
-            
-            //viser bookinglayoutet i rammen
-            CenterWestGrid.add(auditoriumView, "showView");
-            cardLayout.show(CenterWestGrid, "showView");
-        }
-        
-
-        public void Show_Users_In_JTable()
-        {
-            ArrayList<Reservation> list = dataFactory.getDetailsForAllReservations();
-            Object[] row = new Object[5];
-            for(int x = 0; x < list.size(); x++) {
-                row[0] = list.get(x).getReservationId();
-                row[1] = list.get(x).getTelephoneNumber();
-                row[2] = list.get(x).getShowId();
-                row[3] = list.get(x).getRowNumber();
-                row[4] = list.get(x).getColumnNumber();
-                
-                
-            }
-        }
-        
-        public void updateJTable(){
-            jp3.remove(tableView);
-            tableView = new TableView(this, selectedSeats, jtp, frame, jp3, table, model);
-            jp3.add(tableView);
-        }
-
+    /**
+     * 
+     */
+    public void updateJTable(){
+        jp3.remove(tableView);
+        tableView = new TableView(this, selectedSeats, jtp, frame, jp3, table, model);
+        jp3.add(tableView);
+    }
 }
     
    

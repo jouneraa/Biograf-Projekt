@@ -19,21 +19,34 @@ public class Auditorium
         this.rowNumber = rowNumber;
         this.columnNumber = columnNumber;
     }
-
+    
+    /**
+     * Accessormetode for salens id
+     */
     public int getAuditoriumId()
     {
         return auditoriumId;
     }
     
+    /**
+     * Accessormetode for salens navn
+     */
     public String getName()
     {
         return name;
     }
-  
+    
+    /**
+     * Accessormetode for salens antal sæderækker
+     */
     public int getRowNumber()
     {
         return rowNumber;
     }
+    
+    /**
+     * Accessormetode for salens antal sædekolonner
+     */
 
     public int getColumnNumber()
     {

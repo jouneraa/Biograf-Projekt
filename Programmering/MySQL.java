@@ -16,11 +16,7 @@ public class MySQL {
     static final String PASS = "kransekage66";
     // JDBC driver name and database URL
     static final String DB_URL = "jdbc:mysql://mydb.itu.dk/" + MYDB;
-
-<<<<<<< HEAD
-    private MySQL() {}
-
-=======
+    
     /**
      * Default konstruktør
      */
@@ -31,7 +27,6 @@ public class MySQL {
     /**
      * Metode til at tilgå og udvælge data i databasen, som returneres i et ResultSet objekt. 
      */
->>>>>>> 6c82a5641000e73203dab02d260a9d4232fc83c6
     public static ResultSet query(String query){
         Connection connection = null;
         Statement statement = null;

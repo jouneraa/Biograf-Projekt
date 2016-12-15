@@ -29,6 +29,7 @@ public class Customer
     {
         return telephoneNumber;
     }
+    
     /**
      * Accessormetode for kundens navn
      */

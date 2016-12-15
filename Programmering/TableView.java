@@ -24,7 +24,14 @@ public class TableView extends JPanel
     private JFrame frame;
     JPanel jp3;
     /**
-     * 
+     * Konstruktor for TableView
+     * @param biografViewer The company to be used. Must not be null.
+     * @param selectedSeats The company to be used. Must not be null.
+     * @param jtp
+     * @param frame
+     * @param jp3
+     * @param table
+     * @param model
      */
     public TableView(BiografViewer biografViewer, List<Seat> selectedSeats, JTabbedPane jtp, JFrame frame, JPanel jp3, JTable table, DefaultTableModel model){
         super(new BorderLayout());
@@ -39,7 +46,7 @@ public class TableView extends JPanel
     }
     
     /**
-     * 
+     *Laver kompenenterne, Table, searchCustomer, btnDelete, btnEdit og sætter komponenterne sammen i TableView
      */
     public void makeFrame(){
         table = new JTable();
@@ -150,8 +157,8 @@ public class TableView extends JPanel
     }
     
     /**
-    * 
-    *///resetter data table modellen!
+     *Laver det JTable som viser de forskellige gemte reservationer i systemet
+     *///resetter data table modellen!
     public void makeTableModel(){
         Object[] columns = {"Reservation ID","Telephone Number","Show ID","Row Number","Seat Number","Film","Auditorium","Start Time"};
             

@@ -1,8 +1,9 @@
 #BlueJ class context
 comment0.params=auditoriumId\ name\ rowNumber\ columnNumber
 comment0.target=Auditorium(int,\ java.lang.String,\ int,\ int)
-comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Auditorium\r\n
+comment0.text=\r\n\ Konstrukt\u00F8r\ for\ objekter\ af\ klassen\ Auditorium\r\n
 comment1.params=
+<<<<<<< HEAD
 comment1.target=int\ getAuditoriumId()
 comment2.params=
 comment2.target=java.lang.String\ getName()
@@ -10,4 +11,17 @@ comment3.params=
 comment3.target=int\ getRowNumber()
 comment4.params=
 comment4.target=int\ getColumnNumber()
+=======
+comment1.target=int\ auditorium_id()
+comment1.text=\r\n\ Accessormetode\ for\ salens\ id\r\n
+comment2.params=
+comment2.target=java.lang.String\ name()
+comment2.text=\r\n\ Accessormetode\ for\ salens\ navn\r\n
+comment3.params=
+comment3.target=int\ row_number()
+comment3.text=\r\n\ Accessormetode\ for\ salens\ antal\ stoler\u00E6kker\r\n
+comment4.params=
+comment4.target=int\ seat_number()
+comment4.text=\r\n\ Accessormetode\ for\ salens\ antal\ s\u00E6der\r\n
+>>>>>>> 6c82a5641000e73203dab02d260a9d4232fc83c6
 numComments=5

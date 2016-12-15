@@ -39,6 +39,8 @@ public class MySQL {
     
     /**
      * Metode til at tilgå og udvælge data i databasen, som returneres i et ResultSet objekt. 
+     * @param query, strengen som skal hente fra databasen
+     * @return et resultsæt med de efterspurgte værdier
      */
     public ResultSet query(String query){
         ResultSet rs = null;
@@ -54,14 +56,11 @@ public class MySQL {
     
     /**
      * Metode til at tilgå og opdatere data i databasen.
+     * @param query, strengen som skal hente fra databasen
      */
     public void queryUpdate(String query) {
-        Connection connection = null;
-        Statement statement = null;
         ResultSet rs = null;
         try {
-            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-            connection = DriverManager.getConnection(MySQL.DB_URL, MySQL.USER, MySQL.PASS); // Open connection
             statement = connection.createStatement(); // Create statement
             statement.executeUpdate(query);
         } catch(Exception e) { // handle errors:

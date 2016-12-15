@@ -20,6 +20,7 @@ public class Movie{
     
     /**
      * Accessormetode for filmens titel
+     * @return filmens titel
      */
     public String getTitle(){
         return title;
@@ -27,6 +28,7 @@ public class Movie{
     
     /**
      * Accessormetode for filmens id
+     * @param filmen id
      */
     public int getMovieId(){
         return movieId;

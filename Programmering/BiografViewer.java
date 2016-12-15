@@ -24,7 +24,7 @@ public class BiografViewer
     private JLabel statusLabel;
     private JPanel contentPane;
     private JPanel InnerGrid;
-    private JPanel CenterWestGrid;
+    private JPanel centerWestGrid;
 
     private JPanel frame1;
     private TableView tableView;
@@ -110,16 +110,16 @@ public class BiografViewer
         
          // -----------------------------------------------------
         //CenterCenterBorder = new JPanel(new BorderLayout(6,6));
-        CenterWestGrid = new JPanel(); 
-        CenterWestGrid.setLayout(cardLayout);
+        centerWestGrid = new JPanel(); 
+        centerWestGrid.setLayout(cardLayout);
         JPanel startGrid = new JPanel(new GridLayout(20,2));
            
-        CenterWestGrid.add(startGrid, "startGrid");
-        cardLayout.show(CenterWestGrid, "startGrid");
+        centerWestGrid.add(startGrid, "startGrid");
+        cardLayout.show(centerWestGrid, "startGrid");
         
         
         //CenterCenterBorder.add(CenterWestGrid, BorderLayout.WEST);
-        CenterBorder.add(CenterWestGrid, BorderLayout.CENTER);
+        CenterBorder.add(centerWestGrid, BorderLayout.CENTER);
         
         // lave et gridbaglayout som reservationerne skal opbevares i 
 
@@ -217,7 +217,7 @@ public class BiografViewer
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JPanel buttonGrid = new JPanel(new GridLayout(100,1));
-                    ShowView showView = new ShowView(buttonGrid, movie, BiografViewer.this, CenterWestGrid, cardLayout, selectedSeats);
+                    ShowView showView = new ShowView(buttonGrid, movie, BiografViewer.this, centerWestGrid, cardLayout, selectedSeats);
                 }
             });
              forestilling.setBackground(contentPane.getBackground ());
@@ -237,11 +237,11 @@ public class BiografViewer
         bookingLayout.setLayout(new BorderLayout(6, 6));
         bookingLayout.setBorder(new EtchedBorder());
         // de forskellige borderlayout laves i seperate metoder
-        AuditoriumView auditoriumView = new AuditoriumView(show, allReservationIds, table, selectedSeats,  frame, CenterWestGrid, cardLayout, tableView, this);
+        AuditoriumView auditoriumView = new AuditoriumView(show, allReservationIds, table, selectedSeats,  frame, centerWestGrid, cardLayout, tableView, this);
             
         //viser bookinglayoutet i rammen
-        CenterWestGrid.add(auditoriumView, "showView");
-        cardLayout.show(CenterWestGrid, "showView");
+        centerWestGrid.add(auditoriumView, "showView");
+        cardLayout.show(centerWestGrid, "showView");
     }
     
     /**

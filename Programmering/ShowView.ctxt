@@ -1,5 +1,5 @@
 #BlueJ class context
-comment0.params=buttonGrid\ movie\ biografViewer\ CenterWestGrid\ cardLayout\ selectedSeats
+comment0.params=buttonGrid\ movie\ biografViewer\ centerWestGrid\ cardLayout\ selectedSeats
 comment0.target=ShowView(javax.swing.JPanel,\ Movie,\ BiografViewer,\ javax.swing.JPanel,\ java.awt.CardLayout,\ java.util.List)
 comment0.text=\r\n\ \r\n
 comment1.params=

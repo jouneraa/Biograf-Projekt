@@ -20,7 +20,7 @@ public class AuditoriumView extends JPanel
     private DataController dataController = DataController.getInstance();
     private JLabel AntalPladser;
     private int showIdSelected;
-    private JPanel CenterWestGrid;
+    private JPanel centerWestGrid;
     private CardLayout cardLayout;
     private JPanel tableView;
     private JFrame frame;
@@ -34,16 +34,16 @@ public class AuditoriumView extends JPanel
      * @param allReservationIds The company to be used. Must not be null.
      * @param table
      * @param selectedSeats
-     * @param CenterWestGrid
+     * @param centerWestGrid
      * @param cardLayout
      * @param tableView
      * @param biografViewer
      */
-    public AuditoriumView(Show show, List<Integer> allReservationIds, JTable table, List<Seat> selectedSeats, JFrame frame, JPanel CenterWestGrid, CardLayout cardLayout, JPanel tableView, BiografViewer biografViewer ){
+    public AuditoriumView(Show show, List<Integer> allReservationIds, JTable table, List<Seat> selectedSeats, JFrame frame, JPanel centerWestGrid, CardLayout cardLayout, JPanel tableView, BiografViewer biografViewer ){
         super(new BorderLayout(6,6));
         this.setBorder(new EtchedBorder());
         showIdSelected = show.getShowId();
-        this.CenterWestGrid = CenterWestGrid;
+        this.centerWestGrid = centerWestGrid;
         this.cardLayout = cardLayout;
         this.tableView = tableView;
         this.selectedSeats = selectedSeats;
@@ -258,8 +258,8 @@ public class AuditoriumView extends JPanel
                     String phoneResult = phoneField.getText();
                     //test for om navn og telefonnummer er gyldige
                     boolean validInput = testInputString(nameResult, phoneResult, frame);
-                    int phoneParsed = Integer.parseInt(phoneResult);
                     if(validInput){
+                        int phoneParsed = Integer.parseInt(phoneResult);
                         finalizeReservation(nameResult, phoneParsed);
                         JOptionPane.showMessageDialog(frame,
                                 "Reservationen er tilføjet!");
@@ -311,8 +311,12 @@ public class AuditoriumView extends JPanel
      */
     public boolean testInputString(String nameResult, String phoneResult, JFrame frame){
         //checker, at strengen er længere end null
+<<<<<<< HEAD
+        if(nameResult.length() < 1 ){
+=======
         nameResult = nameResult.replaceAll("\\s+","");
         if(nameResult.length() < 1){
+>>>>>>> 119939052538d5dfb687c7e96ba1cabb78781a53
             JOptionPane.showMessageDialog(frame,
                     "Navn skal udfyldes!");
             return false;
@@ -352,7 +356,7 @@ public class AuditoriumView extends JPanel
             dataController.addReservation(phone, showIdSelected, x.getRow(), x.getColumn());
         }
         selectedSeats.clear();
-        cardLayout.show(CenterWestGrid, "startGrid");
+        cardLayout.show(centerWestGrid, "startGrid");
         //sletter gammelt frame med jtable og laver et nyt, for at opdaterer indhold
 
         biografViewer.updateJTable();

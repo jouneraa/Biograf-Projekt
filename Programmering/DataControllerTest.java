@@ -67,6 +67,7 @@ public class DataControllerTest
      @Test
     public void testAddNewCustomer()
     {
+        dataFact1.deleteCustomer(12345);
         assertEquals(true, dataFact1.addCustomer(12345, "aa"));
     }
 

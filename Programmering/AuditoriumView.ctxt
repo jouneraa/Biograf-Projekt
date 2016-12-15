@@ -1,7 +1,7 @@
 #BlueJ class context
-comment0.params=show\ allReservationIds\ table\ selectedSeats\ frame\ CenterWestGrid\ cardLayout\ tableView\ biografViewer
+comment0.params=show\ allReservationIds\ table\ selectedSeats\ frame\ centerWestGrid\ cardLayout\ tableView\ biografViewer
 comment0.target=AuditoriumView(Show,\ java.util.List,\ javax.swing.JTable,\ java.util.List,\ javax.swing.JFrame,\ javax.swing.JPanel,\ java.awt.CardLayout,\ javax.swing.JPanel,\ BiografViewer)
-comment0.text=\r\n\ Konstruktor\ for\ Auditoriumview\r\n\ @param\ show\ The\ company\ to\ be\ used.\ Must\ not\ be\ null.\r\n\ @param\ allReservationIds\ The\ company\ to\ be\ used.\ Must\ not\ be\ null.\r\n\ @param\ table\r\n\ @param\ selectedSeats\r\n\ @param\ CenterWestGrid\r\n\ @param\ cardLayout\r\n\ @param\ tableView\r\n\ @param\ biografViewer\r\n
+comment0.text=\r\n\ Konstruktor\ for\ Auditoriumview\r\n\ @param\ show\ The\ company\ to\ be\ used.\ Must\ not\ be\ null.\r\n\ @param\ allReservationIds\ The\ company\ to\ be\ used.\ Must\ not\ be\ null.\r\n\ @param\ table\r\n\ @param\ selectedSeats\r\n\ @param\ centerWestGrid\r\n\ @param\ cardLayout\r\n\ @param\ tableView\r\n\ @param\ biografViewer\r\n
 comment1.params=show\ allReservationIds\ table
 comment1.target=void\ makeFrame(Show,\ java.util.List,\ javax.swing.JTable)
 comment1.text=\r\nLaver\ kompenenterne\ og\ s\u00E6tter\ komponenterne\ sammen\ i\ AuditoriumsView(this)\r\n@param\ show\r\n@param\ allReservationIds\r\n@param\ table\r\n

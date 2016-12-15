@@ -20,7 +20,7 @@ public class BiografViewer
 
     //reservation system reference
 
-    DataFactory dataFactory = DataFactory.getInstance();
+    DataController dataController = DataController.getInstance();
     // fields:
     private JFrame frame;
     private JLabel filenameLabel;
@@ -222,9 +222,9 @@ public class BiografViewer
         
         
         //tilføj knapperne der viser spillefilm
-        List<Integer> movieIds = dataFactory.getAllMovieIds();
+        List<Integer> movieIds = dataController.getAllMovieIds();
         for(int x : movieIds){
-            Movie movie = dataFactory.getMovie(x);
+            Movie movie = dataController.getMovie(x);
             String movieTitle = movie.getTitle();
             
             // muligvis en til filmene også JScrollPane scrollPaneInnerGrid = new JScrollPane();
@@ -242,7 +242,7 @@ public class BiografViewer
     }       
     
     public void displayBookingPage(Show show){
-        List<Integer> allReservationIds = dataFactory.getAllShowReservationIds(show.getShowId());
+        List<Integer> allReservationIds = dataController.getAllShowReservationIds(show.getShowId());
             
             
         JPanel bookingLayout = new JPanel(); 

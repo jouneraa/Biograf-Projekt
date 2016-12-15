@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.params=
-comment0.target=DataFactory()
+comment0.target=DataController()
 comment1.params=
-comment1.target=DataFactory\ getInstance()
+comment1.target=DataController\ getInstance()
 comment10.params=id
 comment10.target=boolean\ deleteReservation(int)
 comment10.text=\r\n\ SQL-query\ til\ at\ slette\ reservationer\ i\ databasen\ ud\ fra\ reservationens\ id.\r\n

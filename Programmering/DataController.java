@@ -12,20 +12,20 @@ import java.sql.Timestamp;
  * informationen skal lagres.
  * Controlleren tager imod inputs fra viewet, når viewet skal opdateres.
  */
-public class DataFactory
+public class DataController
 {
     /**
      * Skriv her Jonathan
      */
-    public static DataFactory dataFactory = null;
+    public static DataController dataController = null;
     private MySQL mySql = MySQL.getInstance();
-    private DataFactory(){}
+    private DataController(){}
     
-    public static DataFactory getInstance(){
-        if(dataFactory == null){
-            dataFactory = new DataFactory();
+    public static DataController getInstance(){
+        if(dataController == null){
+            dataController = new DataController();
         }
-        return dataFactory;
+        return dataController;
     }
     
     /**
@@ -89,7 +89,7 @@ public class DataFactory
                 return movie;
             }
         } catch (SQLException e) {
-            System.out.println("Exception, klasse: DataFactory   Metode: getMovie");
+            System.out.println("Exception, klasse: DataController   Metode: getMovie");
         } 
         return null; 
     }
@@ -112,7 +112,7 @@ public class DataFactory
                 return customer;
             }
         } catch (SQLException e) {
-            System.out.println("Exception, klasse: DataFactory   Metode: getCustomer");
+            System.out.println("Exception, klasse: DataController   Metode: getCustomer");
         } 
         return null; 
     }
@@ -133,7 +133,7 @@ public class DataFactory
                 return auditorium;
             }
         } catch (SQLException e) {
-            System.out.println("Exception, klasse: DataFactory   Metode: getAuditorium");
+            System.out.println("Exception, klasse: DataController   Metode: getAuditorium");
         } 
         return null; 
     }
@@ -155,7 +155,7 @@ public class DataFactory
                 return show;
             }
         } catch (SQLException e) {
-            System.out.println("Exception, klasse: DataFactory   Metode: getShow");
+            System.out.println("Exception, klasse: DataController   Metode: getShow");
         } 
         return null; 
     }
@@ -177,7 +177,7 @@ public class DataFactory
                 return reservation;
             }
         } catch (SQLException e) {
-            System.out.println("Exception, klasse: DataFactory   Metode: getReservation");
+            System.out.println("Exception, klasse: DataController   Metode: getReservation");
         } 
         return null; 
     }
@@ -244,7 +244,7 @@ public class DataFactory
             }
             return movieIds;
         } catch (SQLException e) {
-            System.out.println("Exception, klasse: DataFactory   Metode: getAllMovieIds");
+            System.out.println("Exception, klasse: DataController   Metode: getAllMovieIds");
         } 
         return null;
     }
@@ -263,7 +263,7 @@ public class DataFactory
             }
             return showIds;
         } catch (SQLException e) {
-            System.out.println("Exception, klasse: DataFactory   Metode: getAllShowIds");
+            System.out.println("Exception, klasse: DataController   Metode: getAllShowIds");
         } 
         return null;
     }
@@ -282,7 +282,7 @@ public class DataFactory
             }
             return reservationIds;
         } catch (SQLException e) {
-            System.out.println("Exception, klasse: DataFactory   Metode: getAllReservationIds");
+            System.out.println("Exception, klasse: DataController   Metode: getAllReservationIds");
         } 
         return null;
     }
@@ -301,7 +301,7 @@ public class DataFactory
             }
             return reservationIds;
         } catch (SQLException e) {
-            System.out.println("Exception, klasse: DataFactory   Metode: getallcustomerShowIds");
+            System.out.println("Exception, klasse: DataController   Metode: getallcustomerShowIds");
         } 
         return null;
     }
@@ -319,7 +319,7 @@ public class DataFactory
             }
             return showIds;
         } catch (SQLException e) {
-            System.out.println("Exception, klasse: DataFactory   Metode: getActiveShows");
+            System.out.println("Exception, klasse: DataController   Metode: getActiveShows");
         } 
         return null;
     }
@@ -343,7 +343,7 @@ public class DataFactory
             }
             return reservations;
        } catch (SQLException e) {
-            System.out.println("Exception, klasse: DataFactory   Metode: getDeatailsForAllReservations");
+            System.out.println("Exception, klasse: DataController   Metode: getDeatailsForAllReservations");
        } 
         return null;
     }

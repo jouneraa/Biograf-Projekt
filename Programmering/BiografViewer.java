@@ -9,14 +9,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-
+/**
+ * Gruppe 33: Jonas, Jonathan, Julius
+ * Itu-mails: jskr@itu.dk - josn@itu.dk - jufi@itu.dk
+ */
 public class BiografViewer
 {
     //string som står nede i bunden, versionen af programmet :) en meme
     private static final String VERSION = "Version 1337";
 
     //reservation system reference
-    ReservationSystem reservationSystem;
+
     DataFactory dataFactory = DataFactory.getInstance();
     // fields:
     private JFrame frame;
@@ -46,7 +49,7 @@ public class BiografViewer
     public BiografViewer()
     {
         pinkColor = new Color(138,43,226);
-        reservationSystem = new ReservationSystem();
+
         selectedSeats = new ArrayList<>();
         
         

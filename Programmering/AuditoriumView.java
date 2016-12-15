@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+/**
+ * Gruppe 33: Jonas, Jonathan, Julius
+ * Itu-mails: jskr@itu.dk - josn@itu.dk - jufi@itu.dk
+ */
 public class AuditoriumView extends JPanel
 {
      private DataFactory dataFactory = DataFactory.getInstance();

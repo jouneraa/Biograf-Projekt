@@ -4,13 +4,19 @@ import java.util.*;
 import java.sql.Timestamp;
 
 /**
- * Write a description of class DataFactory here.
+ * Gruppe 33: Jonas, Jonathan, Julius
+ * Itu-mails: jskr@itu.dk - josn@itu.dk - jufi@itu.dk
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * DataController-klassen er vores controller i henhold til MVC-designet. Klassens metoder er SQL-queries, der anvendes ved at bruge MYSQL-klassens metoder til at forbinde til databasen.
+ * Klassen står for al logikken til at specificere hvad og hvor der skal opdateres i databasen, samt specificere hvilke informationer der skal hentes ud fra databasen, og i hvilke modeller
+ * informationen skal lagres.
+ * Controlleren tager imod inputs fra viewet, når viewet skal opdateres.
  */
 public class DataFactory
 {
+    /**
+     * Skriv her Jonathan
+     */
     public static DataFactory dataFactory = null;
     private DataFactory(){}
     
@@ -20,21 +26,34 @@ public class DataFactory
         }
         return dataFactory;
     }
+    
+    /**
+     * SQL-query til at tilføje film til databasen
+     */
     public void addMovie(String title)
     {
         MySQL.queryUpdate("INSERT INTO movies (title) VALUES ('"+ title +"');");
     }
     
+    /**
+     * SQL-query til at tilføje kunder til databasen
+     */
      public void addCustomer(int telephone_number, String name)
     {
          MySQL.queryUpdate("INSERT INTO customers (telephone_number, name) VALUES ('"+ telephone_number + "', '" + name +"');");
     }
     
+    /**
+     * SQL-query til at tilføje reservationer til databasen
+     */
     public void addReservation(int telephone_number, int show_id, int row_number, int seat_number){
         // Virker kun såfremt at telefonnummeret peger på en oprettet customer.
         MySQL.queryUpdate("INSERT INTO reservations (telephone_number, show_id, row_number, seat_number) VALUES ('"+ telephone_number +"', '" + show_id + "', '" + row_number + "', '" + seat_number + "');"); 
     }
-    //retunerer en titel på film
+    
+    /**
+     * SQL-query til at hente en film fra databasen, og returneres som et Movie objekt
+     */
     public Movie getMovie(int id){
         ResultSet r = MySQL.query("SELECT * FROM movies WHERE movie_id = " + id + ";");
         try{
@@ -56,7 +75,7 @@ public class DataFactory
     }
     
     /**
-     * Accessormetode, som kunne anvendes til at checke for, om en customer allerede er oprettet i databasen.
+     * SQL-query, som kunne anvendes til at checke for, om en customer allerede er oprettet i databasen.
      * Da vi allerede har en primary key i form af telephone_number i vores customertabel
      * bliver der dog allerede checket for, at samme customer ikke kan oprettes flere gange.
      */
@@ -80,6 +99,9 @@ public class DataFactory
         return null; 
     }
     
+    /**
+     * SQL-query til at hente en sal fra databasen, og returneres som et Auditorium objekt.
+     */
     public Auditorium getAuditorium(int id){
         ResultSet r = MySQL.query("SELECT * FROM auditorium WHERE auditorium_id = " + id + ";");
         try{
@@ -101,7 +123,9 @@ public class DataFactory
         return null; 
     }
     
-    //laver og retunerer et show object med alle information udfyldt
+    /**
+     * SQL-query til at hente en forestilling fra databasen, og returneres som et Show objekt.
+     */
     public Show getShow(int id){
         ResultSet r = MySQL.query("SELECT * FROM shows WHERE show_id = " + id + ";");
         try{
@@ -125,6 +149,9 @@ public class DataFactory
         return null; 
     }
     
+    /**
+     * SQL-query til at hente en reservation fra databasen, og returneres som et Reservation objekt.
+     */
     public Reservation getReservation(int id){
         // Skal der ikke selectes fra reservations, og ud fra reservationID? - Ikke shows.
         ResultSet r = MySQL.query("SELECT * FROM reservations WHERE reservation_id = " + id + ";");
@@ -149,13 +176,23 @@ public class DataFactory
         return null; 
     }
     
+    /**
+     * SQL-query til at slette reservationer i databasen ud fra reservationens id.
+     */
     public void deleteReservation(int id){
         MySQL.queryUpdate("DELETE FROM reservations WHERE reservation_id = " + id + ";");
     }
+    
+    /**
+     * SQL-query til at slette reservationer i databasen ud fra reservationens showid og telefonnummer
+     */
      public void deleteReservation(int showId, int customerId ){
         MySQL.queryUpdate("DELETE FROM reservations WHERE show_id = " + showId + " AND telephone_number = " + customerId + ";");
     }
     
+    /**
+     * SQL-query til at hente alle movie_id's i databasen, og returneres som en arrayliste af integers.
+     */
     public List<Integer> getAllMovieIds(){
         List<Integer> movieIds = new ArrayList<>();
         ResultSet r = MySQL.query("SELECT movie_id FROM movies;");
@@ -175,6 +212,9 @@ public class DataFactory
         return null;
     }
     
+    /**
+     * SQL-query til at hente alle show_id's i databasen, og returneres som en arrayliste af integers.
+     */
     public List<Integer> getAllShowIds() {
         List<Integer> showIds = new ArrayList<>();
         ResultSet r = MySQL.query("SELECT show_id FROM shows;");
@@ -194,6 +234,9 @@ public class DataFactory
         return null;
     }
     
+    /**
+     * SQL-query til at hente alle reservation_id's i databasen til en bestemt forestilling, og returneres som en arrayliste af integers.
+     */
     public List<Integer> getAllShowReservationIds(int show_id){
         List<Integer> reservationIds = new ArrayList<>();
         ResultSet r = MySQL.query("SELECT reservation_id FROM reservations WHERE show_id = " + show_id + ";");
@@ -213,6 +256,9 @@ public class DataFactory
         return null;
     }
     
+    /**
+     * SQL-query til at hente alle reservation_id's i databasen til en bestemt forestilling til en bestemt kunde, og returneres som en arrayliste af integers.
+     */
     public List<Integer> getAllCustomerShowIds(int show_id, int telephone){
         List<Integer> reservationIds = new ArrayList<>();
         ResultSet r = MySQL.query("SELECT reservation_id FROM reservations WHERE show_id = " + show_id + " AND telephone_number = " + telephone +";");
@@ -231,7 +277,9 @@ public class DataFactory
         } 
         return null;
     }
-    
+    /**
+     * SQL-query til at hente alle aktive show_id's i databasen, og returneres som en arrayliste af integers.
+     */
     public List<Integer> getActiveShows(int movie_id){
         List<Integer> showIds = new ArrayList<>();
         ResultSet r = MySQL.query("SELECT show_id FROM shows WHERE movie_id = " + movie_id + ";");
@@ -251,7 +299,10 @@ public class DataFactory
         return null;
     }
    
-   public ArrayList<Reservation> getDetailsForAllReservations(){
+    /**
+     * SQL-query til at hente alle reservationer i databasen, og returneres som en arrayliste af Reservation objekter.
+     */
+    public ArrayList<Reservation> getDetailsForAllReservations(){
        ArrayList<Reservation> reservations = new ArrayList<>();
        ResultSet r = MySQL.query("SELECT * FROM reservations" + ";");
         try{
@@ -274,5 +325,5 @@ public class DataFactory
             System.out.println("Exception, klasse: DataFactory   Metode: getDeatailsForAllReservations");
         } 
         return null;
-   }
+    }
 }

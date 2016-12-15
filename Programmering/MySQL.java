@@ -1,6 +1,13 @@
- import java.sql.Connection;
-
+import java.sql.Connection;
 import java.sql.*; // Import required packages
+/**
+ * Gruppe 33: Jonas, Jonathan, Julius
+ * Itu-mails: jskr@itu.dk - josn@itu.dk - jufi@itu.dk
+ * 
+ * MySQL-klassen har to metoder, som opretter forbindelse til vores database og sender SQL-statements til databasen. Når et SQL-statement sendes til databasen oprettes der et ResultSet objekt, der
+ * repræsenterer en tabel af det data, som blev tilgået ved query'en.
+ * Klassen anvendes således til kunne at tilgå data i databasen, og anvende dataerne i vores reservationssystem. 
+ */
 public class MySQL {
     // Database credentials: replace with *YOUR* data here:
     private static final String MYDB = "CinemaDatabase";
@@ -10,10 +17,16 @@ public class MySQL {
     // JDBC driver name and database URL
     static final String DB_URL = "jdbc:mysql://mydb.itu.dk/" + MYDB;
 
+    /**
+     * Default konstruktør
+     */
     private MySQL() {
 
     }
-
+    
+    /**
+     * Metode til at tilgå og udvælge data i databasen, som returneres i et ResultSet objekt. 
+     */
     public static ResultSet query(String query){
         Connection connection = null;
         Statement statement = null;
@@ -29,7 +42,10 @@ public class MySQL {
         }
         return null;
     }
-
+    
+    /**
+     * Metode til at tilgå og opdatere data i databasen.
+     */
     public static void queryUpdate(String query){
         Connection connection = null;
         Statement statement = null;

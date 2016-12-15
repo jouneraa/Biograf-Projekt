@@ -10,10 +10,8 @@ import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 /**
- * Write a description of class ShowView here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Gruppe 33: Jonas, Jonathan, Julius
+ * Itu-mails: jskr@itu.dk - josn@itu.dk - jufi@itu.dk
  */
 public class ShowView extends JScrollPane
 {

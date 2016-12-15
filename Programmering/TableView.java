@@ -173,9 +173,9 @@ public class TableView extends JPanel
                 row1[2] = list.get(x).show_id();
                 row1[3] = list.get(x).row_number();
                 row1[4] = list.get(x).seat_number();
-                    row1[5] = dataFactory.getMovie(show.movie_id()).title();
-                    row1[6] = show.auditorium_id();
-                    row1[7] = show.start_time();
+                    row1[5] = dataFactory.getMovie(show.getMovieId()).title();
+                    row1[6] = show.getAuditoriumId();
+                    row1[7] = show.getStartTime();
                     
                 
                 model.addRow(row1);

@@ -228,7 +228,7 @@ public class BiografViewer
         
         public void displayBookingPage(Show show){
             
-            List<Integer> allReservationIds = dataFactory.getAllShowReservationIds(show.show_id());
+            List<Integer> allReservationIds = dataFactory.getAllShowReservationIds(show.getShowId());
             
             
             JPanel bookingLayout = new JPanel(); 

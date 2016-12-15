@@ -9,51 +9,51 @@
 public class Show
 {
     // Forestillingens id
-    private int show_id;
+    private int showId;
     // Forestillingens movie_id
-    private int movie_id;
+    private int movieId;
     // Forestillingens auditorium_id;
-    private int auditorium_id;
+    private int auditoriumId;
     // Forestillingens starttidspunkt
-    private String start_time; 
+    private String startTime; 
 
     /**
      * Konstruktør for objekter af klassen Show
      */
-    public Show(int show_id, int movie_id,int auditorium_id, String start_time)
+    public Show(int showId, int movieId,int auditoriumId, String startTime)
     {
-        this.show_id = show_id;
-        this.movie_id = movie_id;
-        this.auditorium_id = auditorium_id;
-        this.start_time = start_time;
+        this.showId = showId;
+        this.movieId = movieId;
+        this.auditoriumId = auditoriumId;
+        this.startTime = startTime;
     }
 
     /**
      * Accessormetode for forestillingens id
      */
-    public int show_id()
+    public int getShowId()
     {
-        return show_id;
+        return showId;
     }
     /**
      * Accessormetode for forestillingens movie_id
      */
-    public int movie_id()
+    public int getMovieId()
     {
-        return movie_id;
+        return movieId;
     }
     /**
      * Accessormetode for forestillingens auditorium_id
      */
-    public int auditorium_id()
+    public int getAuditoriumId()
     {
-        return auditorium_id;
+        return auditoriumId;
     }
     /**
      * Accessormetode for forestillingens starttidspunkt
      */
-    public String start_time()
+    public String getStartTime()
     {
-        return start_time;
+        return startTime;
     }
 }

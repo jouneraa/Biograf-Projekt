@@ -28,7 +28,7 @@ public class AuditoriumView extends JPanel
     public AuditoriumView(Show show, List<Integer> allReservationIds, JTable table, List<Seat> selectedSeats, JFrame frame, JPanel CenterWestGrid, CardLayout cardLayout, JPanel tableView, BiografViewer biografViewer ){
         super(new BorderLayout(6,6));
         this.setBorder(new EtchedBorder());
-        showIdSelected = show.show_id();
+        showIdSelected = show.getShowId();
         this.CenterWestGrid = CenterWestGrid;
         this.cardLayout = cardLayout;
         this.tableView = tableView;
@@ -57,7 +57,7 @@ public class AuditoriumView extends JPanel
             seatsGraphical.setBorder(new EmptyBorder(20, 90, 20, 90));
             GridBagConstraints gbc = new GridBagConstraints();
         
-            int auditoriumId = show.auditorium_id();
+            int auditoriumId = show.getAuditoriumId();
             Auditorium auditorium = dataFactory.getAuditorium(auditoriumId);
             int rowNumbers = auditorium.getRowNumber();
             int colNumbers = auditorium.getColumnNumber();
@@ -189,9 +189,9 @@ public class AuditoriumView extends JPanel
      public JPanel makeNorthPanel(Show show){
              JPanel northPanel = new JPanel(new BorderLayout());
              // sætter to jlabel til west og east i northPanel så de kan være ud i siden, senere kommer northpanel til at sættes mod north i contentpane
-             String showTime = show.start_time();
+             String showTime = show.getStartTime();
              northPanel.add(new JLabel("Forestilling: " + showTime), BorderLayout.EAST);
-             String movieName = dataFactory.getMovie(show.movie_id()).title();
+             String movieName = dataFactory.getMovie(show.getMovieId()).title();
              JLabel Tekst = new JLabel("Film: " + movieName);
              Tekst.setFont(new Font("Serif", Font.PLAIN, 20));
              northPanel.add(Tekst, BorderLayout.WEST);
@@ -252,12 +252,12 @@ public class AuditoriumView extends JPanel
             
             //checker hvor mange sæder er optagede
             int seatsTaken = allReservationIds.size();
-            Auditorium auditorium = dataFactory.getAuditorium(show.auditorium_id());
+            Auditorium auditorium = dataFactory.getAuditorium(show.getAuditoriumId());
             int seatsInAudit = auditorium.getRowNumber() * auditorium.getColumnNumber();
             JLabel freeSeats = new JLabel("  " + (seatsInAudit - seatsTaken) + "/" + seatsInAudit);
             
             JLabel auditLabel = new JLabel("Sal");
-            int auditoriumId = show.auditorium_id();
+            int auditoriumId = show.getAuditoriumId();
             JLabel curAudit = new JLabel("  " + auditoriumId);
             
             // adder ovenstående labels til gridlayoutet

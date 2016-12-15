@@ -41,7 +41,7 @@ public class ShowView extends JScrollPane
                     
                     for(int y : showIds){
                         Show show = dataFactory.getShow(y);
-                        String buttonInfo = "Auditorium: " + show.auditorium_id() + " Tid: " + show.start_time();
+                        String buttonInfo = "Auditorium: " + show.getAuditoriumId() + " Tid: " + show.getStartTime();
                         JButton showButton = new JButton(buttonInfo);
                        
                         //tilføjer listenere igen, til sædefordelingen

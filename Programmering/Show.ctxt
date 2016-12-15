@@ -1,17 +1,17 @@
 #BlueJ class context
-comment0.params=show_id\ movie_id\ auditorium_id\ start_time
+comment0.params=showId\ movieId\ auditoriumId\ startTime
 comment0.target=Show(int,\ int,\ int,\ java.lang.String)
 comment0.text=\r\n\ Konstrukt\u00F8r\ for\ objekter\ af\ klassen\ Show\r\n
 comment1.params=
-comment1.target=int\ show_id()
+comment1.target=int\ getShowId()
 comment1.text=\r\n\ Accessormetode\ for\ forestillingens\ id\r\n
 comment2.params=
-comment2.target=int\ movie_id()
+comment2.target=int\ getMovieId()
 comment2.text=\r\n\ Accessormetode\ for\ forestillingens\ movie_id\r\n
 comment3.params=
-comment3.target=int\ auditorium_id()
+comment3.target=int\ getAuditoriumId()
 comment3.text=\r\n\ Accessormetode\ for\ forestillingens\ auditorium_id\r\n
 comment4.params=
-comment4.target=java.lang.String\ start_time()
+comment4.target=java.lang.String\ getStartTime()
 comment4.text=\r\n\ Accessormetode\ for\ forestillingens\ starttidspunkt\r\n
 numComments=5

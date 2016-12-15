@@ -15,9 +15,6 @@ import javax.swing.table.TableRowSorter;
  */
 public class BiografViewer
 {
-    //string som står nede i bunden, versionen af programmet :) en meme
-    private static final String VERSION = "Version 1337";
-
     //reservation system reference
 
     DataController dataController = DataController.getInstance();
@@ -65,8 +62,8 @@ public class BiografViewer
     private void showAbout()
     {
         JOptionPane.showMessageDialog(frame, 
-                    "Sub me on youtube.com/joennegee\n" + VERSION,
-                    "xddd", 
+                    "For teknisk hjælp angående benyttelse af programmet \nhenvises brugeren til brugervejledningen.\n",
+                    "Hjælp", 
                     JOptionPane.INFORMATION_MESSAGE);
     }
     
@@ -147,7 +144,7 @@ public class BiografViewer
         contentPane.add(jtp, BorderLayout.CENTER);
 
         // sætter en lille titel oppe i toppen og i bunden
-        filenameLabel = new JLabel("Bookingsystem til Biograf");
+        filenameLabel = new JLabel("Bookingsystem til biograf");
         filenameLabel.setFont(new Font("Serif", Font.PLAIN, 20));
         
         contentPane.add(filenameLabel, BorderLayout.NORTH);
@@ -192,7 +189,7 @@ public class BiografViewer
         menu = new JMenu("Hjælp");
         menubar.add(menu);
         
-        item = new JMenuItem("Om BiografHelper...");
+        item = new JMenuItem("Hjælp til BiografViewer");
             item.addActionListener(e -> showAbout());
         menu.add(item);
 

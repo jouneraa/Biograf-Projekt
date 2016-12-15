@@ -39,7 +39,8 @@ public class ShowView extends JScrollPane
     }
     
     /**
-     * 
+     *Laver knapperne som viser  og sætter komponenterne sammen i CenterWestGrid
+
      */
     public void makeFrame(){
         

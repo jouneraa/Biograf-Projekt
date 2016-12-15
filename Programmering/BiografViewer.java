@@ -45,7 +45,7 @@ public class BiografViewer
     private List<Seat> selectedSeats;
     private int showIdSelected;
     /**
-     * 
+     * Konstruktor for BiografViewer
      */
     // konstruktoren som kalder funktionen til at lave framen
     public BiografViewer()
@@ -59,16 +59,7 @@ public class BiografViewer
     }
     
     /**
-     * 
-     */
-    // quitfunction til at udbygge senere
-    private void quit()
-    {
-        System.exit(0);
-    }
-    
-    /**
-     * 
+     * Viser en meddelse om programmet, henvisning til brugervejledning
      */
     //about function, til at se oplysnigner om programmet
     private void showAbout()
@@ -80,7 +71,7 @@ public class BiografViewer
     }
     
     /**
-     * 
+     * Laver det overordnede JFrame som resten af programmet er bygget op ud fra. 
      */
     // ---- bygger selve frmaen
     private void makeFrame()
@@ -172,14 +163,15 @@ public class BiografViewer
     }
     
     /**
-     * 
+     * Laver et TableView der viser reservationerne i systemet. 
      */
     public void makeTableView(){
         tableView = new TableView(this, selectedSeats, jtp, frame, jp3, table, model);
     }
     
     /**
-     * 
+     * Laver en Menu i toppen af JFramet som har et element, en hjælpknap
+     * @param frame
      */
     private void makeMenuBar(JFrame frame){
         final int SHORTCUT_MASK =       
@@ -196,11 +188,6 @@ public class BiografViewer
         menu = new JMenu("");
         menubar.add(menu);
 
-        item = new JMenuItem("Quit");
-            item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, SHORTCUT_MASK));
-            item.addActionListener(e -> quit());
-        menu.add(item);
-
         // create the Help menu
         menu = new JMenu("Hjælp");
         menubar.add(menu);
@@ -212,14 +199,14 @@ public class BiografViewer
     }
     
     /**
-     * 
+     * Viser filmene i en grid i det første tab. Når man klikker på en 
+     * af filmene kaldes ShowView og filmenes tidspunkter og sal kommer frem. 
      */
     public void addShowsInBar(){
         //tilføj title på panelet
         JLabel forestilling1 = new JLabel();
         forestilling1.setText("Film:");
         InnerGrid.add(forestilling1);
-        
         
         //tilføj knapperne der viser spillefilm
         List<Integer> movieIds = dataController.getAllMovieIds();
@@ -234,13 +221,17 @@ public class BiografViewer
                 public void actionPerformed(ActionEvent e) {
                     JPanel buttonGrid = new JPanel(new GridLayout(100,1));
                     ShowView showView = new ShowView(buttonGrid, movie, BiografViewer.this, CenterWestGrid, cardLayout, selectedSeats);
-                            }
+                }
             });
              forestilling.setBackground(contentPane.getBackground ());
              InnerGrid.add(forestilling);
         }
     }       
     
+     /**
+     * Viser auditoriumView i samme JPanel som filmens tidspunkter bliver vist, CenterWestGrid.
+     * @param show
+     */
     public void displayBookingPage(Show show){
         List<Integer> allReservationIds = dataController.getAllShowReservationIds(show.getShowId());
             
@@ -257,7 +248,7 @@ public class BiografViewer
     }
     
     /**
-     * 
+     * Metode til at opdatere tableView så den viser nye reservationer.
      */
     public void updateJTable(){
         jp3.remove(tableView);

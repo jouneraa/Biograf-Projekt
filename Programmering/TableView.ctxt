@@ -1,10 +1,10 @@
 #BlueJ class context
 comment0.params=biografViewer\ selectedSeats\ jtp\ frame\ jp3\ table\ model
 comment0.target=TableView(BiografViewer,\ java.util.List,\ javax.swing.JTabbedPane,\ javax.swing.JFrame,\ javax.swing.JPanel,\ javax.swing.JTable,\ javax.swing.table.DefaultTableModel)
-comment0.text=\r\n\ \r\n
+comment0.text=\r\n\ Konstruktor\ for\ TableView\r\n\ @param\ biografViewer\ The\ company\ to\ be\ used.\ Must\ not\ be\ null.\r\n\ @param\ selectedSeats\ The\ company\ to\ be\ used.\ Must\ not\ be\ null.\r\n\ @param\ jtp\r\n\ @param\ frame\r\n\ @param\ jp3\r\n\ @param\ table\r\n\ @param\ model\r\n
 comment1.params=
 comment1.target=void\ makeFrame()
-comment1.text=\r\n\ \r\n
+comment1.text=\r\nLaver\ kompenenterne,\ Table,\ searchCustomer,\ btnDelete,\ btnEdit\ og\ s\u00E6tter\ komponenterne\ sammen\ i\ TableView\r\n
 comment2.params=e
 comment2.target=void\ keyReleased(java.awt.event.KeyEvent)
 comment3.params=e
@@ -13,7 +13,7 @@ comment4.params=e
 comment4.target=void\ actionPerformed(java.awt.event.ActionEvent)
 comment5.params=
 comment5.target=void\ makeTableModel()
-comment5.text=\r\n\ \r\n
+comment5.text=\r\nLaver\ det\ JTable\ som\ viser\ de\ forskellige\ gemte\ reservationer\ i\ systemet\r\n
 comment6.params=row\ column
 comment6.target=boolean\ isCellEditable(int,\ int)
 numComments=7

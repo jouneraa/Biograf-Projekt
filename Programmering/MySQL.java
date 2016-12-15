@@ -10,9 +10,7 @@ public class MySQL {
     // JDBC driver name and database URL
     static final String DB_URL = "jdbc:mysql://mydb.itu.dk/" + MYDB;
 
-    private MySQL() {
-
-    }
+    private MySQL() {}
 
     public static ResultSet query(String query){
         Connection connection = null;

@@ -8,41 +8,41 @@
 public class Auditorium
 {
     // instance variables - replace the example below with your own
-    private int auditorium_id;
+    private int auditoriumId;
     private String name;
-    private int row_number;
-    private int seat_number;
+    private int rowNumber;
+    private int columnNumber;
 
     /**
      * Constructor for objects of class Auditorium
      */
-    public Auditorium(int auditiorium_id, String name, int row_number, int seat_number)
+    public Auditorium(int auditoriumId, String name, int rowNumber, int columnNumber)
     {
         // initialise instance variables
-        this.auditorium_id = auditorium_id;
+        this.auditoriumId = auditoriumId;
         this.name = name;
-        this.row_number = row_number;
-        this.seat_number = seat_number;
+        this.rowNumber = rowNumber;
+        this.columnNumber = columnNumber;
     }
 
   
-    public int auditorium_id()
+    public int getAuditoriumId()
     {
-        return auditorium_id;
+        return auditoriumId;
     }
     
-    public String name()
+    public String getName()
     {
         return name;
     }
     
-    public int row_number()
+    public int getRowNumber()
     {
-        return row_number;
+        return rowNumber;
     }
     
-    public int seat_number()
+    public int getColumnNumber()
     {
-        return seat_number;
+        return columnNumber;
     }
 }

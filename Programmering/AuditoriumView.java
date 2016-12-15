@@ -55,8 +55,8 @@ public class AuditoriumView extends JPanel
         
             int auditoriumId = show.auditorium_id();
             Auditorium auditorium = dataFactory.getAuditorium(auditoriumId);
-            int rowNumbers = auditorium.row_number();
-            int colNumbers = auditorium.seat_number();
+            int rowNumbers = auditorium.getRowNumber();
+            int colNumbers = auditorium.getColumnNumber();
             
             //find alle reservationerne til showet
             List<Reservation> allReservations = new ArrayList<>();
@@ -249,7 +249,7 @@ public class AuditoriumView extends JPanel
             //checker hvor mange sæder er optagede
             int seatsTaken = allReservationIds.size();
             Auditorium auditorium = dataFactory.getAuditorium(show.auditorium_id());
-            int seatsInAudit = auditorium.row_number() * auditorium.seat_number();
+            int seatsInAudit = auditorium.getRowNumber() * auditorium.getColumnNumber();
             JLabel freeSeats = new JLabel("  " + (seatsInAudit - seatsTaken) + "/" + seatsInAudit);
             
             JLabel auditLabel = new JLabel("Sal");

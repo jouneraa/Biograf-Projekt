@@ -138,7 +138,6 @@ public class AuditoriumView extends JPanel
                         break;
                 }
 
-                //
                 btn.setBorder(new LineBorder(Color.WHITE));
 
                 // fjerner blå highlihght når man klikker på knappen
@@ -310,13 +309,9 @@ public class AuditoriumView extends JPanel
      *@return true Hvis strengen er korrekt indtastet, ellers false og en fejlmeddelelse. 
      */
     public boolean testInputString(String nameResult, String phoneResult, JFrame frame){
-        //checker, at strengen er længere end null
-<<<<<<< HEAD
-        if(nameResult.length() < 1 ){
-=======
         nameResult = nameResult.replaceAll("\\s+","");
+        //checker, at strengen er længere end null
         if(nameResult.length() < 1){
->>>>>>> 119939052538d5dfb687c7e96ba1cabb78781a53
             JOptionPane.showMessageDialog(frame,
                     "Navn skal udfyldes!");
             return false;
@@ -342,7 +337,7 @@ public class AuditoriumView extends JPanel
             }
         }
         return true;
-    }
+      }
 
     /**
      * Tilføjer reservationen til databasen

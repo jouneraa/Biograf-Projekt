@@ -12,19 +12,19 @@ import java.sql.Timestamp;
  * informationen skal lagres.
  * Controlleren tager imod inputs fra viewet, når viewet skal opdateres.
  */
-public class DataController
+public class DataFactory
 {
-    public static DataController dataController = null;
+    public static DataFactory dataFactory = null;
     private MySQL mySql = MySQL.getInstance();
-    private DataController(){}
+    private DataFactory(){}
     /**
      *  DataController er lavet ud fra et singleton pattern og skal tilgås gennem getInstance metoden
      */
-    public static DataController getInstance(){
-        if(dataController == null){
-            dataController = new DataController();
+    public static DataFactory getInstance(){
+        if(dataFactory == null){
+            dataFactory = new DataFactory();
         }
-        return dataController;
+        return dataFactory;
     }
     
     /**

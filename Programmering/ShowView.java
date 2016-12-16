@@ -15,7 +15,7 @@ import javax.swing.table.TableRowSorter;
  */
 public class ShowView extends JScrollPane
 {
-    private DataController dataController = DataController.getInstance();
+    private DataFactory dataFactory = DataFactory.getInstance();
     private Movie movie;
     private BiografViewer biografViewer;
     private JPanel buttonGrid;
@@ -45,10 +45,10 @@ public class ShowView extends JScrollPane
     public void makeFrame(){
         
         int movieId = movie.getMovieId();
-        List<Integer> showIds = dataController.getActiveShows(movieId);
+        List<Integer> showIds = dataFactory.getActiveShows(movieId);
                     
         for(int y : showIds){
-             Show show = dataController.getShow(y);
+             Show show = dataFactory.getShow(y);
              String buttonInfo = "Sal: " + show.getAuditoriumId() + " Tid: " + show.getStartTime();
              JButton showButton = new JButton(buttonInfo);
                        

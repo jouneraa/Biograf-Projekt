@@ -11,16 +11,14 @@ import org.junit.Test;
  * @author  (your name)
  * @version (a version number or a date)
  */
-public class DataControllerTest
+public class DataFactoryTest
 {
-    private DataController dataFact1;
-
+    private DataFactory dataFact1;
     
-
     /**
      * Default constructor for test class DataFactoryTest
      */
-    public DataControllerTest()
+    public DataFactoryTest()
     {
     }
 
@@ -32,7 +30,7 @@ public class DataControllerTest
     @Before
     public void setUp()
     {
-        dataFact1 = DataController.getInstance();
+        dataFact1 = DataFactory.getInstance();
     }
 
     /**

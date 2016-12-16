@@ -17,7 +17,7 @@ import javax.swing.table.TableRowSorter;
  */
 public class AuditoriumView extends JPanel
 {
-    private DataController dataController = DataController.getInstance();
+    private DataFactory dataFactory = DataFactory.getInstance();
     private JLabel AntalPladser;
     private int showIdSelected;
     private JPanel centerWestGrid;
@@ -82,14 +82,14 @@ public class AuditoriumView extends JPanel
         GridBagConstraints gbc = new GridBagConstraints();
 
         int auditoriumId = show.getAuditoriumId();
-        Auditorium auditorium = dataController.getAuditorium(auditoriumId);
+        Auditorium auditorium = dataFactory.getAuditorium(auditoriumId);
         int rowNumbers = auditorium.getRowNumber();
         int colNumbers = auditorium.getColumnNumber();
 
         // find alle reservationerne til showet
         List<Reservation> allReservations = new ArrayList<>();
         for(int x : allReservationIds){
-            allReservations.add(dataController.getReservation(x));
+            allReservations.add(dataFactory.getReservation(x));
         }
 
         //
@@ -213,7 +213,7 @@ public class AuditoriumView extends JPanel
         // sætter to jlabel til west og east i northPanel så de kan være ud i siden, senere kommer northpanel til at sættes mod north i contentpane
         String showTime = show.getStartTime();
         northPanel.add(new JLabel("Forestilling: " + showTime), BorderLayout.EAST);
-        String movieName = dataController.getMovie(show.getMovieId()).getTitle();
+        String movieName = dataFactory.getMovie(show.getMovieId()).getTitle();
         JLabel Tekst = new JLabel("Film: " + movieName);
         Tekst.setFont(new Font("Serif", Font.PLAIN, 20));
         northPanel.add(Tekst, BorderLayout.WEST);
@@ -279,7 +279,7 @@ public class AuditoriumView extends JPanel
 
         //checker hvor mange sæder er optagede
         int seatsTaken = allReservationIds.size();
-        Auditorium auditorium = dataController.getAuditorium(show.getAuditoriumId());
+        Auditorium auditorium = dataFactory.getAuditorium(show.getAuditoriumId());
         int seatsInAudit = auditorium.getRowNumber() * auditorium.getColumnNumber();
         JLabel freeSeats = new JLabel("  " + (seatsInAudit - seatsTaken) + "/" + seatsInAudit);
 
@@ -360,10 +360,10 @@ public class AuditoriumView extends JPanel
      *param phone
      */
     public void finalizeReservation(String name, int phone){
-        dataController.addCustomer(phone, name);
+        dataFactory.addCustomer(phone, name);
 
         for(Seat x : selectedSeats){
-            dataController.addReservation(phone, showIdSelected, x.getRow(), x.getColumn());
+            dataFactory.addReservation(phone, showIdSelected, x.getRow(), x.getColumn());
         }
         selectedSeats.clear();
         cardLayout.show(centerWestGrid, "startGrid");

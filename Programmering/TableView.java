@@ -18,7 +18,7 @@ public class TableView extends JPanel
     private BiografViewer biografViewer;
     private JTable table;
     private DefaultTableModel model;
-    private DataController dataController = DataController.getInstance();
+    private DataFactory dataFactory = DataFactory.getInstance();
     private List<Seat> selectedSeats;
     private JTabbedPane jtp;
     private JFrame frame;
@@ -107,7 +107,7 @@ public class TableView extends JPanel
                         if(i>=0){
                              int selectedColumnIndex = table.getSelectedColumn();
                              int selectedReservationId = (Integer) table.getModel().getValueAt(i, 0);
-                             dataController.deleteReservation(selectedReservationId);
+                             dataFactory.deleteReservation(selectedReservationId);
                              //MySQL.queryUpdate("DELETE FROM reservations WHERE reservation_id = " + reservation_id.getText() + ";");  virker ikke :(
                              model.removeRow(i);                                
                         }
@@ -129,20 +129,20 @@ public class TableView extends JPanel
                             int selectedShowId = (Integer) table.getModel().getValueAt(i, 2);
                             int selectedCustomerId = (Integer) table.getModel().getValueAt(i, 1);
                                
-                            Show selectedShow = dataController.getShow(selectedShowId);
+                            Show selectedShow = dataFactory.getShow(selectedShowId);
                                 
-                            List<Integer> allCustomerShowId = dataController.getAllCustomerShowIds(selectedShowId, selectedCustomerId);
+                            List<Integer> allCustomerShowId = dataFactory.getAllCustomerShowIds(selectedShowId, selectedCustomerId);
                                
                             //showIdSelected = show.show_id();
                             List<Reservation> allReservationsToEdit = new ArrayList<>();
                             for(int x : allCustomerShowId){
-                                allReservationsToEdit.add(dataController.getReservation(x));
+                                allReservationsToEdit.add(dataFactory.getReservation(x));
                             }
                             for(Reservation y : allReservationsToEdit){
                                 selectedSeats.add(new Seat(y.getRowNumber(), y.getColumnNumber()));
                             }
                             //slet alle reservationer
-                            dataController.deleteReservation(selectedShowId, selectedCustomerId);
+                            dataFactory.deleteReservation(selectedShowId, selectedCustomerId);
                             biografViewer.displayBookingPage(selectedShow);
                                 
                             jtp.setSelectedIndex(0);
@@ -172,18 +172,18 @@ public class TableView extends JPanel
         model.setColumnIdentifiers(columns);
             
         // find Reservations and related shows to each reservation and display them in the table
-        ArrayList<Reservation> list = dataController.getDetailsForAllReservations();
+        ArrayList<Reservation> list = dataFactory.getDetailsForAllReservations();
  
         Object[] row1 = new Object[8];
         for(int x = 0; x < list.size(); x++) {
-            Show show = dataController.getShow(list.get(x).getShowId());
+            Show show = dataFactory.getShow(list.get(x).getShowId());
             row1[0] = list.get(x).getReservationId();
             row1[1] = list.get(x).getTelephoneNumber();
             row1[2] = list.get(x).getShowId();
             row1[3] = list.get(x).getRowNumber();
             row1[4] = list.get(x).getColumnNumber();
             //
-            row1[5] = dataController.getMovie(show.getMovieId()).getTitle();
+            row1[5] = dataFactory.getMovie(show.getMovieId()).getTitle();
             row1[6] = show.getAuditoriumId();
             row1[7] = show.getStartTime();     
                 

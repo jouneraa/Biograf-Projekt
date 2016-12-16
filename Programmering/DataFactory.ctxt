@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.params=
-comment0.target=DataController()
+comment0.target=DataFactory()
 comment1.params=
-comment1.target=DataController\ getInstance()
+comment1.target=DataFactory\ getInstance()
 comment1.text=\r\n\ \ DataController\ er\ lavet\ ud\ fra\ et\ singleton\ pattern\ og\ skal\ tilg\u00E5s\ gennem\ getInstance\ metoden\r\n
 comment10.params=id
 comment10.target=boolean\ deleteReservation(int)
